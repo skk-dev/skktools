@@ -9,4 +9,8 @@
 /* Define if you have the <malloc.h> header file.  */
 #undef HAVE_MALLOC_H
 
+/* Define if you have the db library (-ldb).  */
+#undef HAVE_LIBDB
+
+/* Define if you have the ndbm library (-lndbm).  */
 #undef HAVE_LIBNDBM
