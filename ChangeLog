@@ -1,0 +1,18 @@
+2000-03-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* skkdic-count.c: Include config.h.
+	* skkdic-sort.c: Ditto.
+
+	* skkdic-expr.c: Include config.h.
+	(set_signal_handler): Use RETSIGTYPE for the return type of signal
+	handlers.
+	(signal_handler): Ditto.
+	
+1999-08-21  Naoki Wakamatsu <naoki-w@ht-net21.ne.jp>
+
+	* skkdic-expr.c (db_remove_files, db_make_files, main): Bug fixed
+	as to `-d' option.
+
+1998-12-07  Fumitoshi UKAI <ukai@debian.or.jp>
+
+	* skkdic-expr.c: Include db1/ndbm.h for GNU libc 2.1.

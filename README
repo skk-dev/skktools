@@ -1,0 +1,25 @@
+-*- text -*-
+             $Date: 2000/03/12 12:17:49 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+	     $Id: README,v 1.1 2000/03/12 12:17:49 minakaji Exp $
+
+SKK 辞書のメンテナンス、拡張に必要なファイルを集めたパッケージです。
+
+1. トップディレクトリ -- C で書かれたツール
+
+2. convert2skk ディレクトリ -- SKK 以外の辞書を SKK 形式に変換するため
+   に使用するプログラム。
+
+3. dbm ディレクトリ -- SKK 辞書を dbm 化するために使用するプログラム。
+   pskkserv の一部。
+
+  $ ./configure
+  $ make
+  $ make install
+
+することで、1 のプログラムのみが make、インストールされます。2, 3 につ
+いては必要に応じてお使い下さい。
+
+オリジナルの README は、./READMEs ディレクトリに収めています。
+
+Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+http://www.asahi-net.or.jp/~gy2m-nkjm/

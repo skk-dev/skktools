@@ -1,0 +1,23 @@
+dnl -*- sh -*-
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(skkdic-count.c)
+AC_CONFIG_HEADER(config.h)
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+
+dnl Checks for libraries.
+AC_CHECK_FUNC(dbm_open, , AC_CHECK_LIB(ndbm, dbm_open))
+
+dnl Checks for header files.
+AC_CHECK_HEADERS(fcntl.h)
+AC_CHECK_HEADERS(malloc.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+
+dnl Checks for library functions.
+AC_TYPE_SIGNAL
+
+AC_OUTPUT(Makefile)

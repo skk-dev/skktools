@@ -1,0 +1,59 @@
+#!/usr/bin/jperl4
+#########################################################
+# makedbmdic(perl4) version 4.0                1995.10.17
+#
+# This software is placed in the public domain.
+#
+#         Written by Masaaki Sato <msatoh@mrit.mei.co.jp>
+#	        Matsushita Research Institute Tokyo, Inc. 
+#		       Human Interface Research Laboratry
+#			              Tel    044-911-6351
+#			              Fax    044-911-8760
+#########################################################
+
+# Author: Masaaki Sato <msatoh@mrit.mei.co.jp>
+# Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+# Version: $Id: makedbmdic4,v 1.1 2000/03/12 12:17:49 minakaji Exp $
+# Keywords: jisyo, dbm, gdbm, perl
+# Last Modified: $Date: 2000/03/12 12:17:49 $
+
+$dot=20;
+$line=$dot * 50;
+
+($dicname) = @ARGV;
+die "Usage: makedbmdic dict-file-name\n" unless $dicname;
+
+open(DIC,$dicname);
+
+dbmopen(%dbm_dic,$dicname,0644);
+
+print "\nmakedbmdic by msatoh@mrit.mei.co.jp\n";
+print "Make dbm format dic from SKK dic.\n";
+print "The numbers mean how many lines have processed.\n";
+print "A dot mean $dot lines, as you see.\n\n";
+
+$|=1;
+
+$max=0;
+while(<DIC>){
+	$max++;
+}
+
+seek(DIC,0,0);
+
+$count=0;
+while(<DIC>){
+	($key,$cont)=m#^(.+)\s(/.+/)$#;
+	$dbm_dic{$key} = $cont;
+	$count++;
+	print "." if ($count % $dot) == 0;
+	if (($count % $line) == 0){
+		$per = $count*100/$max;
+		printf("%d[%5.2f%%]\n",$count,$per);
+	}
+}
+
+dbmclose(%dbm_dic);
+
+print " done.\n";
+# end of makedbmdic4
