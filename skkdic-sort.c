@@ -4,11 +4,11 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-sort.c,v 1.2 2000/03/12 16:03:12 minakaji Exp $
+Version: $Id: skkdic-sort.c,v 1.3 2000/10/05 17:16:44 czkmt Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/03/12 16:03:12 $
+Last Modified: $Date: 2000/10/05 17:16:44 $
 
-This file is part of Daredevil SKK
+This file is part of Daredevil SKK.
 
 SKK JISYO TOOLS are free software; you can redistribute them and/or modify
 them under the terms of the GNU General Public License as published by

@@ -4,11 +4,11 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-count.c,v 1.3 2000/10/05 16:26:16 czkmt Exp $
+Version: $Id: skkdic-count.c,v 1.4 2000/10/05 17:16:44 czkmt Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/10/05 16:26:16 $
+Last Modified: $Date: 2000/10/05 17:16:44 $
 
-This file is part of Daredevil SKK
+This file is part of Daredevil SKK.
 
 SKK JISYO TOOLS are free software; you can redistribute them and/or modify
 them under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with SKK; see the file COPYING.  If not, write to
 the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
-/* skkdic-entries.c
+/* skkdic-count.c
    このプログラムは SKK の辞書に含まれる候補数を数えます。
  */
 
