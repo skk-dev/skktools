@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-count.c,v 1.4 2000/10/05 17:16:44 czkmt Exp $
+Version: $Id: skkdic-count.c,v 1.5 2000/10/10 10:43:34 czkmt Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/10/05 17:16:44 $
+Last Modified: $Date: 2000/10/10 10:43:34 $
 
 This file is part of Daredevil SKK.
 
@@ -50,9 +50,7 @@ count_entry(filename, fp)
     if ((buffer[0] == ';') || (buffer[0] == '\0')) continue;
     for(p = buffer; *p != '\0'; ++ p) {
       if ((p[0] == ' ') && (p[1] == '/')) {
-	for (q = p+2; *q != '\0'; ++ q) {
-	  if (*q == '[')
-	    while((*q != ']') && (*q != '\0')) q ++;
+	for (q = p+2; (*q != '\0') && (*q != '[') ; ++ q) {
 	  if (*q == '/') count++;
 	}
 	break;
