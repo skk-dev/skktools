@@ -1,3 +1,11 @@
+2002-03-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* configure.ac:
+	* configure.in:
+
+	Check for dbm_open() in in -lgdbm_compat if the test in -lgdbm
+	fails.
+
 2003-03-26  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* saihenkan.rb: New file.
