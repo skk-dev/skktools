@@ -1,6 +1,8 @@
 2002-03-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* configure.ac: Missing $(EXEEXT) for skkdic-expr2.
+	When -lgdbm_compat is available, pass -lgdbm after -lgdbm_compat
+	(workaounrd for cygwin?).
 
 2002-03-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
