@@ -1,3 +1,7 @@
+2003-03-26  NAKAJIMA Mikio  <minakaji@namazu.org>
+
+	* saihenkan.rb: New file.
+
 2003-03-23  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* convert2skk/canna2skk.rb: New file.
