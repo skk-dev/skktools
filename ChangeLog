@@ -1,3 +1,7 @@
+2002-06-03  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* unannotation.awk: New file (Move from skk/dic).
+
 2002-02-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* COPYING: Update.
@@ -15,7 +19,7 @@
 	* skkdic-expr.c (type_out): Apply patch of Message-Id:
 	<20001214.015641.28085711.ori@kuee.kyoto-u.ac.jp> from ORI Manabu
 	<ori@kuee.kyoto-u.ac.jp>.
-	
+
 2000-10-17  Toru YANO  <toru@maid.ne.jp>
 
         * tools: Version 1.0 released.
