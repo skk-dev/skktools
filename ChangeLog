@@ -1,3 +1,12 @@
+2000-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* configure: Regenetare.
+
+	* configure.in: Check ndbm.h when "$ac_cv_lib_ndbm_dbm_open" is
+	yes.
+
+	* skkdic-expr.c: Modify according to it.
+
 2000-07-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile.in (uninstall): New target.
@@ -52,7 +61,7 @@
 
 	* skkdic-expr.c: Change file name description of `skkjisyo-expr.c'
 	to skkdic-expr.c.
-	(main): Change working file name `skkjisyo.%d' to `skkdic%d', 
+	(main): Change working file name `skkjisyo.%d' to `skkdic%d',
 	`skkhead.%d' to `skkhead%d' and `skktail.%d' to `skktail%d'.
 
 2000-03-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
@@ -66,7 +75,7 @@
 	(set_signal_handler): Use RETSIGTYPE for the return type of signal
 	handlers.
 	(signal_handler): Ditto.
-	
+
 1999-08-21  Naoki Wakamatsu <naoki-w@ht-net21.ne.jp>
 
 	* skkdic-expr.c (db_remove_files, db_make_files, main): Bug fixed
