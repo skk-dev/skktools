@@ -1670,7 +1670,7 @@ cat >> $CONFIG_STATUS <<\EOF
     echo "$ac_file is unchanged"
     rm -f conftest.h
   else
-    # Remove last slash and all that follows it.  Not all systems have dirname.
+     # Remove last slash and all that follows it.  Not all systems have dirname.
       ac_dir=`echo $ac_file|sed 's%/[^/][^/]*$%%'`
       if test "$ac_dir" != "$ac_file" && test "$ac_dir" != .; then
       # The file is in a subdirectory.
