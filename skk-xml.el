@@ -2,10 +2,10 @@
 ;; Copyright (C) 2002 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-xml.el,v 1.1 2002/08/18 04:09:26 minakaji Exp $
+;; Version: $Id: skk-xml.el,v 1.2 2002/08/18 11:02:26 minakaji Exp $
 ;; Keywords: japanese
 ;; Created: Aug. 15, 2002
-;; Last Modified: $Date: 2002/08/18 04:09:26 $
+;; Last Modified: $Date: 2002/08/18 11:02:26 $
 
 ;; This file is part of Daredevil SKK.
 
@@ -260,7 +260,7 @@
 
 (defun skk-xml-make-jisyo-reference-1 (output-buffer reference-tag)
   (let (midasi temp-candidates candidates word tags
-	       pos max found r0 r1)
+	       annotation pos max found r0 r1)
     (setq midasi (buffer-substring-no-properties
 		  (point) (1- (search-forward " "))))
     (setq midasi (skk-xml-substitute-special midasi))
@@ -293,11 +293,20 @@
 	  (beginning-of-line)
 	  (setq r1 (point))
 	  (setq tags (buffer-substring-no-properties r0 r1))
+	  (if (string-match "\\(<annotation>[^<>]+</annotation>\\)" tags)
+	      (setq annotation (match-string 1 tags)
+		    tags (concat (substring tags 0 (match-beginning 0))
+				 (substring tags (match-end 0)))))
 	  (if (string-match "\\([-_<>/a-zA-Z0-9]+\\)" tags)
-	      (setq tags (match-string 1 tags)))
+	      (setq tags (match-string 1 tags))
+	    (setq tags ""))
+	  (or (string-match reference-tag tags)
+	      (setq tags (concat tags reference-tag)))
 	  (delete-region r0 r1)
 	  (goto-char r0)
-	  (insert "          " tags reference-tag))
+	  (if annotation
+	      (insert "          " annotation "\n"))
+	  (insert "          " tags))
 	(setq candidates (cdr candidates))))))
 
 ;; end of skk-xml.el

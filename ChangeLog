@@ -1,6 +1,7 @@
 2002-08-18  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skk-xml.el: New file.
+	(skk-xml-make-jisyo-reference-1): Bug fixed.
 
 2002-08-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
