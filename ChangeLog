@@ -1,3 +1,7 @@
+2002-02-23  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* COPYING: Update.
+
 2001-04-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* convert2skk/wnn2skk.sed: Remove unnecessary regexp processing.
