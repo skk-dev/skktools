@@ -21,7 +21,7 @@ AC_EXEEXT
 dnl Checks for libraries.
 
 AC_ARG_WITH(gdbm,
-[  --with-gdbm             Use gdbm instead of ndbm],
+[  --with-gdbm             use gdbm instead of ndbm],
 [WITH_GDBM="$withval"])
 
 if test "$WITH_GDBM" = yes; then
