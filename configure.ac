@@ -53,7 +53,7 @@ fi
 
 PKG_CHECK_MODULES(GLIB2, glib-2.0 >= 2.0.0, HAVE_GLIB2=yes, HAVE_GLIB2=no)
   case "$HAVE_GLIB2" in
-	yes) SKKDIC_EXPR2="skkdic-expr2" ;;
+	yes) SKKDIC_EXPR2="skkdic-expr2\${EXEEXT}" ;;
 	no)  SKKDIC_EXPR2="" ;;
   esac
 
