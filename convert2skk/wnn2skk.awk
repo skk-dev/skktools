@@ -1,10 +1,17 @@
-# Known Bugs; $2 の後に SPC が入ってしまう (取り除けない)。
 #
 BEGIN{
-    FS=" +";
-    print(";; okuri-nasi entries.");
+    FS="[\t ]+";
+    #print(";; okuri-nasi entries.");
+    annotation = ""
 }
-($0 !~ /^\\/) && ($0 !~ /\/\|単漢字:$/) && ($0 !~/^$/){
-    #gsub(/ /,"", $2);
+($0 !~ /^\\/) && ($0 !~ /\/.*:$/) && ($0 !~/^$/){
+  if (match($0, "#") > 0) {
+    annotation = substr($0, RSTART + 1);
+  } else annotation = "";
+  annotation = $3 annotation;
+  if (annotation != "") {
+    sub("^ ", "", annotation);
+    printf("%s /%s;%s/\n", $1, $2, annotation);
+  } else
     printf("%s /%s/\n", $1, $2);
 }

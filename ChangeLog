@@ -1,3 +1,11 @@
+2001-04-30  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
+
+	* convert2skk/wnn2skk.sed: Remove unnecessary regexp processing.
+
+	* convert2skk/wnn2skk.awk: Do not put out skk dictionary header
+	(Use skkdic-expr and skkdic-sort for post-processing.).
+	Pick up hinshi and comment data for SKK annotation.
+
 2000-12-15  NAKAJIMA Mikio  <minakaji@osaka.email.ne.jp>
 
 	* skkdic-expr.c (type_out): Apply patch of Message-Id:
