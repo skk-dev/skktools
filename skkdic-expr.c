@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.3 2000/07/25 09:20:48 czkmt Exp $
+Version: $Id: skkdic-expr.c,v 1.4 2000/07/27 15:05:54 czkmt Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/07/25 09:20:48 $
+Last Modified: $Date: 2000/07/27 15:05:54 $
 
 This file is part of Daredevil SKK
 
@@ -32,16 +32,31 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 #include <stdio.h>
 
 #ifdef HAVE_LIBNDBM 
-#undef HAVE_LIBDB
 #if defined(__GLIBC__) && __GLIBC__ >= 2 && __GLIBC_MINOR__ > 0 
 #include <db1/ndbm.h>
 #else
 #include <ndbm.h>
 #endif
-#else
+#else /* not HAVE_LIBNDBM */
 #ifdef HAVE_LIBDB
 #define DB_DBM_HSEARCH 1
 #include <db.h>
+#else /* not HAVE_LIBDB */
+#ifdef HAVE_LIBGDBM
+/* gdbm に付属の ndbm.h は make install ではインストールされない */
+#define  DBM_REPLACE 1
+typedef struct {
+	char *dptr;
+	int   dsize;
+	} datum;
+typedef struct {int dummy[10];} DBM;
+extern DBM 	*dbm_open ();
+extern datum	 dbm_fetch ();
+extern int	 dbm_store ();
+extern int	 dbm_delete ();
+extern datum	 dbm_firstkey ();
+extern datum	 dbm_nextkey ();
+#endif /* HAVE_LIBGDBM */
 #endif /* HAVE_LIBDB */
 #endif /* HAVE_LIBNDBM */
 
