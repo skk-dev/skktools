@@ -1,3 +1,9 @@
+2000-09-23  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* convert2skk/wnn2skk.sh: New file.
+	* convert2skk/wnn2skk.awk: Ditto.
+	* convert2skk/wnn2skk.sed: Ditto.
+
 2000-09-09  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* configure: Regenetare.
