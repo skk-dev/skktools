@@ -1,3 +1,8 @@
+2004-06-25  Kimura Fuyuki  <fuyuki@hadaly.org>
+
+	* skkdic-diff.scm: New file.
+	* READMEs/README.skkdic-diff: New file.
+
 2003-09-30  Kentaro Fukuchi <fukuchi@users.sourceforge.net>
 	* skkdic-expr2.c: Now a completely same annotation is ignored during merge
 	  operation. This feature is noted in README.skkdic-expr2 but has not been

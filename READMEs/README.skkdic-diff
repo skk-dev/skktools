@@ -1,0 +1,52 @@
+skkdic-diff
+
+はじめに
+========
+skkdic-diffは二つのSKK辞書の差分を真鵺道形式で出力します。真鵺道につい
+ては次のページを参照してください。
+
+http://www.mpi-sb.mpg.de/~hitoshi/otherprojects/manued/index-j.shtml
+
+インストール
+============
+skkdic-diffはGaucheで書かれています。次のページからダウンロードし、イ
+ンストールしてください。
+
+http://www.shiro.dreamhost.com/scheme/gauche/index-j.html
+
+Gaucheの実行ファイルはgoshです。インストールされたgoshのパスに合わせて、
+skkdic-diff.scmの先頭行を変更してください。その後、パスの通ったディレ
+クトリにskkdic-diffという名前でコピーし、chmod +xしてください。
+
+プログラムの説明
+================
+skkdic-diffの動作を理解するには例を見たほうが早いでしょう。次のような
+二つの辞書を引数として与えると、
+
+-------- SKK-JISYO.old
+designer /デサイナー/
+さい /際/差異/才/再/最/歳/
+てい /袋/
+てきかく /的確/適格/
+
+-------- SKK-JISYO.new
+designer /デザイナー/
+さい /際/差異/才/再/最/歳/
+てきかく /的確/適格/適確/
+まぬえど /真鵺道/
+
+このような結果を出力します。
+
+$ skkdic-diff SKK-JISYO.old SKK-JISYO.new
+designer /デ{サ->ザ}イナー/
+{てい /袋/->}
+てきかく /的確/適格/{->適確/}
+{->まぬえど /真鵺道/}
+
+注意点
+======
+現時点では、skkdic-diffはEUC-JP辞書にしか対応していません。
+
+著者
+====
+木村 冬樹 <fuyuki@hadaly.org>
