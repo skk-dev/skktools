@@ -4,9 +4,9 @@
 #
 # Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile.in,v 1.2 2000/03/12 12:21:30 minakaji Exp $
+# Version: $Id: Makefile.in,v 1.3 2000/07/25 09:19:13 czkmt Exp $
 # Keywords: japanese
-# Last Modified: $Date: 2000/03/12 12:21:30 $
+# Last Modified: $Date: 2000/07/25 09:19:13 $
 #
 # This file is part of Daredevil SKK
 # 
@@ -44,20 +44,22 @@ prefix = @prefix@
 exec_prefix = @exec_prefix@
 bindir = $(exec_prefix)/bin
 
+EXEEXT= @EXEEXT@
+
 DEFS = -I$(srcdir) -I$(top_srcdir) $(CFLAGS)
 
-TARGETS = skkdic-expr skkdic-sort skkdic-count
+TARGETS = skkdic-expr$(EXEEXT) skkdic-sort$(EXEEXT) skkdic-count$(EXEEXT)
 SRCS = skkdic-expr.c skkdic-sort.c skkdic-count.c
 
 all: $(TARGETS)
 
-skkdic-expr: skkdic-expr.c
+skkdic-expr$(EXEEXT): skkdic-expr.c
 	$(CC) $(DEFS) -o $@ skkdic-expr.c $(LIBS)
 
-skkdic-sort: skkdic-sort.c
+skkdic-sort$(EXEEXT): skkdic-sort.c
 	$(CC) $(DEFS) -o $@ skkdic-sort.c
 
-skkdic-count: skkdic-count.c
+skkdic-count$(EXEEXT): skkdic-count.c
 	$(CC) $(DEFS) -o $@ skkdic-count.c
 
 ${srcdir}/configure: configure.in #aclocal.m4
@@ -88,6 +90,9 @@ install: $(TARGETS)
              $(INSTALL_PROGRAM) $$p $(bindir)/; \
           else :; fi; \
         done
+
+install-strip: $(TARGETS)
+	$(MAKE) install INSTALL_PROGRAM="$(INSTALL_PROGRAM) -s"
 
 clean:
 	rm -f $(TARGETS) core
