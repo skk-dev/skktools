@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.3 2002/09/20 13:33:21 fukuchi Exp $
+Version: $Id: skkdic-expr2.c,v 1.4 2003/07/25 08:20:19 fukuchi Exp $
 Keywords: japanese
-Last Modified: $Date: 2002/09/20 13:33:21 $
+Last Modified: $Date: 2003/07/25 08:20:19 $
 
 This file is part of Daredevil SKK.
 
@@ -29,6 +29,8 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <glib.h>
 #include <errno.h>
 
