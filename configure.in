@@ -12,11 +12,24 @@ dnl Check for executable suffix.
 AC_EXEEXT
 
 dnl Checks for libraries.
-AC_CHECK_FUNC(dbm_open, DBMOPEN="builtin", AC_CHECK_LIB(ndbm, dbm_open,))
-if test "x$DBMOPEN" = x; then
+AC_ARG_WITH(gdbm,
+[  --with-gdbm        Use gdbm instead of ndbm],
+[WITH_GDBM="yes"])
+
+if test "$WITH_GDBM" = yes; then
+    AC_CHECK_LIB(gdbm, dbm_open)
+fi
+
+if test "x$LIBS" = x; then
+    AC_CHECK_FUNC(dbm_open, DBMOPEN="builtin", AC_CHECK_LIB(ndbm, dbm_open))
+    if test "x$DBMOPEN" = x; then
 	if test "x$LIBS" = x; then
-		AC_CHECK_LIB(db, __db_ndbm_open)
+	    AC_CHECK_LIB(db, __db_ndbm_open)
 	fi
+	if test "x$LIBS" = x; then
+	    AC_CHECK_LIB(gdbm, dbm_open)
+	fi
+    fi
 fi
 
 dnl Checks for header files.
