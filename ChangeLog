@@ -1,3 +1,11 @@
+2000-07-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile.in (uninstall): New target.
+
+	* configure: Regenerate by autoconf.
+
+	* configure.in: Refer to "$ac_cv_func_dbm_open".
+
 2000-07-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile.in: Check for $(top_srcdir).
@@ -7,9 +15,9 @@
 	* configure: Regenerate by autoconf 2.14.1.
 
 	* configure.in: Enable to check for dbm_open() in -lgdbm.
-	Check for ndbm.h and db1/ndbm.h
+	Check for ndbm.h and db1/ndbm.h.
 
-	* skkdic-expr.c: When ndbm.h is not found, include <db1/ndbm.h> if
+	* skkdic-expr.c: When ndbm.h is not found, include db1/ndbm.h if
 	possible. Add declaration for gdbm.
 
 22000-07-26  Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
