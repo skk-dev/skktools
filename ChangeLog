@@ -1,3 +1,9 @@
+2000-07-26  Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
+
+	* configure: Regenerate by autoconf 2.14.1.
+
+	* configure.in: Fix the last commitment.
+
 2000-07-25  Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 	* Makefile.in: Check for $(EXEEXT).
