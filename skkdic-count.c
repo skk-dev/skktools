@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-count.c,v 1.5 2000/10/10 10:43:34 czkmt Exp $
+Version: $Id: skkdic-count.c,v 1.6 2002/08/05 08:21:32 czkmt Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/10/10 10:43:34 $
+Last Modified: $Date: 2002/08/05 08:21:32 $
 
 This file is part of Daredevil SKK.
 
@@ -58,9 +58,9 @@ count_entry(filename, fp)
     }
   }
   if (count == 1)
-    printf("%s %d candidate\n", filename, count);
+    printf("%s: %d candidate\n", filename, count);
   else
-    printf("%s %d candidates\n", filename, count);
+    printf("%s: %d candidates\n", filename, count);
 }
 
 /* メインプログラムでは引数を判別します。もしもなければ標準入力
