@@ -8243,6 +8243,7 @@ fi
 fi
 
    if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
+      LIBS="$LIBS  -lgdbm"
       cat >>confdefs.h <<_ACEOF
 #define HAVE_LIBGDBM 1
 _ACEOF
