@@ -8,13 +8,15 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 
+dnl Check for executable suffix.
 AC_EXEEXT
 
 dnl Checks for libraries.
-
-AC_CHECK_FUNC(dbm_open, , AC_CHECK_LIB(ndbm, dbm_open,))
-if test "x$LIBS" = x; then
-    AC_CHECK_LIB(db, __db_ndbm_open)
+AC_CHECK_FUNC(dbm_open, DBMOPEN="builtin", AC_CHECK_LIB(ndbm, dbm_open,))
+if test "x$DBMOPEN" = x; then
+	if test "x$LIBS" = x; then
+		AC_CHECK_LIB(db, __db_ndbm_open)
+	fi
 fi
 
 dnl Checks for header files.
