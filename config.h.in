@@ -3,11 +3,17 @@
 /* Define as the return type of signal handlers (int or void).  */
 #undef RETSIGTYPE
 
+/* Define if you have the <db1/ndbm.h> header file.  */
+#undef HAVE_DB1_NDBM_H
+
 /* Define if you have the <fcntl.h> header file.  */
 #undef HAVE_FCNTL_H
 
 /* Define if you have the <malloc.h> header file.  */
 #undef HAVE_MALLOC_H
+
+/* Define if you have the <ndbm.h> header file.  */
+#undef HAVE_NDBM_H
 
 /* Define if you have the db library (-ldb).  */
 #undef HAVE_LIBDB
