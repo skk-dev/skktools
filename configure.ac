@@ -30,19 +30,25 @@ AC_EXEEXT
 dnl Checks for libraries.
 
 if test "$WITH_GDBM" = yes; then
-    AC_CHECK_LIB(gdbm, dbm_open)
+   AC_CHECK_LIB(gdbm, dbm_open,, AC_CHECK_LIB(gdbm_compat, dbm_open,,, -lgdbm))
+   if test $LIBS = -lgdbm_compat; then
+      AC_CHECK_LIB(gdbm, gdbm_open)
+   fi
 fi
 
 if test "x$LIBS" = x; then
-    AC_CHECK_FUNC(dbm_open,, AC_CHECK_LIB(ndbm, dbm_open))
-    if test "$ac_cv_func_dbm_open" = no; then
-	if test "x$LIBS" = x; then
-	    AC_CHECK_LIB(db, __db_ndbm_open)
-	fi
-	if test "x$LIBS" = x; then
-	    AC_CHECK_LIB(gdbm, dbm_open)
-	fi
-    fi
+   AC_CHECK_FUNC(dbm_open,, AC_CHECK_LIB(ndbm, dbm_open))
+   if test "$ac_cv_func_dbm_open" = no; then
+      if test "x$LIBS" = x; then
+         AC_CHECK_LIB(db, __db_ndbm_open)
+      fi
+      if test "x$LIBS" = x; then
+         AC_CHECK_LIB(gdbm, dbm_open,, AC_CHECK_LIB(gdbm_compat, dbm_open,,, -lgdbm))
+	 if test $LIBS = -lgdbm_compat; then
+	    AC_CHECK_LIB(gdbm, gdbm_open)
+    	 fi
+      fi
+   fi
 fi
 
 PKG_CHECK_MODULES(GLIB2, glib-2.0 >= 2.0.0, HAVE_GLIB2=yes, HAVE_GLIB2=no)
