@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.4 2003/07/25 08:20:19 fukuchi Exp $
+Version: $Id: skkdic-expr2.c,v 1.5 2003/09/30 03:23:13 fukuchi Exp $
 Keywords: japanese
-Last Modified: $Date: 2003/07/25 08:20:19 $
+Last Modified: $Date: 2003/09/30 03:23:13 $
 
 This file is part of Daredevil SKK.
 
@@ -127,9 +127,11 @@ static void joinAnnotation(Candidate *c, gchar *str)
 		if(c->annotation == NULL) {
 			c->annotation = g_strdup(str);
 		} else {
-			tmp = g_strjoin(ANNOTATION_DELIMITER, c->annotation, str, NULL);
-			g_free(c->annotation);
-			c->annotation = tmp;
+			if(strCmp(c->annotation, str, NULL) != 0) {
+				tmp = g_strjoin(ANNOTATION_DELIMITER, c->annotation, str, NULL);
+				g_free(c->annotation);
+				c->annotation = tmp;
+			}
 		}
 	}
 }

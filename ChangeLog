@@ -1,3 +1,8 @@
+2003-09-30  Kentaro Fukuchi <fukuchi@users.sourceforge.net>
+	* skkdic-expr2.c: Now a completely same annotation is ignored during merge
+	  operation. This feature is noted in README.skkdic-expr2 but has not been
+	  implemented. Sorry.
+
 2003-08-17  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* skk.ex: Add stamp-h1 and libtool.
