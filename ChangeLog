@@ -1,3 +1,10 @@
+2000-10-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* configure: Remake by autoconf.
+
+	* configure.in: search /usr/local/bin path for tar command before
+	$PATH.
+
 2000-10-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* .cvsignore: Add configure.scan.
