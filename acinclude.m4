@@ -1,4 +1,6 @@
-
+dnl Autoconf include for SKK JISYO TOOLS (SKK dictionary handling tools).
+dnl $Id: acinclude.m4,v 1.1 2002/09/13 14:52:54 iida Exp $
+dnl
 dnl PKG_CHECK_MODULES(GSTUFF, gtk+-2.0 >= 1.3 glib = 1.3.4, action-if, action-not)
 dnl defines GSTUFF_LIBS, GSTUFF_CFLAGS, see pkg-config man page
 dnl also defines GSTUFF_PKG_ERRORS on error
