@@ -1,5 +1,8 @@
+2005-03-26  MITA Yuusuke  <clefs@mail.goo.ne.jp>
+	* skkdic-count.c: BUFSIZE was too small.
+
 2005-01-23  MITA Yuusuke  <clefs@mail.goo.ne.jp>
-	* skkdic-count: Didn't count pairs after '['. fixed.
+	* skkdic-count.c: Didn't count pairs after '['. fixed.
 
 2004-08-24  Kimura Fuyuki  <fuyuki@hadaly.org>
 

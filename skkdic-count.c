@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-count.c,v 1.7 2005/01/22 16:05:51 skk-cvs Exp $
+Version: $Id: skkdic-count.c,v 1.8 2005/03/25 15:59:48 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2005/01/22 16:05:51 $
+Last Modified: $Date: 2005/03/25 15:59:48 $
 
 This file is part of Daredevil SKK.
 
@@ -31,10 +31,10 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 #include <config.h>
 #include <stdio.h>
 
-/* 1994 年版の SKK 辞書では最長の行でも 656 文字ですが安全のために
-   以下の値としています。*/
+/* 2005 年版の SKK 辞書では最長の行(「こう」)は 2286 bytes ですが
+ * 安全のために以下の値としています。*/
 
-#define BUFSIZE 2048
+#define BUFSIZE 10240
 
 /* 各ファイルの候補を数えます。 */
 static void
