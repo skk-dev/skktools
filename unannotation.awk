@@ -1,8 +1,10 @@
 # unannotation.awk: filter to remove annotations in dictionaries.
 #
+# Copyright (C) 2001, 2002 SKK Development Team <skk@ring.gr.jp>
+#
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: unannotation.awk,v 1.1 2002/06/03 11:00:48 minakaji Exp $
-# Last Modified: $Date: 2002/06/03 11:00:48 $
+# Version: $Id: unannotation.awk,v 1.2 2002/08/01 21:39:37 minakaji Exp $
+# Last Modified: $Date: 2002/08/01 21:39:37 $
 #
 # This file is part of Daredevil SKK.
 #
@@ -31,10 +33,10 @@ BEGIN{
 	this = this ".unannotated";
     printf(";; %s was generated automatically by unannotation.awk at %s\n",
 	   this, ctime);
-    getline modeindicator
-    if (match(modeindicator, /;; -*- text -*-/) != 0){
-	print modeindicator;
-    }
+    #getline modeindicator
+    #if (match(modeindicator, /;; -*- text -*-/) != 0){
+    #    print modeindicator;
+    #}
 }
 #$0 !~ /"^;; -\*- text -\*-\n"/{
 {
