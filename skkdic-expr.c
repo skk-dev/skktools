@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.2 2000/03/12 16:03:12 minakaji Exp $
+Version: $Id: skkdic-expr.c,v 1.3 2000/07/25 09:20:48 czkmt Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/03/12 16:03:12 $
+Last Modified: $Date: 2000/07/25 09:20:48 $
 
 This file is part of Daredevil SKK
 
@@ -32,12 +32,18 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 #include <stdio.h>
 
 #ifdef HAVE_LIBNDBM 
+#undef HAVE_LIBDB
 #if defined(__GLIBC__) && __GLIBC__ >= 2 && __GLIBC_MINOR__ > 0 
 #include <db1/ndbm.h>
 #else
 #include <ndbm.h>
 #endif
-#endif
+#else
+#ifdef HAVE_LIBDB
+#define DB_DBM_HSEARCH 1
+#include <db.h>
+#endif /* HAVE_LIBDB */
+#endif /* HAVE_LIBNDBM */
 
 #include <errno.h>
 #include <signal.h>
