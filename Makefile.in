@@ -4,9 +4,9 @@
 #
 # Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile.in,v 1.7 2000/09/23 09:00:44 minakaji Exp $
+# Version: $Id: Makefile.in,v 1.8 2002/09/13 12:28:27 fukuchi Exp $
 # Keywords: japanese
-# Last Modified: $Date: 2000/09/23 09:00:44 $
+# Last Modified: $Date: 2002/09/13 12:28:27 $
 #
 # This file is part of Daredevil SKK
 # 
@@ -46,6 +46,8 @@ MD5 = @MD5@
 TAR = @TAR@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
+GLIB_CFLAGS = @GLIB2_CFLAGS@
+GLIB_LIBS = @GLIB2_LIBS@
 
 prefix = @prefix@
 exec_prefix = @exec_prefix@
@@ -56,8 +58,8 @@ EXEEXT= @EXEEXT@
 DEFS = -I$(srcdir) -I$(top_srcdir) $(CFLAGS)
 
 SNAPBASE  = skktools-`$(DATE) '+%Y%m%d'`
-TARGETS = skkdic-expr$(EXEEXT) skkdic-sort$(EXEEXT) skkdic-count$(EXEEXT)
-SRCS = skkdic-expr.c skkdic-sort.c skkdic-count.c
+TARGETS = skkdic-expr$(EXEEXT) skkdic-sort$(EXEEXT) skkdic-count$(EXEEXT) @SKKDIC_EXPR2@
+SRCS = skkdic-expr.c skkdic-sort.c skkdic-count.c skkdic-expr2.c
 
 all: $(TARGETS)
 
@@ -69,6 +71,9 @@ skkdic-sort$(EXEEXT): skkdic-sort.c
 
 skkdic-count$(EXEEXT): skkdic-count.c
 	$(CC) $(DEFS) -o $@ skkdic-count.c
+
+@SKKDIC_EXPR2@: skkdic-expr2.c
+	$(CC) $(DEFS) $(GLIB_CFLAGS) -o $@ skkdic-expr2.c $(GLIB_LIBS) $(LDFLAGS)
 
 ${srcdir}/configure: configure.in #aclocal.m4
 	cd ${srcdir} && autoconf

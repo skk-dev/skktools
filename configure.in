@@ -40,6 +40,15 @@ if test "x$LIBS" = x; then
     fi
 fi
 
+PKG_CHECK_MODULES(GLIB2, glib-2.0 >= 2.0.0, HAVE_GLIB2=yes, HAVE_GLIB2=no)
+case "$HAVE_GLIB2" in
+	yes) SKKDIC_EXPR2="skkdic-expr2\${EXEEXT}" ;;
+	no)  SKKDIC_EXPR2="" ;;
+esac
+AC_SUBST(GLIB2_LIBS)
+AC_SUBST(GLIB2_CFLAGS)
+AC_SUBST(SKKDIC_EXPR2)
+
 dnl Checks for header files.
 AC_CHECK_HEADERS(fcntl.h)
 AC_CHECK_HEADERS(malloc.h)
