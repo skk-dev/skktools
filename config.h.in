@@ -12,5 +12,8 @@
 /* Define if you have the db library (-ldb).  */
 #undef HAVE_LIBDB
 
+/* Define if you have the gdbm library (-lgdbm).  */
+#undef HAVE_LIBGDBM
+
 /* Define if you have the ndbm library (-lndbm).  */
 #undef HAVE_LIBNDBM
