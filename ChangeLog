@@ -1,3 +1,7 @@
+2000-10-03  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* convert2skk/edict2skk.awk: Do not filter "放送禁止用語".
+
 2000-09-30  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/FAQ.txt: Document fixed.

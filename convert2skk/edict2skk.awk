@@ -4,8 +4,8 @@
 #
 # Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 # Created: Dec. 5, 1998
-# Last Modified: $Date: 2000/03/12 16:03:13 $
-# Version: $Id: edict2skk.awk,v 1.2 2000/03/12 16:03:13 minakaji Exp $
+# Last Modified: $Date: 2000/10/02 21:25:32 $
+# Version: $Id: edict2skk.awk,v 1.3 2000/10/02 21:25:32 minakaji Exp $
 
 # This file is part of Daredevil SKK.
 
@@ -79,7 +79,7 @@ $1 !~ /^？/ {
 		     # 進行形
 		     (middle != "ing") ||
 		     # 放送禁止用語
-		     (middle != "X") ||
+		     #(middle != "X") ||
 		     # 過去形
 		     (match(middle, /.ed/) == 0) ) &&
 		    (yomi[i] != head middle tail) ) {
