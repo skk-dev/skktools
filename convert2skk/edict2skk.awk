@@ -5,7 +5,7 @@
 # Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 # Created: Dec. 5, 1998
 # Last Modified: $Date: 2000/03/12 12:17:51 $
-# Version: $Id: edict2skk.awk,v 1.1 2000/03/12 12:17:51 minakaji Exp $
+# Version: $Id: edict2skk.awk,v 1.1.1.1 2000/03/12 12:17:51 minakaji Exp $
 
 # This file is part of Daredevil SKK.
 

@@ -4,7 +4,7 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-count.c,v 1.1 2000/03/12 12:17:40 minakaji Exp $
+Version: $Id: skkdic-count.c,v 1.1.1.1 2000/03/12 12:17:40 minakaji Exp $
 Keywords: japanese
 Last Modified: $Date: 2000/03/12 12:17:40 $
 
