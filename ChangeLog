@@ -1,5 +1,7 @@
 2003-08-17  NAKAJIMA Mikio  <minakaji@namazu.org>
 
+	* skk.ex: Add stamp-h1 and libtool.
+
 	* Version 1.1 released.
 
 2002-03-28  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
