@@ -32,7 +32,9 @@ dnl Checks for libraries.
 if test "$WITH_GDBM" = yes; then
    AC_CHECK_LIB(gdbm, dbm_open,, AC_CHECK_LIB(gdbm_compat, dbm_open,,, -lgdbm))
    if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
-      AC_CHECK_LIB(gdbm, gdbm_open)
+      cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBGDBM 1
+_ACEOF
    fi
 fi
 
@@ -45,7 +47,10 @@ if test "x$LIBS" = x; then
       if test "x$LIBS" = x; then
          AC_CHECK_LIB(gdbm, dbm_open,, AC_CHECK_LIB(gdbm_compat, dbm_open,,, -lgdbm))
          if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
-	    AC_CHECK_LIB(gdbm, gdbm_open)
+	    LIBS="$LIBS  -lgdbm"
+	    cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBGDBM 1
+_ACEOF
     	 fi
       fi
    fi
