@@ -1,3 +1,17 @@
+2000-07-25  Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
+
+	* Makefile.in: Check for $(EXEEXT).
+	(install-strip): New target.
+
+	* config.h.in: Regenerate by autoheader (autoconf 2.14.1).
+
+	* configure: Regenerate by autoconf 2.14.1.
+
+	* configure.in: Check for __db_ndbm_open() in -ldb if -lndbm is
+	not available. Check for executable suffix.
+
+	* skkdic-expr.c: If HAVE_LIBDB is defined, include <db.h>.
+
 2000-03-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* convert2skk/edict2skk.awk: Comment fixed.
