@@ -2,8 +2,7 @@
 
 	* configure: Regenetare.
 
-	* configure.in: Check ndbm.h when "$ac_cv_lib_ndbm_dbm_open" is
-	yes.
+	* configure.in: Check ndbm.h when "$ac_cv_func_dbm_open" is yes.
 
 	* skkdic-expr.c: Modify according to it.
 
