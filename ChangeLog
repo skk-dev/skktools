@@ -6,6 +6,11 @@
 	Check for dbm_open() in in -lgdbm_compat if the test in -lgdbm
 	fails.
 
+	* config.guess:
+	* config.sub:
+
+	New files.
+
 2003-03-26  NAKAJIMA Mikio  <minakaji@namazu.org>
 
 	* saihenkan.rb: New file.
