@@ -4,9 +4,9 @@
 #
 # Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile.in,v 1.4 2000/07/27 15:03:12 czkmt Exp $
+# Version: $Id: Makefile.in,v 1.5 2000/07/27 15:13:52 czkmt Exp $
 # Keywords: japanese
-# Last Modified: $Date: 2000/07/27 15:03:12 $
+# Last Modified: $Date: 2000/07/27 15:13:52 $
 #
 # This file is part of Daredevil SKK
 # 
@@ -55,13 +55,13 @@ SRCS = skkdic-expr.c skkdic-sort.c skkdic-count.c
 all: $(TARGETS)
 
 skkdic-expr$(EXEEXT): skkdic-expr.c
-	$(CC) $(DEFS) skkdic-expr.c -o $@ $(LIBS)
+	$(CC) $(DEFS) -o $@ skkdic-expr.c $(LIBS)
 
 skkdic-sort$(EXEEXT): skkdic-sort.c
-	$(CC) $(DEFS) skkdic-sort.c -o $@
+	$(CC) $(DEFS) -o $@ skkdic-sort.c
 
 skkdic-count$(EXEEXT): skkdic-count.c
-	$(CC) $(DEFS) skkdic-count.c -o $@
+	$(CC) $(DEFS) -o $@ skkdic-count.c
 
 ${srcdir}/configure: configure.in #aclocal.m4
 	cd ${srcdir} && autoconf
