@@ -1,4 +1,16 @@
-2000-07-26  Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
+2000-07-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile.in: Check for $(top_srcdir).
+
+	* config.h.in: Regenerate by autoheader (autoconf 2.14.1).
+
+	* configure: Regenerate by autoconf 2.14.1.
+
+	* configure.in: Enable to check for dbm_open() in -lgdbm.
+
+	* skkdic-expr.c: Add declaration for gdbm.
+
+22000-07-26  Tetsuo Tsukamoto <czkmt@remus.dti.ne.jp>
 
 	* configure: Regenerate by autoconf 2.14.1.
 
