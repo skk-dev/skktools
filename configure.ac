@@ -31,7 +31,7 @@ dnl Checks for libraries.
 
 if test "$WITH_GDBM" = yes; then
    AC_CHECK_LIB(gdbm, dbm_open,, AC_CHECK_LIB(gdbm_compat, dbm_open,,, -lgdbm))
-   if test $LIBS = -lgdbm_compat; then
+   if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
       AC_CHECK_LIB(gdbm, gdbm_open)
    fi
 fi
@@ -44,7 +44,7 @@ if test "x$LIBS" = x; then
       fi
       if test "x$LIBS" = x; then
          AC_CHECK_LIB(gdbm, dbm_open,, AC_CHECK_LIB(gdbm_compat, dbm_open,,, -lgdbm))
-	 if test $LIBS = -lgdbm_compat; then
+         if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
 	    AC_CHECK_LIB(gdbm, gdbm_open)
     	 fi
       fi
