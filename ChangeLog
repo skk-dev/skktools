@@ -3,8 +3,7 @@
 	* configure.ac:
 	* configure.in:
 
-	Check for dbm_open() in in -lgdbm_compat if the test in -lgdbm
-	fails.
+	Check for dbm_open() in -lgdbm_compat if the test in -lgdbm fails.
 
 	* config.guess:
 	* config.sub:
