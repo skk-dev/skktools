@@ -4,9 +4,9 @@
 # Copyright (C) 2003 NAKAJIMA Mikio <minakaji@namazu.org>
 #
 # Author: NAKAJIMA Mikio <minakaji@namazu.org>
-# Created: 2003
-# Last Modified: $Date: 2003/03/22 10:20:33 $
-# Version: $Id: dic-it2skk.rb,v 1.1 2003/03/22 10:20:33 minakaji Exp $
+# Created: March 18, 2003
+# Last Modified: $Date: 2003/03/22 10:25:16 $
+# Version: $Id: dic-it2skk.rb,v 1.2 2003/03/22 10:25:16 minakaji Exp $
 
 # This file is part of Daredevil SKK.
 
