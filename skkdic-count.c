@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-count.c,v 1.2 2000/03/12 16:03:12 minakaji Exp $
+Version: $Id: skkdic-count.c,v 1.3 2000/10/05 16:26:16 czkmt Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/03/12 16:03:12 $
+Last Modified: $Date: 2000/10/05 16:26:16 $
 
 This file is part of Daredevil SKK
 
@@ -25,18 +25,18 @@ along with SKK; see the file COPYING.  If not, write to
 the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 /* skkdic-entries.c
-   $B$3$N%W%m%0%i%`$O(B SKK $B$N<-=q$K4^$^$l$k%(%s%H%j!<?t$r%+%&%s%H$7$^$9!#(B
+   ¤³¤Î¥×¥í¥°¥é¥à¤Ï SKK ¤Î¼­½ñ¤Ë´Þ¤Þ¤ì¤ë¸õÊä¿ô¤ò¿ô¤¨¤Þ¤¹¡£
  */
 
 #include <config.h>
 #include <stdio.h>
 
-/* 1994 $BG/HG$N(B SKK $B<-=q$G$O:GD9$N9T$G$b(B 656 $BJ8;z$G$9$,0BA4$N$?$a$K(B
-   $B0J2<$NCM$H$7$F$$$^$9!#(B*/
+/* 1994 Ç¯ÈÇ¤Î SKK ¼­½ñ¤Ç¤ÏºÇÄ¹¤Î¹Ô¤Ç¤â 656 Ê¸»ú¤Ç¤¹¤¬°ÂÁ´¤Î¤¿¤á¤Ë
+   °Ê²¼¤ÎÃÍ¤È¤·¤Æ¤¤¤Þ¤¹¡£*/
 
 #define BUFSIZE 2048
 
-/* $B3F%U%!%$%k$N%(%s%H%j$r%+%&%s%H$7$^$9(B */
+/* ³Æ¥Õ¥¡¥¤¥ë¤Î¸õÊä¤ò¿ô¤¨¤Þ¤¹¡£ */
 static void
 count_entry(filename, fp)
      char *filename;
@@ -60,13 +60,13 @@ count_entry(filename, fp)
     }
   }
   if (count == 1)
-    printf("%s %d entry\n", filename, count);
+    printf("%s %d candidate\n", filename, count);
   else
-    printf("%s %d entries\n", filename, count);
+    printf("%s %d candidates\n", filename, count);
 }
 
-/* $B%a%$%s%W%m%0%i%`$G$O0z?t$rH=JL$7$^$9!#$b$7$b$J$1$l$PI8=`F~NO(B
-   $B$+$i$N%G!<%?$,F@$i$l$k$b$N$H$7$^$9(B */
+/* ¥á¥¤¥ó¥×¥í¥°¥é¥à¤Ç¤Ï°ú¿ô¤òÈ½ÊÌ¤·¤Þ¤¹¡£¤â¤·¤â¤Ê¤±¤ì¤ÐÉ¸½àÆþÎÏ
+   ¤«¤é¤Î¥Ç¡¼¥¿¤¬ÆÀ¤é¤ì¤ë¤â¤Î¤È¤·¤Þ¤¹¡£ */
 
 int main(argc, argv)
      int argc;
