@@ -1,3 +1,6 @@
+2002-09-14  Kentaro Fukuchi <fukuchi@users.sourceforge.net>
+	* skkdic-expr2.c: A stupid bug fixed. Please forget previous version...
+
 2002-09-14  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* Makefile.in: Add copyright year.  Fix maintainer,

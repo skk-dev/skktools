@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.1 2002/09/13 12:27:27 fukuchi Exp $
+Version: $Id: skkdic-expr2.c,v 1.2 2002/09/14 14:24:29 fukuchi Exp $
 Keywords: japanese
-Last Modified: $Date: 2002/09/13 12:27:27 $
+Last Modified: $Date: 2002/09/14 14:24:29 $
 
 This file is part of Daredevil SKK.
 
@@ -107,12 +107,29 @@ static Entry *entryNew()
 
 	e = g_new(Entry, 1);
 	e->entries = NULL;
+
+	return e;
 }
 
 static void entryFree(Entry *e)
 {
 	g_slist_free(e->entries);
 	g_free(e);
+}
+
+static void joinAnnotation(Candidate *c, gchar *str)
+{
+	gchar *tmp;
+
+	if(str != NULL) {
+		if(c->annotation == NULL) {
+			c->annotation = g_strdup(str);
+		} else {
+			tmp = g_strjoin(ANNOTATION_DELIMITER, c->annotation, str, NULL);
+			g_free(c->annotation);
+			c->annotation = tmp;
+		}
+	}
 }
 
 static void addCandidate(GTree *tree, gchar *midashi, gchar *candidate, gchar *annotation)
@@ -133,15 +150,7 @@ static void addCandidate(GTree *tree, gchar *midashi, gchar *candidate, gchar *a
 		while(list != NULL) {
 			c = (Candidate *)list->data;
 			if(strCmp(c->candidate, candidate, NULL) == 0) {
-				if(c->annotation == NULL) {
-					c->annotation = annotation;
-				} else if(annotation != NULL) {
-					if(strCmp(c->annotation, annotation, NULL)) {
-						tmp = g_strjoin(ANNOTATION_DELIMITER, c->annotation, annotation, NULL);
-						g_free(c->annotation);
-						c->annotation = tmp;
-					}
-				}
+				joinAnnotation(c, annotation);
 				break;
 			}
 			list = g_slist_next(list);
