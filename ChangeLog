@@ -1,3 +1,7 @@
+2000-09-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/FAQ.txt: New file.
+
 2000-09-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* configure.in: Check for md5sum only when md5 doesn't exist.
