@@ -1,5 +1,7 @@
 2000-03-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* Makefile.in (distclean): Remove config.h.
+
 	* skkdic-count.c: Include config.h.
 	* skkdic-sort.c: Ditto.
 

@@ -4,9 +4,9 @@
 #
 # Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile.in,v 1.1 2000/03/12 12:17:43 minakaji Exp $
+# Version: $Id: Makefile.in,v 1.2 2000/03/12 12:21:30 minakaji Exp $
 # Keywords: japanese
-# Last Modified: $Date: 2000/03/12 12:17:43 $
+# Last Modified: $Date: 2000/03/12 12:21:30 $
 #
 # This file is part of Daredevil SKK
 # 
@@ -93,7 +93,7 @@ clean:
 	rm -f $(TARGETS) core
 
 distclean:
-	rm -f config.status config.cache config.log Makefile $(TARGETS) core
+	rm -f config.h config.status config.cache config.log Makefile $(TARGETS) core
 
 TAGS: $(SRCS)
 	etags $(SRCS)
