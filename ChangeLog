@@ -1,3 +1,7 @@
+2000-10-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* skkdic-count.c (count_entry): Show "candidates", not "entries".
+
 2000-10-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* configure.in: Turn on m4-mode.
