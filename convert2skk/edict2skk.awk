@@ -1,11 +1,11 @@
 # edict2skk.awk -- convert EDICT dictionary to SKK-JISYO format.
 #
-# Copyright (C) 1998, 1999, 2000 Mikio Nakajima <minakaji@osaka.email.ne.jp>
+# Copyright (C) 1998, 1999, 2000 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 #
-# Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
+# Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 # Created: Dec. 5, 1998
-# Last Modified: $Date: 2000/10/02 21:25:32 $
-# Version: $Id: edict2skk.awk,v 1.3 2000/10/02 21:25:32 minakaji Exp $
+# Last Modified: $Date: 2002/08/01 21:39:25 $
+# Version: $Id: edict2skk.awk,v 1.4 2002/08/01 21:39:25 minakaji Exp $
 
 # This file is part of Daredevil SKK.
 
@@ -39,11 +39,11 @@
 # 工します。
 #
 #   % jgawk -f edict2skk.awk edict | skkdic-sort > SKK-JISYO.E2J
-# 
+#
 # SKK-JISYO.E2J の使い方は色々考えられますが、
 #   % skkdic-expr SKK-JISYO.E2J + /usr/local/share/skk/SKK-JISYO.L | skkdic-sort > SKK-JISYO.L
 # などとして SKK Large 辞書とマージして使うのが簡単です。
-# 
+#
 # EDICT 及びそのサブセット (本スクリプトにより EDICT を抜粋したものは
 # サブセットに当たるでしょう) は、GPL とは異なる配布条件が付いているの
 # で、詳細は、EDICT ファイルの冒頭部分もしくは、EDICT 添付の edict.doc
