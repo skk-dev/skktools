@@ -1,0 +1,8 @@
+Makefile
+config.cache
+config.h
+config.log
+config.status
+skkdic-count
+skkdic-expr
+skkdic-sort
