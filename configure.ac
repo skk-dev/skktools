@@ -1,4 +1,4 @@
-dnl -*- mode: m4 -*-
+dnl -*- mode: autoconf -*-
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT([skkdic-count.c])
 AM_INIT_AUTOMAKE(skktools, `cat <"${srcdir}"/VERSION`)
