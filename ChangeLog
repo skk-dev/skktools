@@ -1,3 +1,6 @@
+2005-01-23  MITA Yuusuke  <clefs@mail.goo.ne.jp>
+	* skkdic-count: Didn't count pairs after '['. fixed.
+
 2004-08-24  Kimura Fuyuki  <fuyuki@hadaly.org>
 
 	* skkdic-diff.scm: More undertandable diffs.
