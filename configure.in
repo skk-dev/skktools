@@ -1,4 +1,4 @@
-dnl -*- sh -*-
+dnl -*- mode: m4 -*-
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT(skkdic-count.c)
 AC_CONFIG_HEADER(config.h)
@@ -16,7 +16,7 @@ if test "x$ac_cv_path_MD5" = x; then
 fi
 AC_PATH_PROG(TAR, tar,, $PATH)
 
-dnl Check for executable suffix.
+dnl Checks for executable suffix.
 AC_EXEEXT
 
 dnl Checks for libraries.
