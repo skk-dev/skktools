@@ -4,9 +4,9 @@
 #
 # Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile.in,v 1.5 2000/07/27 15:13:52 czkmt Exp $
+# Version: $Id: Makefile.in,v 1.6 2000/07/28 10:06:31 czkmt Exp $
 # Keywords: japanese
-# Last Modified: $Date: 2000/07/27 15:13:52 $
+# Last Modified: $Date: 2000/07/28 10:06:31 $
 #
 # This file is part of Daredevil SKK
 # 
@@ -94,6 +94,12 @@ install: $(TARGETS)
 
 install-strip: $(TARGETS)
 	$(MAKE) install INSTALL_PROGRAM="$(INSTALL_PROGRAM) -s"
+
+uninstall:
+	@list="$(TARGETS)"; for p in $$list; do \
+	echo " rm -f $(bindir)/$$p"; \
+	rm -f $(bindir)/$$p; \
+        done
 
 clean:
 	rm -f $(TARGETS) core
