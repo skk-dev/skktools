@@ -4,24 +4,24 @@
 #
 # Author: Mikio Nakajima <minakaji@osaka.email.ne.jp>
 # Created: Dec. 5, 1998
-# Last Modified: $Date: 2000/03/12 12:17:51 $
-# Version: $Id: edict2skk.awk,v 1.1 2000/03/12 12:17:51 minakaji Exp $
+# Last Modified: $Date: 2000/03/12 16:03:13 $
+# Version: $Id: edict2skk.awk,v 1.2 2000/03/12 16:03:13 minakaji Exp $
 
 # This file is part of Daredevil SKK.
 
-# SKK is free software; you can redistribute it and/or modify
+# Daredevil SKK is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either versions 2, or (at your option)
 # any later version.
 #
-# SKK is distributed in the hope that it will be useful
+# Daredevil SKK is distributed in the hope that it will be useful
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with SKK, see the file COPYING.  If not, write to the Free
-# Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
+# along with Daredevil SKK, see the file COPYING.  If not, write to the
+# Free Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
 # MA 02111-1307, USA.
 #
 # Commentary:
@@ -38,9 +38,7 @@
 # この edict を edict2skk.awk と SKK jisyo-tools のコマンドを使って加
 # 工します。
 #
-#   % jgawk -f edict2skk.awk edict > temp
-#   % skkdic-expr temp | skkdic-sort > SKK-JISYO.E2J
-#   % rm temp
+#   % jgawk -f edict2skk.awk edict | skkdic-sort > SKK-JISYO.E2J
 # 
 # SKK-JISYO.E2J の使い方は色々考えられますが、
 #   % skkdic-expr SKK-JISYO.E2J + /usr/local/share/skk/SKK-JISYO.L | skkdic-sort > SKK-JISYO.L

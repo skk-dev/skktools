@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.1 2000/03/12 12:17:42 minakaji Exp $
+Version: $Id: skkdic-expr.c,v 1.2 2000/03/12 16:03:12 minakaji Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/03/12 12:17:42 $
+Last Modified: $Date: 2000/03/12 16:03:12 $
 
 This file is part of Daredevil SKK
 
@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with SKK; see the file COPYING.  If not, write to
 the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
-/* skkjisyo-expr.c
+/* skkdic-expr.c
    このプログラムは SKK の辞書のマージや削除を行います。
  */
 
@@ -705,7 +705,7 @@ static int	okuri_type_out(key, output)
 
 /* 結果を出力
    順序はまったくのでたらめになるので、最終的な結果を得るには
-   skkjisyo-sort を用いる
+   skkdic-sort を用いる
    */
 static void type_out(output)
      FILE *output;
@@ -794,10 +794,10 @@ int main(argc, argv)
 	exit(1);
     }
 
-    sprintf(file_name, "%s/skkjisyo.%d", tmpdir, getpid());
+    sprintf(file_name, "%s/skkdic%d", tmpdir, getpid());
     if (okurigana_flag) {
-	sprintf(okuri_head_name, "%s/skkhead.%d", tmpdir, getpid());
-	sprintf(okuri_tail_name, "%s/skktail.%d", tmpdir, getpid());
+	sprintf(okuri_head_name, "%s/skkhead%d", tmpdir, getpid());
+	sprintf(okuri_tail_name, "%s/skktail%d", tmpdir, getpid());
     }
     set_signal_handler();
     db_make_files();

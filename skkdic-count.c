@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-count.c,v 1.1 2000/03/12 12:17:40 minakaji Exp $
+Version: $Id: skkdic-count.c,v 1.2 2000/03/12 16:03:12 minakaji Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/03/12 12:17:40 $
+Last Modified: $Date: 2000/03/12 16:03:12 $
 
 This file is part of Daredevil SKK
 
@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with SKK; see the file COPYING.  If not, write to
 the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
-/* skkjisyo-entries.c
+/* skkdic-entries.c
    このプログラムは SKK の辞書に含まれるエントリー数をカウントします。
  */
 

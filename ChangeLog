@@ -1,3 +1,18 @@
+2000-03-13  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* convert2skk/edict2skk.awk: Comment fixed.
+
+	* skkdic-count.c: Change file name description of
+	`skkjisyo-count.c' to skkdic-count.c.
+
+	* skkdic-sort.c: Change file name description of `skkjisyo-sort.c'
+	to skkdic-sort.c.
+
+	* skkdic-expr.c: Change file name description of `skkjisyo-expr.c'
+	to skkdic-expr.c.
+	(main): Change working file name `skkjisyo.%d' to `skkdic%d', 
+	`skkhead.%d' to `skkhead%d' and `skktail.%d' to `skktail%d'.
+
 2000-03-12  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* Makefile.in (distclean): Remove config.h.
