@@ -1,12 +1,12 @@
 # SKK JISYO TOOLS (SKK dictionary handling tools)
-# Copyright (C) 1994, 1996, 1999, 2000
+# Copyright (C) 1994, 1996, 1999, 2000, 2002
 #        Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 #
 # Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
-# Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile.in,v 1.8 2002/09/13 12:28:27 fukuchi Exp $
+# Maintainer: SKK Development Team <skk@ring.gr.jp>
+# Version: $Id: Makefile.in,v 1.9 2002/09/13 15:09:59 iida Exp $
 # Keywords: japanese
-# Last Modified: $Date: 2002/09/13 12:28:27 $
+# Last Modified: $Date: 2002/09/13 15:09:59 $
 #
 # This file is part of Daredevil SKK
 # 
@@ -22,7 +22,8 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with SKK; see the file COPYING.  If not, write to
-# the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
+# the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+# MA 02111-1307, USA.
 
 #### Start of system configuration section. ####
 
@@ -55,7 +56,7 @@ bindir = $(exec_prefix)/bin
 
 EXEEXT= @EXEEXT@
 
-DEFS = -I$(srcdir) -I$(top_srcdir) $(CFLAGS)
+DEFS = -I. -I$(srcdir) -I$(top_srcdir) $(CFLAGS)
 
 SNAPBASE  = skktools-`$(DATE) '+%Y%m%d'`
 TARGETS = skkdic-expr$(EXEEXT) skkdic-sort$(EXEEXT) skkdic-count$(EXEEXT) @SKKDIC_EXPR2@
@@ -63,17 +64,17 @@ SRCS = skkdic-expr.c skkdic-sort.c skkdic-count.c skkdic-expr2.c
 
 all: $(TARGETS)
 
-skkdic-expr$(EXEEXT): skkdic-expr.c
-	$(CC) $(DEFS) -o $@ skkdic-expr.c $(LIBS)
+skkdic-expr$(EXEEXT): $(srcdir)/skkdic-expr.c
+	$(CC) $(DEFS) -o $@ $(srcdir)/skkdic-expr.c $(LIBS)
 
-skkdic-sort$(EXEEXT): skkdic-sort.c
-	$(CC) $(DEFS) -o $@ skkdic-sort.c
+skkdic-sort$(EXEEXT): $(srcdir)/skkdic-sort.c
+	$(CC) $(DEFS) -o $@ $(srcdir)/skkdic-sort.c
 
-skkdic-count$(EXEEXT): skkdic-count.c
-	$(CC) $(DEFS) -o $@ skkdic-count.c
+skkdic-count$(EXEEXT): $(srcdir)/skkdic-count.c
+	$(CC) $(DEFS) -o $@ $(srcdir)/skkdic-count.c
 
-@SKKDIC_EXPR2@: skkdic-expr2.c
-	$(CC) $(DEFS) $(GLIB_CFLAGS) -o $@ skkdic-expr2.c $(GLIB_LIBS) $(LDFLAGS)
+skkdic-expr2$(EXEEXT): $(srcdir)/skkdic-expr2.c
+	$(CC) $(DEFS) $(GLIB_CFLAGS) -o $@ $(srcdir)/skkdic-expr2.c $(GLIB_LIBS) $(LDFLAGS)
 
 ${srcdir}/configure: configure.in #aclocal.m4
 	cd ${srcdir} && autoconf
