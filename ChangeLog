@@ -1,3 +1,6 @@
+2002-09-20  Kentaro Fukuchi <fukuchi@users.sourceforge.net>
+	* skkdic-expr2.c: Removed unused variables.
+
 2002-09-20  IIDA Yosiaki  <iida@ring.gr.jp>
 
 	* Makefile.am, VERSION, compile, configure.ac, depcomp, ltmain.sh:

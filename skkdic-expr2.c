@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.2 2002/09/14 14:24:29 fukuchi Exp $
+Version: $Id: skkdic-expr2.c,v 1.3 2002/09/20 13:33:21 fukuchi Exp $
 Keywords: japanese
-Last Modified: $Date: 2002/09/14 14:24:29 $
+Last Modified: $Date: 2002/09/20 13:33:21 $
 
 This file is part of Daredevil SKK.
 
@@ -137,7 +137,6 @@ static void addCandidate(GTree *tree, gchar *midashi, gchar *candidate, gchar *a
 	Entry *e;
 	Candidate *c;
 	GSList *list;
-	gchar *tmp;
 
 	e = g_tree_lookup(tree, midashi);
 	if(e == NULL) {
@@ -212,7 +211,6 @@ static gboolean cleanFunc(gpointer key, gpointer value, gpointer data)
 	Entry *e = (Entry *)value;
 	Candidate *c;
 	GSList *list, *next;
-	static int ccc=0;
 
 	list = e->entries;
 	while(list != NULL) {
@@ -329,8 +327,6 @@ static void processFile(const char *filename)
 {
 	FILE *fp;
 	static gchar buffer[BLEN];
-	gchar *p;
-	gchar *midashi;
 	gchar *cands;
 	GSList *clist, *list;
 
@@ -411,8 +407,6 @@ static gboolean outputFunc(gpointer key, gpointer value, gpointer data)
 
 static void outputTrees()
 {
-	GSList *list;
-
 	fputs(";; okuri-ari entries.\n", output);
 	g_tree_foreach(okuriAri, outputFunc, NULL);
 	fputs(";; okuri-nasi entries.\n", output);
