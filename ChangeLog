@@ -1,5 +1,20 @@
 2000-09-23  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
+	* configure.in: Check if programs bzip2, date, gzip, md5 (or
+	md5sum) and tar exist or not.
+
+	* Makefile.in (tar): New target.
+	(snapshot): Ditto.
+	(.PHONY): Ditto.
+	(BZIP2): New variable
+	(DATE): Ditto.
+	(GZIP): Ditto.
+	(MD5): Ditto.
+	(TAR): Ditto.
+	(SNAPBASE): Ditto.
+	
+	* skk.ex: New file.
+
 	* convert2skk/wnn2skk.sh: New file.
 	* convert2skk/wnn2skk.awk: Ditto.
 	* convert2skk/wnn2skk.sed: Ditto.

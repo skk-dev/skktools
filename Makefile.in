@@ -4,9 +4,9 @@
 #
 # Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: Makefile.in,v 1.6 2000/07/28 10:06:31 czkmt Exp $
+# Version: $Id: Makefile.in,v 1.7 2000/09/23 09:00:44 minakaji Exp $
 # Keywords: japanese
-# Last Modified: $Date: 2000/07/28 10:06:31 $
+# Last Modified: $Date: 2000/09/23 09:00:44 $
 #
 # This file is part of Daredevil SKK
 # 
@@ -27,6 +27,7 @@
 #### Start of system configuration section. ####
 
 SHELL = /bin/sh
+VERSION = 1.0
 @SET_MAKE@
 
 srcdir = @srcdir@
@@ -38,6 +39,11 @@ CFLAGS = @CFLAGS@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
+BZIP2 = @BZIP2@
+DATE = @DATE@
+GZIP = @GZIP@
+MD5 = @MD5@
+TAR = @TAR@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 
@@ -49,6 +55,7 @@ EXEEXT= @EXEEXT@
 
 DEFS = -I$(srcdir) -I$(top_srcdir) $(CFLAGS)
 
+SNAPBASE  = skktools-`$(DATE) '+%Y%m%d'`
 TARGETS = skkdic-expr$(EXEEXT) skkdic-sort$(EXEEXT) skkdic-count$(EXEEXT)
 SRCS = skkdic-expr.c skkdic-sort.c skkdic-count.c
 
@@ -109,5 +116,32 @@ distclean:
 
 TAGS: $(SRCS)
 	etags $(SRCS)
+
+tar: clean
+	cd .. ;\
+	rm -f skktools-$(VERSION) skktools-$(VERSION) skktools-$(VERSION).tar.gz skktools-$(VERSION).tar.bz2 ;\
+	ln -sf tools skktools-$(VERSION) ;\
+	$(TAR) cvpf skktools-$(VERSION).tar --exclude-from=skktools-$(VERSION)/skk.ex \
+               --dereference skktools-$(VERSION) ;\
+	$(BZIP2) -cf skktools-$(VERSION).tar > skktools-$(VERSION).tar.bz2 ;\
+	$(GZIP) -cf skktools-$(VERSION).tar > skktools-$(VERSION).tar.gz ;\
+	rm -f skktools-$(VERSION).tar ;\
+	rm -f skktools-$(VERSION) ;\
+	$(MD5) skktools-$(VERSION).tar.bz2 >skktools-$(VERSION).tar.bz2.md5 ;\
+	$(MD5) skktools-$(VERSION).tar.gz >skktools-$(VERSION).tar.gz.md5
+
+snapshot: clean
+	cd .. ;\
+	rm -f skktools-$(VERSION) skktools-$(VERSION) skktools-$(VERSION).tar.gz skktools-$(VERSION).tar.bz2 ;\
+	rm -f $(SNAPBASE) ;\
+	ln -sf tools $(SNAPBASE) ;\
+	$(TAR) cvpf $(SNAPBASE).tar --exclude-from=$(SNAPBASE)/skk.ex --dereference $(SNAPBASE) ;\
+	$(BZIP2) -cf $(SNAPBASE).tar > $(SNAPBASE).tar.bz2 ;\
+	$(GZIP) -cf $(SNAPBASE).tar > $(SNAPBASE).tar.gz ;\
+	rm -f $(SNAPBASE).tar ;\
+	rm -f $(SNAPBASE) ;\
+	$(MD5) $(SNAPBASE).tar.bz2 >$(SNAPBASE).tar.bz2.md5 ;\
+	$(MD5) $(SNAPBASE).tar.gz >$(SNAPBASE).tar.gz.md5
+
 
 .PHONY: clean distclean 
