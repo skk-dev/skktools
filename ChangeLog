@@ -1,3 +1,10 @@
+2000-09-30  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
+
+	* READMEs/FAQ.txt: Document fixed.
+	
+	* convert2skk/wnn2skk.awk: Remove unnecessary tag in tankan3.u.
+	* convert2skk/wnn2skk.sed: Ditto.
+	
 2000-09-29  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* READMEs/FAQ.txt: New file.
