@@ -12,8 +12,9 @@ dnl Check for executable suffix.
 AC_EXEEXT
 
 dnl Checks for libraries.
+
 AC_ARG_WITH(gdbm,
-[  --with-gdbm        Use gdbm instead of ndbm],
+[  --with-gdbm             Use gdbm instead of ndbm],
 [WITH_GDBM="$withval"])
 
 if test "$WITH_GDBM" = yes; then
@@ -36,7 +37,7 @@ dnl Checks for header files.
 AC_CHECK_HEADERS(fcntl.h)
 AC_CHECK_HEADERS(malloc.h)
 
-if test "$ac_cv_lib_ndbm_dbm_open" = yes; then
+if test "$ac_cv_func_dbm_open" = yes || test "$ac_cv_lib_ndbm_dbm_open" = yes; then
     AC_CHECK_HEADERS(ndbm.h)
     if test "$ac_cv_header_ndbm_h" = no; then
 	AC_CHECK_HEADERS(db1/ndbm.h)
