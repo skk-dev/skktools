@@ -21,8 +21,8 @@ if test "$WITH_GDBM" = yes; then
 fi
 
 if test "x$LIBS" = x; then
-    AC_CHECK_FUNC(dbm_open, DBMOPEN="builtin", AC_CHECK_LIB(ndbm, dbm_open))
-    if test "x$DBMOPEN" = x; then
+    AC_CHECK_FUNC(dbm_open,, AC_CHECK_LIB(ndbm, dbm_open))
+    if test "$ac_cv_func_dbm_open" = no; then
 	if test "x$LIBS" = x; then
 	    AC_CHECK_LIB(db, __db_ndbm_open)
 	fi
@@ -35,8 +35,13 @@ fi
 dnl Checks for header files.
 AC_CHECK_HEADERS(fcntl.h)
 AC_CHECK_HEADERS(malloc.h)
-AC_CHECK_HEADERS(ndbm.h)
-AC_CHECK_HEADERS(db1/ndbm.h)
+
+if test "$ac_cv_lib_ndbm_dbm_open" = yes; then
+    AC_CHECK_HEADERS(ndbm.h)
+    if test "$ac_cv_header_ndbm_h" = no; then
+	AC_CHECK_HEADERS(db1/ndbm.h)
+    fi
+fi
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 
