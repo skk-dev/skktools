@@ -1,3 +1,7 @@
+2000-09-27  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* configure.in: Check for md5sum only when md5 doesn't exist.
+
 2000-09-23  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
 	* configure.in: Check if programs bzip2, date, gzip, md5 (or
@@ -12,7 +16,7 @@
 	(MD5): Ditto.
 	(TAR): Ditto.
 	(SNAPBASE): Ditto.
-	
+
 	* skk.ex: New file.
 
 	* convert2skk/wnn2skk.sh: New file.
