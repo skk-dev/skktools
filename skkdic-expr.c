@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.7 2000/10/05 17:16:44 czkmt Exp $
+Version: $Id: skkdic-expr.c,v 1.8 2000/12/15 10:04:50 minakaji Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/10/05 17:16:44 $
+Last Modified: $Date: 2000/12/15 10:04:50 $
 
 This file is part of Daredevil SKK.
 
@@ -738,7 +738,7 @@ static void type_out(output)
     for (key = dbm_firstkey(db); key.dptr !=  NULL;  key = dbm_nextkey(db)) {
 	content = dbm_fetch(db, key);
 	for(i = 0; i < key.dsize; ++ i)
-	    putc((key.dptr)[i], output);
+	    putc(((char *)key.dptr)[i], output);
 	putc(' ', output);
 	fseek(dbcontent, getpos(content.dptr), 0);
 	db_gets(kanji, BLEN, dbcontent);
@@ -756,7 +756,7 @@ static void type_out(output)
 	    if (entry.dptr != NULL) continue;
 
 	    for(i = 0; i < key.dsize; ++ i)
-		putc((key.dptr)[i], output);
+		putc(((char *)key.dptr)[i], output);
 	    putc(' ', output);
 	    putc('/', output);
 	    okuri_type_out(&key, output);
