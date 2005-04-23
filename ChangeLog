@@ -1,3 +1,9 @@
+2005-04-24  Mikio NAKAJIMA  <minakaji@osaka.email.ne.jp>
+
+	* Makefile.in (install): Add DESTDIR as a prefix of bindir to
+	make distribution packages easily.
+	* Makefile.in (uninstall): Ditto
+
 2005-03-26  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 	* skkdic-count.c: BUFSIZE was too small.
 
