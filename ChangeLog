@@ -1,3 +1,12 @@
+2005-04-24  MITA Yuusuke  <clefs@mail.goo.ne.jp>
+
+	* skkdic-expr2.c: Reads from stdin if no filename is given.
+
+	* filters/abbrev-convert.rb:
+	* filters/abbrev-simplify-keys.rb:
+
+	New files.
+
 2005-04-24  Mikio NAKAJIMA  <minakaji@osaka.email.ne.jp>
 
 	* Makefile.in (install): Add DESTDIR as a prefix of bindir to

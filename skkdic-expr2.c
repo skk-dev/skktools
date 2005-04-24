@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.5 2003/09/30 03:23:13 fukuchi Exp $
+Version: $Id: skkdic-expr2.c,v 1.6 2005/04/24 16:53:19 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2003/09/30 03:23:13 $
+Last Modified: $Date: 2005/04/24 16:53:19 $
 
 This file is part of Daredevil SKK.
 
@@ -50,13 +50,13 @@ typedef struct {
 extern int errno;
 #endif
 
-/* 1994 年版の SKK 辞書では最長の行でも 656 文字ですが安全のために
-   以下の値としています。*/
+/* 2005 年版の SKK 辞書では最長の行(「こう」)は 2286 bytes ですが
+ * 安全のために以下の値としています。*/
 
 #ifdef MAXLINE
 #define BLEN MAXLINE
 #else
-#define BLEN 4096
+#define BLEN 8192
 #endif
 
 /* 辞書ツリー */
@@ -327,17 +327,11 @@ static void processCandidate(GTree *tree, gchar *midashi, gchar *candidate)
 	}
 }
 
-static void processFile(const char *filename)
+static void processFileAux(FILE *fp)
 {
-	FILE *fp;
 	static gchar buffer[BLEN];
 	gchar *cands;
 	GSList *clist, *list;
-
-	if((fp = fopen(filename, "r")) == NULL) {
-		perror(filename);
-		return;
-	}
 
 	while(fgets(buffer, BLEN, fp) != NULL) {
 		if(buffer[0] == ';' || buffer[0] == '\0') continue;
@@ -361,6 +355,19 @@ static void processFile(const char *filename)
 			g_slist_free(clist);
 		}
 	}
+}
+
+static void processFile(const char *filename)
+{
+	FILE *fp;
+
+	if((fp = fopen(filename, "r")) == NULL) {
+		perror(filename);
+		return;
+	}
+
+	processFileAux(fp);
+
 	fclose(fp);
 }
 
@@ -446,9 +453,16 @@ int main(int argc, char **argv)
 		}
 	}
 
+	initTrees();
+	negate = 0;
+
 	if(i >= argc) { /* 辞書が指定されていない */
-		print_usage(argv[0]);
-		exit(1);
+		/* 標準入力から読む */
+		processMode = 0;
+		processFileAux(stdin);
+
+		outputTrees();
+		return 0;
 	}
 
 	initTrees();
