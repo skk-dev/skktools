@@ -1,3 +1,16 @@
+2005-06-06  MITA Yuusuke  <clefs@mail.goo.ne.jp>
+
+    * filters/annotation-filter.rb:
+    * filters/asayaKe.rb:
+    * filters/complete-numerative.rb:
+    * filters/conjugation.rb:
+    * filters/skkdictools.rb:
+    * filters/README:
+	* convert2skk/ipadic2skk.rb:
+	* convert2skk/prime2skk.rb:
+
+	New files.
+
 2005-04-24  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 
 	* skkdic-expr2.c: Reads from stdin if no filename is given.

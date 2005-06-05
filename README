@@ -1,6 +1,6 @@
 -*- text -*-
-             $Date: 2000/03/12 12:17:49 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
-	     $Id: README,v 1.1 2000/03/12 12:17:49 minakaji Exp $
+             $Date: 2005/06/05 16:49:32 $ Mikio Nakajima/中島幹夫 <minakaji@osaka.email.ne.jp>
+	     $Id: README,v 1.2 2005/06/05 16:49:32 skk-cvs Exp $
 
 SKK 辞書のメンテナンス、拡張に必要なファイルを集めたパッケージです。
 
@@ -11,6 +11,8 @@ SKK 辞書のメンテナンス、拡張に必要なファイルを集めたパッケージです。
 
 3. dbm ディレクトリ -- SKK 辞書を dbm 化するために使用するプログラム。
    pskkserv の一部。
+
+4. filters ディレクトリ -- SKK 辞書を加工・編集するために使用するプログラム。
 
   $ ./configure
   $ make

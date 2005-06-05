@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: abbrev-simplify-keys.rb,v 1.1 2005/04/24 16:53:19 skk-cvs Exp $
+## Version: $Id: abbrev-simplify-keys.rb,v 1.2 2005/06/05 16:49:32 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/04/24 16:53:19 $
+## Last Modified: $Date: 2005/06/05 16:49:32 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 ## alphabetic keys, decapitalising all the alphabets and removing
 ## any non-alphabetic letters.
 ##
-##     %abbrev-simplify-keys.rb -s 3 SKK-JISYO.L > tmp.txt
+##     % abbrev-simplify-keys.rb -s 3 SKK-JISYO.L > tmp.txt
 ##     % skkdic-expr2 SKK-JISYO.L + tmp.txt
 ## 
 ## '-s <num>' option suppresses keys less than <num> letters; this is
