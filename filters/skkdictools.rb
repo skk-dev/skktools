@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: skkdictools.rb,v 1.1 2005/06/05 16:49:32 skk-cvs Exp $
+## Version: $Id: skkdictools.rb,v 1.2 2005/06/06 15:52:12 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/05 16:49:32 $
+## Last Modified: $Date: 2005/06/06 15:52:12 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -155,7 +155,7 @@ class String
 	def parse_skk_entry
 		tmp = self.chop.split(" /", 2)
 		midasi = tmp.shift
-		tokens = tmp[0].split("/")
+		tokens = tmp[0].sub(/\/\[.*/, "").split("/")
 		return midasi, tokens
 	end
 

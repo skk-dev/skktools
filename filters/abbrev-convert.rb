@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: abbrev-convert.rb,v 1.1 2005/04/24 16:53:19 skk-cvs Exp $
+## Version: $Id: abbrev-convert.rb,v 1.2 2005/06/06 15:52:12 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/04/24 16:53:19 $
+## Last Modified: $Date: 2005/06/06 15:52:12 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -82,7 +82,7 @@ while gets
     next if $_ =~ /^[^a-zA-Z0-9]/
     tmp = $_.chop.split(" /", 2)
     midasi = tmp.shift
-    tokens = tmp[0].split("/")
+	tokens = tmp[0].sub(/\/\[.*/, "").split("/")
     candidates = Array.new
 
     tokens.each do |token|

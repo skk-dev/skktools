@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.6 2005/04/24 16:53:19 skk-cvs Exp $
+Version: $Id: skkdic-expr2.c,v 1.7 2005/06/06 15:52:12 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2005/04/24 16:53:19 $
+Last Modified: $Date: 2005/06/06 15:52:12 $
 
 This file is part of Daredevil SKK.
 
@@ -34,7 +34,7 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
 #include <glib.h>
 #include <errno.h>
 
-#define ANNOTATION_DELIMITER ","
+#define ANNOTATION_DELIMITER annotation_delimiter
 
 typedef struct {
 	gchar *candidate;
@@ -62,6 +62,8 @@ extern int errno;
 /* 辞書ツリー */
 GTree *okuriAri;
 GTree *okuriNashi;
+
+char annotation_delimiter[16];
 
 static gint strCmp(gconstpointer, gconstpointer, gpointer);
 static gint strCmpR(gconstpointer, gconstpointer, gpointer);
@@ -427,7 +429,7 @@ static void outputTrees()
 static void print_usage(char *title)
 {
 	fprintf(stderr,
-		"Usage: %s [-o output] jisyo1 [[+-^] jisyo2]...\n", title);
+		"Usage: %s [-d delimiter] [-o output] jisyo1 [[+-^] jisyo2]...\n", title);
 }
 
 int main(int argc, char **argv)
@@ -435,6 +437,7 @@ int main(int argc, char **argv)
 	int negate, i;
 
 	output = stdout;
+	strcpy(annotation_delimiter, ",");
 
 	for(i=1; i<argc; i++) {
 		if(argv[i][0] == '-') {
@@ -444,6 +447,10 @@ int main(int argc, char **argv)
 					perror(argv[i]);
 					exit(1);
 				}
+			} else if(argv[i][1] == 'd') {/* -o delimiter */
+				i++;
+				strncpy(annotation_delimiter, argv[i],
+						sizeof(annotation_delimiter));
 			} else {
 				print_usage(argv[0]);
 				exit(1);

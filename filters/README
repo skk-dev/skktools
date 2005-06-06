@@ -41,7 +41,7 @@ abbrev ペアを、ひらがな・カタカナ変換ペアに加工して出力します。
 
 -w
 abbrev ペアを、和英変換ペアに加工して出力します。
-「キャット /cat/」
+「きゃっと /cat/」
 
 
 ・その他のオプション
@@ -56,7 +56,7 @@ abbrev ペアを、和英変換ペアに加工して出力します。
 元のペアについていた annotation を添付せずに削除します。
 
 
-% abbrev-convert.rb -k SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.hira-kata
+% abbrev-convert.rb -w SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.hira-kata
 
 　L辞書の abbrev ペアを元に、和英変換辞書を作成します。
 
@@ -128,6 +128,14 @@ asayaKe.rb
 
 	「あさやけ /朝焼け/」 → 「あさやk /朝焼/」
 
+
+% asayaKe.rb -p SKK-JISYO.L > SKK-JISYO.asayaKe
+% skkdic-expr2 SKK-JISYO.L + SKK-JISYO.asayaKe > SKK-JISYO.L.new
+
+　この操作で、送り仮名のある語は原則として全て okuri-ari として入力でき
+るようになります。
+
+
 　-e を指定した場合は変換せずに抽出のみを行い、-E を指定した場合は変換前
 と変換後の両方のペアを出力します。
 
@@ -143,6 +151,7 @@ asayaKe.rb
 　-u で、元のペアについていた annotation を削除します。
 
 　-p で、※を含む、または ? で終わる annotation を持つ候補を除外します。
+
 
 
 complete-numerative.rb
