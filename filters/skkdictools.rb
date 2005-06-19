@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: skkdictools.rb,v 1.2 2005/06/06 15:52:12 skk-cvs Exp $
+## Version: $Id: skkdictools.rb,v 1.3 2005/06/19 17:03:21 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/06 15:52:12 $
+## Last Modified: $Date: 2005/06/19 17:03:21 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -68,105 +68,102 @@ GyakuhikiOkurigana = [
 # ("あさやけ", "朝焼け") => ("あさやk", "朝焼", "け")
 # ("ねこ", "猫") => nil
 def okuri_nasi_to_ari(midasi, candidate)
-	return nil if (/(.*[^ぁ-んー])([ぁ-ん]+)$/ !~ candidate)
-	can_prefix = $1
-	can_postfix = $2
-	return nil if !(can_prefix && can_postfix && (/(.+)#{can_postfix}$/ =~ midasi))
-	key_prefix = $1
-	key_kana_postfix = GyakuhikiOkurigana.assoc(can_postfix.split('')[0])
-	return nil if key_kana_postfix.empty?
+  return nil if (/(.*[^ぁ-んー])([ぁ-ん]+)$/ !~ candidate)
+  can_prefix = $1
+  can_postfix = $2
+  return nil if !(can_prefix && can_postfix && (/(.+)#{can_postfix}$/ =~ midasi))
+  key_prefix = $1
+  key_kana_postfix = GyakuhikiOkurigana.assoc(can_postfix.split('')[0])
+  return nil if key_kana_postfix.empty?
 
-	okuri = key_kana_postfix[1]
-	# handle some exceptions
-	okuri = "c" if can_postfix =~ /^っち/ || can_postfix =~ /^ち[ゃゅょ]/
-	okuri = "p" if can_postfix =~ /^っ[ぱ-ぽ]/
-	okuri = "k" if can_postfix =~ /^っ[か-こ]/
+  okuri = key_kana_postfix[1]
+  # handle some exceptions
+  okuri = "c" if can_postfix =~ /^っち/ || can_postfix =~ /^ち[ゃゅょ]/
+  okuri = "p" if can_postfix =~ /^っ[ぱ-ぽ]/
+  okuri = "k" if can_postfix =~ /^っ[か-こ]/
 
-	return key_prefix + okuri, can_prefix, can_postfix
+  return key_prefix + okuri, can_prefix, can_postfix
 end
 
 def print_pair(key, candidate, annotation = nil, comment = nil)
-	if !annotation.nil? && !annotation.empty?
-		if comment.nil? || comment.empty?
-			print "#{key} /#{candidate};#{annotation}/\n"
-		else
-			print "#{key} /#{candidate};#{annotation}‖#{comment}/\n"
-		end
-	else
-		if comment.nil? || comment.empty?
-			print "#{key} /#{candidate}/\n"
-		else
-			print "#{key} /#{candidate};‖#{comment}/\n"
-		end
-	end
+  if !annotation.nil? && !annotation.empty?
+    if comment.nil? || comment.empty?
+      print "#{key} /#{candidate};#{annotation}/\n"
+    else
+      print "#{key} /#{candidate};#{annotation}‖#{comment}/\n"
+    end
+  else
+    if comment.nil? || comment.empty?
+      print "#{key} /#{candidate}/\n"
+    else
+      print "#{key} /#{candidate};‖#{comment}/\n"
+    end
+  end
 end
 
 # borrowed from skkform.rb
 class String
-	def to_katakana
-		self.gsub(/う゛/, '\\1ヴ').tr('ぁ-ん', 'ァ-ン')
-	end
+  def to_katakana
+    self.gsub(/う゛/, '\\1ヴ').tr('ぁ-ん', 'ァ-ン')
+  end
 
-	def to_hiragana
-		self.gsub(/ヴ/, 'う゛').tr('ァ-ン', 'ぁ-ん')
-	end
+  def to_hiragana
+    self.gsub(/ヴ/, 'う゛').tr('ァ-ン', 'ぁ-ん')
+  end
 
-	def cut_off_prefix_postfix
-		self.sub(/^[<>\?]([ーぁ-ん]+)$/, '\1').sub(/^([ーぁ-ん]+)[<>\?]$/, '\1')
-	end
+  def cut_off_prefix_postfix
+    self.sub(/^[<>\?]([ーぁ-ん]+)$/, '\1').sub(/^([ーぁ-ん]+)[<>\?]$/, '\1')
+  end
 
-	# from 「オブジェクト指向スクリプト言語ruby」p121
-	def csv_split(delimiter = ',')
-		csv = []
-		data = ""
-		self.split(delimiter).each do |d|
-			if data.empty?
-				data = d
-			else
-				data += delimiter + d
-			end
-			if /^"/ =~ data
-				if /[^"]"$/ =~ data or '""' == data
-					csv << data.sub(/^"(.*)"$/, '\1').gsub(/""/, '"')
-					data = ''
-				end
-			else
-				csv << d
-				data = ''
-			end
-		end
-		raise "cannot decode CSV\n" unless data.empty?
-		csv
+  # from 「オブジェクト指向スクリプト言語ruby」p121
+  def csv_split(delimiter = ',')
+    csv = []
+    data = ""
+    self.split(delimiter).each do |d|
+      if data.empty?
+	data = d
+      else
+	data += delimiter + d
+      end
+      if /^"/ =~ data
+	if /[^"]"$/ =~ data or '""' == data
+	  csv << data.sub(/^"(.*)"$/, '\1').gsub(/""/, '"')
+	  data = ''
 	end
+      else
+	csv << d
+	data = ''
+      end
+    end
+    raise "cannot decode CSV\n" unless data.empty?
+    csv
+  end
 
-	def csv_quote
-		self.gsub(/"/, '\\"').sub(/.*,.*/, '"\&"')
-	end
+  def csv_quote
+    self.gsub(/"/, '\\"').sub(/.*,.*/, '"\&"')
+  end
 
-	def csv_unquote
-		self.sub(/^\"(.+)\"$/, '\1')
-	end
+  def csv_unquote
+    self.sub(/^\"(.+)\"$/, '\1')
+  end
 
-	# 09/30/04 => 04/09/30
-	def mdy2ymd
-		self.sub(/^([0-9]*)\/([0-9]*)\/([0-9]*)/, '\3/\1/\2')
-	end
+  # 09/30/04 => 04/09/30
+  def mdy2ymd
+    self.sub(/^([0-9]*)\/([0-9]*)\/([0-9]*)/, '\3/\1/\2')
+  end
 
-	def parse_skk_entry
-		tmp = self.chop.split(" /", 2)
-		midasi = tmp.shift
-		tokens = tmp[0].sub(/\/\[.*/, "").split("/")
-		return midasi, tokens
-	end
+  def parse_skk_entry
+    midasi, rest = self.chop.split(" /", 2)
+    tokens = rest.sub(/\/\[.*/, "").split("/") if !rest.nil?
+    return midasi, tokens
+  end
 
-	def skk_split_tokens
-		tmp = self.split(";")
-		word = tmp[0]
-		return word, nil, nil if tmp[1].nil?
-		tmp = tmp[1].split("‖", 2)
-		annotation = tmp[0]
-		comment = tmp[1]
-		return word, annotation, comment
-	end
+  def skk_split_tokens(delimiter = '‖')
+    word, annotation = self.split(";", 2)
+    return word, nil, nil if annotation.nil?
+    return word, annotation, nil if delimiter.nil?
+    annotation, comment = annotation.split(delimiter, 2)
+    return word, annotation, comment
+  end
 end
 

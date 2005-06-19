@@ -69,7 +69,7 @@ abbrev-simplify-keys.rb
 
 
 % abbrev-simplify-keys.rb -s 3 SKK-JISYO.L > tmp.txt
-% skkdic-expr2 SKK-JISYO.L + tmp.txt
+% skkdic-expr2 SKK-JISYO.L + tmp.txt > SKK-JISYO.L.modified
 
 　L辞書から、見出しが 3 文字以上の abbrev ペアを抽出し、見出しを単純化し
 てL辞書に戻してやります。
@@ -80,7 +80,7 @@ B-spline /Ｂ−スプライン/ → bspline /Ｂ−スプライン/
 annotation-filter.rb
 ====================
 
-SKK 辞書の annotation を加工・抽出します。
+　SKK 辞書の annotation を加工・抽出します。
 
 
 % annotation-filter.rb SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.L.unannotated
@@ -109,16 +109,23 @@ SKK 辞書の annotation を加工・抽出します。
 対応しているエントリにつけられた annotation (-s) のみを削除して出力しま
 す。
 
-% annotation-filter.rb -t -k -x '\[化学\]' SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.L.minimally-annotated
+% annotation-filter.rb -t -k -x '\[化学\]' SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.L.chemistry
 
 　-t を指定すると、条件に合った annotation を持つペアのみを出力します。
 　この例では、「[化学]」と annotate された語のみを抽出しています。
 
+
 　全ての場合で、annotation のうち「‖」以降の部分は自動的に削除されます
-が、-s を与えることで逆に「‖」以降は決して削除されない動作になります。
-　「‖」以降の文字列は、-u などの対象にもなりません。全て消すか、全て残
-すかしかできないわけです。「‖」以降は annotation ではなく comment であ
-るということです。（conjugation.rb の項目参照）
+が、-b を与えることで逆に「‖」以降は決して削除されない動作になります。
+　「‖」以降の文字列は、-u などの対象にもなりません。原則的に、全て消す
+か、全て残すかになります。「‖」以降は annotation ではなく comment であ
+るというわけです。（conjugation.rb の項目参照）
+
+% annotation-filter.rb -Btk -x 'ワ行五段' SKK-JISYO.notes
+
+　-B を指定すると、この特別扱いを行わず、「‖」以降も通常の annotation 
+として扱います。
+
 
 
 asayaKe.rb
@@ -157,7 +164,7 @@ asayaKe.rb
 complete-numerative.rb
 ======================
 
-　#0,#1,#2,#3 のいづれかを含む数値変換ペアから、#0,#1,#2,#3 のそれぞれを
+　#0,#1,#2,#3 のいずれかを含む数値変換ペアから、#0,#1,#2,#3 のそれぞれを
 含む 4 つのペアを作成して出力します。不揃いな数値変換エントリを補完する
 のに用います。
 

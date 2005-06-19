@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: abbrev-simplify-keys.rb,v 1.2 2005/06/05 16:49:32 skk-cvs Exp $
+## Version: $Id: abbrev-simplify-keys.rb,v 1.3 2005/06/19 17:03:21 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/05 16:49:32 $
+## Last Modified: $Date: 2005/06/19 17:03:21 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -45,16 +45,16 @@ stem = 0
 opt.on('-s VAL', 'stem keys(MIDASI) equal or shorter than VAL letters') { |v| stem = v.to_i }
 
 begin
-    opt.parse!(ARGV)
+  opt.parse!(ARGV)
 rescue OptionParser::InvalidOption => e
-    print "'#{$0} -h' for help.\n"
-    exit 1
+  print "'#{$0} -h' for help.\n"
+  exit 1
 end
 
 while gets
-    next if $_ =~ /^[^a-zA-Z0-9]/
-    tmp = $_.chop.split(" /", 2)
-    midasi = tmp.shift.downcase.delete('^a-z0-9')
-    next if midasi.length <= stem
-    print "#{midasi} /#{tmp[0]}\n"
+  next if $_ =~ /^[^a-zA-Z0-9]/
+  tmp = $_.chop.split(" /", 2)
+  midasi = tmp.shift.downcase.delete('^a-z0-9')
+  next if midasi.length <= stem
+  print "#{midasi} /#{tmp[0]}\n"
 end

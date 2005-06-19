@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.7 2005/06/06 15:52:12 skk-cvs Exp $
+Version: $Id: skkdic-expr2.c,v 1.8 2005/06/19 17:03:21 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2005/06/06 15:52:12 $
+Last Modified: $Date: 2005/06/19 17:03:21 $
 
 This file is part of Daredevil SKK.
 
@@ -447,8 +447,12 @@ int main(int argc, char **argv)
 					perror(argv[i]);
 					exit(1);
 				}
-			} else if(argv[i][1] == 'd') {/* -o delimiter */
+			} else if(argv[i][1] == 'd') {/* -d delimiter */
 				i++;
+				if (i>=argc) {
+					print_usage(argv[0]);
+					exit(1);
+				}
 				strncpy(annotation_delimiter, argv[i],
 						sizeof(annotation_delimiter));
 			} else {

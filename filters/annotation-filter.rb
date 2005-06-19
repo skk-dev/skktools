@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: annotation-filter.rb,v 1.1 2005/06/05 16:49:32 skk-cvs Exp $
+## Version: $Id: annotation-filter.rb,v 1.2 2005/06/19 17:03:21 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/05 16:49:32 $
+## Last Modified: $Date: 2005/06/19 17:03:21 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -38,11 +38,11 @@ unannotate_cap = 99999999
 doublebar = "remove"
 rulesets = Array.new
 default_rulesets = [
-	[ "exclude", 'ⅷ|\?$'],
-	# [ "exclude", "\[溶\]" ],
-	[ "keep", '奠机|佰挛机|塑机|络机|Ⅶ|ⅹ' ],
-	# [ "keep", "NB:|=|⑩|♀|下澜|<rare>" ],
-	# [ "cut", "÷" ] - 'doublebar' handles it inplace
+  [ "exclude", 'ⅷ|\?$' ],
+  # [ "exclude", "\[溶\]" ],
+  [ "keep", '奠机|佰挛机|塑机|络机|Ⅶ|ⅹ' ],
+  # [ "keep", "NB:|=|⑩|♀|下澜|<rare>" ],
+  # [ "cut", "÷" ] - 'doublebar' handles it inplace
 ]
 
 
@@ -60,52 +60,53 @@ opt.on('-d', "apply default rulesets") { rulesets += default_rulesets }
 
 opt.on('-b', "sticky '÷' -- annotation after '÷' will always be kept") { doublebar = "sticky" }
 #opt.on('-B', "always remove annotations after '÷'") { doublebar = "remove" }
+opt.on('-B', "treat '÷' as a part of annotation") { doublebar = "dumb" }
 
 
 begin
-	opt.parse!(ARGV)
-	#rulesets = default_rulesets if rulesets.empty?
+  opt.parse!(ARGV)
+  #rulesets = default_rulesets if rulesets.empty?
 rescue OptionParser::InvalidOption => e
-	print "'#{$0} -h' for help.\n"
-	exit 1
+  print "'#{$0} -h' for help.\n"
+  exit 1
 end
 
 
 while gets
-	next if $_ =~ /^;/ || $_ =~ /^$/
-	midasi, tokens = $_.parse_skk_entry
-	total = tokens.nitems
-	#results = Array.new
+  next if $_ =~ /^;/ || $_ =~ /^$/
+  midasi, tokens = $_.parse_skk_entry
+  total = tokens.nitems
+  #results = Array.new
 
-	tokens.each do |token|
-		word, annotation, comment = token.skk_split_tokens
+  tokens.each do |token|
+    word, annotation, comment = token.skk_split_tokens( doublebar == "dumb" ? nil : '÷')
 
-		do_unannotate = !keep_annotation
-		do_output = output_all
-		do_unannotate = true if unannotate_unique && total == 1
-		do_unannotate = false if unannotate_cap <= total
+    do_unannotate = !keep_annotation
+    do_output = output_all
+    do_unannotate = true if unannotate_unique && total == 1
+    do_unannotate = false if unannotate_cap <= total
 
-		rulesets.each do |rule|
-			if !annotation.nil?
-				match = (annotation =~ Regexp.compile(rule[1]))
-				if match
-					case rule[0]
-					when "cut"
-						annotation = annotation[0, match]
-					when "extract"
-						do_output = true
-					when "exclude"
-						do_output = false
-					when "unannotate"
-						do_unannotate = true
-					when "keep"
-						do_unannotate = false
-					end
-				end
-			end
-		end
-		next if !do_output
-		#results << [word, do_unannotate ? nil : annotation, doublebar == "sticky" ? comment : nil]
-		print_pair(midasi, word, do_unannotate ? nil : annotation, doublebar == "sticky" ? comment : nil)
+    rulesets.each do |rule|
+      if !annotation.nil?
+	match = (annotation =~ Regexp.compile(rule[1]))
+	if match
+	  case rule[0]
+	  when "cut"
+	    annotation = annotation[0, match]
+	  when "extract"
+	    do_output = true
+	  when "exclude"
+	    do_output = false
+	  when "unannotate"
+	    do_unannotate = true
+	  when "keep"
+	    do_unannotate = false
+	  end
 	end
+      end
+    end
+    next if !do_output
+    #results << [word, do_unannotate ? nil : annotation, doublebar == "sticky" ? comment : nil]
+    print_pair(midasi, word, do_unannotate ? nil : annotation, doublebar == "sticky" ? comment : nil)
+  end
 end

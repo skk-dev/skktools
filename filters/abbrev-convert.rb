@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: abbrev-convert.rb,v 1.2 2005/06/06 15:52:12 skk-cvs Exp $
+## Version: $Id: abbrev-convert.rb,v 1.3 2005/06/19 17:03:21 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/06 15:52:12 $
+## Last Modified: $Date: 2005/06/19 17:03:21 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -72,69 +72,69 @@ opt.on('-u', 'eliminate annotations') { unannotate = true }
 opt.on('-s VAL', 'stem candidates equal or shorter than VAL letters') { |v| stem = v.to_i * 2 }
 
 begin
-    opt.parse!(ARGV)
+  opt.parse!(ARGV)
 rescue OptionParser::InvalidOption => e
-    print "'#{$0} -h' for help.\n"
-    exit 1
+  print "'#{$0} -h' for help.\n"
+  exit 1
 end
 
 while gets
-    next if $_ =~ /^[^a-zA-Z0-9]/
-    tmp = $_.chop.split(" /", 2)
-    midasi = tmp.shift
-	tokens = tmp[0].sub(/\/\[.*/, "").split("/")
-    candidates = Array.new
+  next if $_ =~ /^[^a-zA-Z0-9]/
+  tmp = $_.chop.split(" /", 2)
+  midasi = tmp.shift
+  tokens = tmp[0].sub(/\/\[.*/, "").split("/")
+  candidates = Array.new
 
-    tokens.each do |token|
-	tmp = token.split(";")
-	next if tmp[0] =~ /[^¥¡-¥ô¡¼]/
-	next if tmp[0].length <= stem
-	next if purge && tmp[1] =~ /¢¨/
-	next if purge && tmp[1] =~ /\?$/
-	candidates.push tmp
+  tokens.each do |token|
+    tmp = token.split(";")
+    next if tmp[0] =~ /[^¥¡-¥ô¡¼]/
+    next if tmp[0].length <= stem
+    next if purge && tmp[1] =~ /¢¨/
+    next if purge && tmp[1] =~ /\?$/
+    candidates.push tmp
+  end
+
+  next if candidates.nitems < 1
+
+  case mode
+  when "extract"
+    print "#{midasi} /"
+    candidates.each do |word,annotation|
+      if !unannotate && !annotation.nil?
+	print "#{word};#{annotation}/"
+      else
+	print "#{word}/"
+      end
     end
-
-    next if candidates.nitems < 1
-
-    case mode
-    when "extract"
-	print "#{midasi} /"
-	candidates.each do |word,annotation|
-	    if !unannotate && !annotation.nil?
-		print "#{word};#{annotation}/"
-	    else
-		print "#{word}/"
-	    end
-	end
-	print "\n"
-    when "waei"
-	candidates.each do |word,annotation|
-	    word.tr!('¥¡-¥ó', '¤¡-¤ó').gsub!(/¥ô/, '¤¦¡«')
-	    if !unannotate && !annotation.nil?
-		print "#{word} /#{midasi};#{annotation}/\n"
-	    else
-		print "#{word} /#{midasi}/\n"
-	    end
-	end
-    when "hira-kata"
-	candidates.each do |word,annotation|
-	    word_hira = word.tr('¥¡-¥ó', '¤¡-¤ó').gsub(/¥ô/, '¤¦¡«')
-	    if !unannotate && !annotation.nil?
-		print "#{word_hira} /#{word};#{annotation}/"
-	    else
-		print "#{word_hira} /#{word}/"
-	    end
-	    print "\n"
-	end
-    when "hira-kata-with-spell"
-	candidates.each do |word,annotation|
-	    word_hira = word.tr('¥¡-¥ó', '¤¡-¤ó').gsub(/¥ô/, '¤¦¡«')
-	    if !unannotate && !annotation.nil?
-		print "#{word_hira} /#{word};#{midasi}¡¨#{annotation}/"
-	    else
-		print "#{word_hira} /#{word};#{midasi}/"
-	    end
-	    print "\n"
-	end
+    print "\n"
+  when "waei"
+    candidates.each do |word,annotation|
+      word.tr!('¥¡-¥ó', '¤¡-¤ó').gsub!(/¥ô/, '¤¦¡«')
+      if !unannotate && !annotation.nil?
+	print "#{word} /#{midasi};#{annotation}/\n"
+      else
+	print "#{word} /#{midasi}/\n"
+      end
     end
+  when "hira-kata"
+    candidates.each do |word,annotation|
+      word_hira = word.tr('¥¡-¥ó', '¤¡-¤ó').gsub(/¥ô/, '¤¦¡«')
+      if !unannotate && !annotation.nil?
+	print "#{word_hira} /#{word};#{annotation}/"
+      else
+	print "#{word_hira} /#{word}/"
+      end
+      print "\n"
+    end
+  when "hira-kata-with-spell"
+    candidates.each do |word,annotation|
+      word_hira = word.tr('¥¡-¥ó', '¤¡-¤ó').gsub(/¥ô/, '¤¦¡«')
+      if !unannotate && !annotation.nil?
+	print "#{word_hira} /#{word};#{midasi}¡¨#{annotation}/"
+      else
+	print "#{word_hira} /#{word};#{midasi}/"
+      end
+      print "\n"
+    end
+  end
 end

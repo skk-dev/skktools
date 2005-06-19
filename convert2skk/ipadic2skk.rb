@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: ipadic2skk.rb,v 1.1 2005/06/05 16:49:32 skk-cvs Exp $
+## Version: $Id: ipadic2skk.rb,v 1.2 2005/06/19 17:03:21 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/05 16:49:32 $
+## Last Modified: $Date: 2005/06/19 17:03:21 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -26,11 +26,11 @@
 ##
 ## This script tries to convert IPADIC dictionary files into skk ones.
 ##
-##	  % ipadic2skk.rb ipadic-2.7.0/Noun.name.dic | skkdic-expr2 > SKK-JISYO.ipadic.jinmei
+##     % ipadic2skk.rb ipadic-2.7.0/Noun.name.dic | skkdic-expr2 > SKK-JISYO.ipadic.jinmei
 ##
 ## would yield a lot of nifty jinmei additions.
 ##
-##    % ipadic2skk.rb -Ag ipadic-2.7.0/Verb.dic | conjugation.rb -opUC | skkdic-expr2 > SKK-JISYO.ipadic.verb
+##     % ipadic2skk.rb -Ag ipadic-2.7.0/Verb.dic | conjugation.rb -opUC | skkdic-expr2 > SKK-JISYO.ipadic.verb
 ##
 ## With -g and -A options, this script can append grammatical annotations
 ## useful in combination with conjugation.rb.
@@ -44,108 +44,112 @@ require 'optparse'
 opt = OptionParser.new
 skip_identical = true
 skip_hira2kana = true
-grammer = false
+grammar = false
 asayake_mode = "none"
 
 opt.on('-a', "convert Asayake into AsayaKe") { asayake_mode = "convert" }
 opt.on('-A', "both Asayake and AsayaKe are output") { asayake_mode = "both" }
-opt.on('-g', "append grammatical annotations") { grammer = true }
+opt.on('-g', "append grammatical annotations") { grammar = true }
 opt.on('-k', "generate hiragana-to-katakana pairs (「ねこ /ネコ/」)") { skip_hira2kana = false }
 opt.on('-K', "generate identical pairs (「ねこ /ねこ/」)") { skip_identical = false }
 
 begin
-    opt.parse!(ARGV)
+  opt.parse!(ARGV)
 rescue OptionParser::InvalidOption => e
-    print "'#{$0} -h' for help.\n"
-    exit 1
+  print "'#{$0} -h' for help.\n"
+  exit 1
 end
 
 while gets
-	#line = $_.toeuc
-	next if $_ !~ /^\(品詞 \(([^)]*)\)\) \(\(見出し語 \(([^ ]*) [0-9]*\)\) \(読み ([^ ]*)\)/
-	# (品詞 (名詞 一般)) ((見出し語 (学課 3999)) (読み ガッカ) (発音 ガッカ) )
-	next if skip_hira2kana && $2 == $3
-	hinsi = $1
-	candidate = $2
-	key = $3.tr('ァ-ン', 'ぁ-ん').gsub(/ヴ/, 'う゛')
-	next if skip_identical && key == candidate
+  #line = $_.toeuc
+  next if $_ !~ /^\(品詞 \(([^)]*)\)\) \(\(見出し語 \(([^ ]*) [0-9]*\)\) \(読み ([^ ]*)\)/
+  # (品詞 (名詞 一般)) ((見出し語 (学課 3999)) (読み ガッカ) (発音 ガッカ) )
+  next if skip_hira2kana && $2 == $3
+  hinsi = $1
+  candidate = $2
+  key = $3.tr('ァ-ン', 'ぁ-ん').gsub(/ヴ/, 'う゛')
+  next if skip_identical && key == candidate
 
-	conjugation = nil
-	if grammer && $_ =~ /\(活用型 ([^)]*)\) \)$/
-		# (活用型 五段・ワ行促音便) )
-		conjugation = $1.sub(/^(..)・([ア-ン]行)/, '\2\1 ')
+  conjugation = nil
+  if grammar && $_ =~ /\(活用型 ([^)]*)\) \)$/
+    # (活用型 五段・ワ行促音便) )
+    conjugation = $1.sub(/^(..)・([ア-ン]行)/, '\2\1 ')
+  end
+
+  comment = nil
+  if grammar
+    comment = hinsi
+    comment += " " + conjugation if !conjugation.nil?
+    if hinsi =~ /接頭詞/
+      if hinsi =~ /数接続/
+	# generate "#0"; complete-numerative.rb should do the rest
+	candidate += "#0"
+	key += "#"
+      else
+	comment += "[φ>]"
+      end
+    elsif hinsi =~ /接尾/
+      if hinsi =~ /助数詞/
+	comment += "[φ#]"
+      else
+	comment += "[φ<]"
+      end
+    end
+  end
+
+  tail = ""
+  if key =~ /^\{(.*)\}([ぁ-ん]*)$/
+    tail = $2
+    # (読み {チネツ/ジネツ})
+    keys = $1.split("/")
+  else
+    keys = key
+  end
+
+  keys.each do |midasi|
+    midasi += tail if !tail.nil?
+    next if skip_identical && midasi == candidate
+    print_orig = true
+
+    if asayake_mode != "none"
+      new_midasi, new_candidate, postfix = okuri_nasi_to_ari(midasi, candidate)
+      if !new_midasi.nil?
+	comment_extra = ""
+	if grammar
+	  comment_extra += "[iks(gm)]" if postfix == "い" && hinsi =~ /形容詞/
+
+	  comment_extra += "[wiueot(c)]" if postfix == "う" && conjugation =~ /ワ行五段/
+	  comment_extra += "[gi]" if postfix == "ぐ" && conjugation =~ /ガ行五段/
+	  comment_extra += "[mn]" if postfix == "む" && conjugation =~ /マ行五段/
+	  comment_extra += "[*]" if postfix == "る" && conjugation =~ /カ変/
+	  comment_extra += "[rt(cn)]" if postfix == "る" && conjugation =~ /ラ行五段/
+	  # this can be of problem
+	  comment_extra += "[a-z]" if postfix == "る" && conjugation =~ /一段/
+
+	  #comment_extra += "[ki]" if postfix == "く" && conjugation =~ /カ行五段/
+	  if postfix == "く" && conjugation =~ /カ行五段/
+	    #if new_candidate =~ /行$/
+	    if new_midasi =~ /いk$/
+	      comment_extra += "[ktc]"
+	    elsif new_midasi =~ /ゆk$/
+	      comment_extra += "[k]"
+	    else
+	      comment_extra += "[ki]"
+	    end
+	  end
+
+	  comment_extra += "(-#{postfix})"
+	  #print_orig = false if !comment_extra.empty?
+	  print_orig = false if hinsi =~ /動詞|形容詞/
 	end
-
-	comment = nil
-	if grammer
-		comment = hinsi
-		comment += " " + conjugation if !conjugation.nil?
-		if hinsi =~ /接頭詞/
-			if hinsi =~ /数接続/
-				# generates "#0"; complete-numerative.rb should do the rest
-				candidate += "#0"
-				key += "#"
-			else
-				comment += "[φ>]"
-			end
-		elsif hinsi =~ /接尾/
-			if hinsi =~ /助数詞/
-				comment += "[φ#]"
-			else
-				comment += "[φ<]"
-			end
-		end
-	end
-
-	tail = ""
-	if key =~ /^\{(.*)\}([ぁ-ん]*)$/
-		tail = $2
-		# (読み {チネツ/ジネツ})
-		keys = $1.split("/")
-	else
-		keys = key
-	end
-
-	keys.each do |midasi|
-		midasi += tail if !tail.nil?
-		next if skip_identical && midasi == candidate
-		print_orig = true
-
-		if asayake_mode != "none"
-			new_midasi, new_candidate, postfix = okuri_nasi_to_ari(midasi, candidate)
-			if !new_midasi.nil?
-				comment_extra = ""
-				if grammer
-					comment_extra += "(-#{postfix})"
-
-					comment_extra += "[iks(gm)]" if postfix == "い" && hinsi =~ /形容詞/
-
-					comment_extra += "[wiueot(c)]" if postfix == "う" && conjugation =~ /ワ行五段/
-					comment_extra += "[gi]" if postfix == "ぐ" && conjugation =~ /ガ行五段/
-					comment_extra += "[mn]" if postfix == "む" && conjugation =~ /マ行五段/
-					comment_extra += "[*]" if postfix == "る" && conjugation =~ /カ変/
-					comment_extra += "[rt(cn)]" if postfix == "る" && conjugation =~ /ラ行五段/
-					# this can be of problem
-					comment_extra += "[a-z]" if postfix == "る" && conjugation =~ /一段/
-
-					#comment_extra += "[ki]" if postfix == "く" && conjugation =~ /カ行五段/
-					if postfix == "く" && conjugation =~ /カ行五段/
-						if new_candidate =~ /行$/
-							comment_extra += "[ktc]"
-						else
-							comment_extra += "[ki]"
-						end
-					end
-
-					print_orig = false if !comment_extra.empty?
-				end
-				print_pair(new_midasi, new_candidate, nil, comment + comment_extra)
-				print_orig = false if asayake_mode != "both"
-			else
-				comment += "[φdn(s)]" if hinsi =~ /形容動詞語幹/
-				comment += "[φs]" if hinsi =~ /サ変接続/
-			end
-		end
-		print_pair(midasi, candidate, nil, grammer ? comment : nil) if print_orig
-	end
+	print_pair(new_midasi, new_candidate, nil,
+		    comment.delete("φ") + comment_extra)
+	print_orig = false if asayake_mode != "both"
+      else
+	comment += "[φdn(s)]" if hinsi =~ /形容動詞語幹/
+	comment += "[φs]" if hinsi =~ /サ変接続/
+      end
+    end
+    print_pair(midasi, candidate, nil, grammar ? comment : nil) if print_orig
+  end
 end

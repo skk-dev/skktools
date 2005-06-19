@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: conjugation.rb,v 1.1 2005/06/05 16:49:32 skk-cvs Exp $
+## Version: $Id: conjugation.rb,v 1.2 2005/06/19 17:03:21 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/05 16:49:32 $
+## Last Modified: $Date: 2005/06/19 17:03:21 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@
 ##     「しんこくs /深刻;‖形容動詞[φdns]/」
 ##     
 ##
-## skkdictools.rb should be in the loadpath of ruby.
+## NOTE: skkdictools.rb should be in the loadpath of ruby.
 
 #require 'jcode'
 #require 'kconv'
@@ -77,9 +77,10 @@ okuri_nasi_too = "oneletter"
 purge = false
 
 # 見あげる、見ばえ、見ちゃった、見どころ、見えない、見はらし、見ごたえ、
-# 見い出す、見かねる、見まい、見ぬ、見おろす、見っぱなし、見る、見せる、見て、
-# 見うしなう、見わける、見よう、見ず。
-all_strings = "abcdeghikmnoprstuwyz"
+# 見いだす、見じ、見かねる、見まい、見ない、見おろす、見っぱなし、見る、
+# 見せる、見て、見うしなう、見わける、見よう、見ず。
+# ([flqvx]) - x can be useful, however it doesn't work well (「見ぃな」)
+all_strings = "abcdeghijkmnoprstuwyz"
 
 # #にん /#3人/#1人/#0人/#2人/
 numerative_order = [3, 1, 0, 2]
@@ -88,42 +89,43 @@ numerative_order = [3, 1, 0, 2]
 # サ変 (すr /為/)
 # ア行下二 (ありうr /有り得/)
 IrregularConjugationTable = [
-	[ "カ変", "くr",
-	[
-	    # (く) 来る, 来んな
-	    "くr", "くn",
-	    # (こ) 来い, 来ない, 来られる, 来させる, 来よう, 来ず
-	    "こi", "こn", "こr", "こs", "こy", "こz",
-	    # (き) 来ちゃう, 来づらい, 来ます, 来ぬ, 来そう, 来て, 来やがった,
-	    # (きえない, きはしない, きいな, きっこない)
-	    "きc", "きd", "きm", "きn", "きs", "きt", "きy",
-	]],
+  [ "カ変", "くr",
+    [
+      # (く) 来る, 来んな (,くっぞ, くっかな (, くっべ))
+      "くr", "くn",
+      # (こ) 来い, 来ない, 来られる, 来させる, 来よう, 来ず
+      "こi", "こn", "こr", "こs", "こy", "こz",
+      # (き) 来ちゃう, 来づらい, 来ます, 来ぬ, 来そう, 来て, 来やがった,
+      # (きえない, きはしない, きいな, きっこない)
+      "きc", "きd", "きm", "きn", "きs", "きt", "きy",
+    ]],
 
-	[ "サ変", "すr",
-	[
-	    # (す) 為る, 為まい (,すんな)
-	    "すr", "すm",
-	    # (し) 為ちゃえ, 為ます, 為ない, 為ろ, 為そう, 為て, 為よう
-	    # (,しうる, しづらい)
-	    "しc", "しm", "しn", "しr", "しs", "しt", "しy",
-	    # (せ) 為よ, 為ず (,せい, せば)
-	    "せy", "せz"
-	]],
+  [ "サ変", "すr",
+    [
+      # (す) 為る, 為まい (,すんな, すっぞ, すっかな)
+      "すr", "すm",
+      # (し) 為ちゃえ, 為ます, 為ない, 為ろ, 為そう, 為て, 為よう
+      # (,しっこない, しうる, しづらい)
+      "しc", "しm", "しn", "しr", "しs", "しt", "しy",
+      # (せ) 為よ, 為ず (,せい, せば)
+      "せy", "せz"
+    ]],
 
-	[ "ア行下二", "うr",
-	[
-	    # (う) 有り得べし, 有り得る
-	      "うb", "うr",
-	    # (え) 得ちゃえ, 得ます, 得ない, 得る, 得そう, 得て, 得よう
-	      "えc", "えm", "えn", "えr", "えs", "えt", "えy"
-	]]
+  [ "ア行下二", "うr",
+    [
+      # (う) 有り得べし, 有り得る
+      "うb", "うr",
+      # (え) 得ちゃう, 得ます, 得ない, 得る, 得そう, 得て, 得よう, 得ず
+      # (,えっかな, えじ, えで(か))
+      "えc", "えm", "えn", "えr", "えs", "えt", "えy", "えz"
+    ]]
 ]
 
 def print_pair2(key, candidate, annotation, comment, base = false)
-	annotation = nil if $annotation_mode == "none" || ($annotation_mode == "self" && !base)
-	comment = nil if $comment_mode == "discard" || ($comment_mode == "self" && !base)
+  annotation = nil if $annotation_mode == "none" || ($annotation_mode == "self" && !base)
+  comment = nil if $comment_mode == "discard" || ($comment_mode == "self" && !base)
 
-	print_pair(key, candidate, annotation, comment)
+  print_pair(key, candidate, annotation, comment)
 end
 
 opt.on('-u', "don't add annotations for derived pairs") { $annotation_mode = "self" }
@@ -136,88 +138,88 @@ opt.on('-O', "never process okuri-nasi pairs") { okuri_nasi_too = "none" }
 opt.on('-x', 'skip candidates marked with "※" or "?"') { purge = true }
 
 begin
-	opt.parse!(ARGV)
+  opt.parse!(ARGV)
 rescue OptionParser::InvalidOption => e
-	print "'#{$0} -h' for help.\n"
-	exit 1
+  print "'#{$0} -h' for help.\n"
+  exit 1
 end
 
 while gets
-	next if $_ =~ /^;/ || $_ =~ /^$/
-	midasi, tokens = $_.parse_skk_entry
+  next if $_ =~ /^;/ || $_ =~ /^$/
+  midasi, tokens = $_.parse_skk_entry
+  next if tokens.nil?
 
-	if (/^(>?[ぁ-ん゛]*)([a-z]+)$/ =~ midasi)
-		stem = $1
-		okuri = $2
-	elsif okuri_nasi_too == "none"
-		next
-	else
-		stem = midasi
-		okuri = ""
+  if (/^(>?[ぁ-ん゛]*)([a-z]+)$/ =~ midasi)
+    stem = $1
+    okuri = $2
+  elsif okuri_nasi_too == "none"
+    next
+  else
+    stem = midasi
+    okuri = ""
+  end
+
+  tokens.each do |token|
+    next if token.empty?
+    tmp = token.split(";")
+    next if tmp[1].nil?
+    word = tmp[0]
+    next if okuri.empty? && okuri_nasi_too == "oneletter" && word.length > 2
+    annotation, comment = tmp[1].split("‖", 2)
+    next if comment.nil?
+    next if purge && annotation =~ /※|\?$/
+
+    new_index = 0
+    while index = (comment[new_index .. -1] =~ /\[([^\]]*)\]/)
+      old_index = new_index
+      new_index += index + $1.length + 2
+      derivation = $1
+      if parentheses == "discard"
+	derivation.gsub!(/\([^)]*\)/, '')
+      else
+	derivation.gsub!(/[()]/, '')
+      end
+
+      if derivation == "a-z"
+	derivation = all_strings 
+      elsif derivation == "*"
+	IrregularConjugationTable.each do |table|
+	  next if !comment[old_index .. new_index].include?(table[0])
+	  core = midasi.sub(table[1], '')
+	  next if core == midasi # alternation failed
+
+	  table[2].each do |tail|
+	    new_midasi = "#{core}#{tail}"
+	    print_pair2(new_midasi, word, annotation, comment,
+			(new_midasi == midasi))
+	  end
+	  break
 	end
+	next
+      end
 
-	tokens.each do |token|
-		tmp = token.split(";")
-		next if tmp[1].nil?
-		word = tmp[0]
-		next if okuri.empty? && okuri_nasi_too == "oneletter" && word.length > 2
-		tmp = tmp[1].split("‖", 2)
-		next if tmp[1].nil?
-		annotation = tmp[0]
-		comment = tmp[1]
-		next if purge && annotation =~ /※/
-		next if purge && annotation =~ /\?$/
+      # XXX what if 「あu /合;‖補助動詞[<wiueot(c)]/」?
+      suffix = derivation.gsub!(/</, '')
+      numerative = derivation.gsub!(/#/, '')
 
-		new_index = 0
-		while index = (comment[new_index .. -1] =~ /\[([^\]]*)\]/)
-			old_index = new_index
-			new_index += index + $1.length + 2
-			derivation = $1
-			if parentheses == "discard"
-				derivation.gsub!(/\([^)]*\)/, '')
-			else
-				derivation.gsub!(/[()]/, '')
-			end
+      if derivation.gsub!(/φ/, '')
+	print_pair2(stem, word, annotation, comment, (okuri == ""))
+      end
 
-			if derivation == "a-z"
-				derivation = all_strings 
-			elsif derivation == "*"
-				IrregularConjugationTable.each do |table|
-					next if !comment[old_index .. new_index].include?(table[0])
-					core = midasi.sub(table[1], '')
-					next if core == midasi # alternation failed
+      derivation += okuri if !derivation[okuri]
 
-					table[2].each do |tail|
-						new_midasi = "#{core}#{tail}"
-						print_pair2(new_midasi, word, annotation, comment,
-						(new_midasi == midasi))
-					end
-					break
-				end
-				next
-			end
-
-			if derivation.gsub!(/φ/, '')
-				print_pair2(stem, word, annotation, comment, (okuri == ""))
-			end
-
-			# (quasi-)suffix
-			if derivation.gsub!(/</, '')
-				print_pair2(">#{stem}", word, annotation, comment, false)
-			end
-
-			# numerative
-			if derivation.gsub!(/#/, '')
-				for i in numerative_order
-					print_pair2("##{stem}", "##{i}#{word}", annotation, comment, false)
-				end
-			end
-
-			derivation.delete("^a-z>").each_byte do |byte|
-				new_okuri=byte.chr
-				print_pair2("#{stem}#{new_okuri}", word, annotation, comment,
-				(okuri == new_okuri))
-			end
-		end
+      derivation.delete("^a-z>").each_byte do |byte|
+	new_okuri=byte.chr
+	print_pair2("#{stem}#{new_okuri}", word, annotation, comment,
+			(okuri == new_okuri))
+	print_pair2(">#{stem}#{new_okuri}", word, annotation, comment, false) if suffix
+	if numerative
+	  for i in numerative_order
+	    print_pair2("##{stem}#{new_okuri}", "##{i}#{word}", annotation, comment, false)
+	  end
 	end
+      end
+    end
+  end
 end
+

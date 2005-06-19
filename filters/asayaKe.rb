@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: asayaKe.rb,v 1.1 2005/06/05 16:49:32 skk-cvs Exp $
+## Version: $Id: asayaKe.rb,v 1.2 2005/06/19 17:03:21 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/05 16:49:32 $
+## Last Modified: $Date: 2005/06/19 17:03:21 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -69,58 +69,58 @@ opt.on('-u', 'eliminate annotations') { unannotate = true }
 #opt.on('-s VAL', 'stem candidates equal or shorter than VAL letters') { |v| stem = v.to_i * 2 }
 
 begin
-	opt.parse!(ARGV)
+  opt.parse!(ARGV)
 rescue OptionParser::InvalidOption => e
-	print "'#{$0} -h' for help.\n"
-	exit 1
+  print "'#{$0} -h' for help.\n"
+  exit 1
 end
 
 
 while gets
-	next if $_ =~ /^;/
-	tmp = $_.chop.split(" /", 2)
-	midasi = tmp.shift
-	tokens = tmp[0].split("/")
+  next if $_ =~ /^;/
+  tmp = $_.chop.split(" /", 2)
+  midasi = tmp.shift
+  tokens = tmp[0].split("/")
 
-	tokens.each do |token|
-		candidate, annotation = token.split(";", 2)
-		#next if tmp[0].length <= stem
-		next if purge && annotation =~ /¢¨/
-		next if purge && annotation =~ /\?$/
+  tokens.each do |token|
+    candidate, annotation = token.split(";", 2)
+    #next if tmp[0].length <= stem
+    next if purge && annotation =~ /¢¨/
+    next if purge && annotation =~ /\?$/
 
-		key, prefix, postfix = okuri_nasi_to_ari(midasi, candidate)
-		if !key.nil?
-			if mode == "extract" || mode == "both"
-				print "#{midasi} /#{candidate}"
-				if !unannotate && !annotation.nil?
-					print ";#{annotation}"
-				end
-				print "/\n"
-			end
-
-			if mode == "convert" || mode == "both"
-				print "#{key} /#{prefix}"
-
-				case okuri_mode
-				when "annotation"
-					if !unannotate && !annotation.nil?
-						print ";#{annotation}¡Â-#{postfix}"
-					else
-						print ";¡Â-#{postfix}"
-					end
-				when "bracket"
-					if !unannotate && !annotation.nil?
-						print ";#{annotation}/[#{postfix[0,2]}/#{prefix};#{annotation}]"
-					else
-						print "/[#{postfix[0,2]}/#{prefix}]"
-					end
-				else
-					if !unannotate && !annotation.nil?
-						print ";#{annotation}"
-					end
-				end
-				print "/\n"
-			end
-		end
+    key, prefix, postfix = okuri_nasi_to_ari(midasi, candidate)
+    if !key.nil?
+      if mode == "extract" || mode == "both"
+	print "#{midasi} /#{candidate}"
+	if !unannotate && !annotation.nil?
+	  print ";#{annotation}"
 	end
+	print "/\n"
+      end
+
+      if mode == "convert" || mode == "both"
+	print "#{key} /#{prefix}"
+
+	case okuri_mode
+	when "annotation"
+	  if !unannotate && !annotation.nil?
+	    print ";#{annotation}¡Â-#{postfix}"
+	  else
+	    print ";¡Â-#{postfix}"
+	  end
+	when "bracket"
+	  if !unannotate && !annotation.nil?
+	    print ";#{annotation}/[#{postfix[0,2]}/#{prefix};#{annotation}]"
+	  else
+	    print "/[#{postfix[0,2]}/#{prefix}]"
+	  end
+	else
+	  if !unannotate && !annotation.nil?
+	    print ";#{annotation}"
+	  end
+	end
+	print "/\n"
+      end
+    end
+  end
 end
