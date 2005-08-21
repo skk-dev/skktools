@@ -1,23 +1,29 @@
+2005-08-22  MITA Yuusuke  <clefs@mail.goo.ne.jp>
+
+    * convert2skk/prime2skk.rb: aesthetic changes.
+	* filters/conjugation.rb: aesthetic changes.
+	* READMEs/README.filters: symlink.
+
 2005-06-20  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 
 	* skkdic-expr2.c: -d option changes the annotation delimiter.
-    * filters/skkdictools.rb: discards candidates after '/['.
-    * filters/annotation-filter.rb: -B option to handle comments as annotation.
-    * filters/asayaKe.rb: aesthetic changes.
-    * filters/complete-numerative.rb: -o wasn't implemented!
-    * filters/conjugation.rb: better handling of okuri-ari affixes.
-    * filters/README: documentation updated.
+	* filters/skkdictools.rb: discards candidates after '/['.
+	* filters/annotation-filter.rb: -B option to handle comments as annotation.
+	* filters/asayaKe.rb: aesthetic changes.
+	* filters/complete-numerative.rb: -o wasn't implemented!
+	* filters/conjugation.rb: better handling of okuri-ari affixes.
+	* filters/README: documentation updated.
 	* convert2skk/ipadic2skk.rb: should yield better result than before.
 	* convert2skk/prime2skk.rb: should yield better result than before.
 
 2005-06-06  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 
-    * filters/annotation-filter.rb:
-    * filters/asayaKe.rb:
-    * filters/complete-numerative.rb:
-    * filters/conjugation.rb:
-    * filters/skkdictools.rb:
-    * filters/README:
+	* filters/annotation-filter.rb:
+	* filters/asayaKe.rb:
+	* filters/complete-numerative.rb:
+	* filters/conjugation.rb:
+	* filters/skkdictools.rb:
+	* filters/README:
 	* convert2skk/ipadic2skk.rb:
 	* convert2skk/prime2skk.rb:
 

@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: prime2skk.rb,v 1.2 2005/06/19 17:03:21 skk-cvs Exp $
+## Version: $Id: prime2skk.rb,v 1.3 2005/08/21 17:05:39 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/19 17:03:21 $
+## Last Modified: $Date: 2005/08/21 17:05:39 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 ##
 ## This script tries to convert PRIME dictionary files into skk ones.
 ##
-##	  % prime2skk.rb prime-dict | skkdic-expr2 > SKK-JISYO.prime
+##    % prime2skk.rb prime-dict | skkdic-expr2 > SKK-JISYO.prime
 ##
 ##    % prime2skk.rb -Ag prime-dict | conjugation.rb -opUC | skkdic-expr2 > SKK-JISYO.prime.conjugation
 ##
@@ -42,13 +42,13 @@ require 'optparse'
 opt = OptionParser.new
 skip_identical = true
 skip_hira2kana = true
-grammer = false
+grammar = false
 asayake_mode = "none"
 unannotate = false
 
 opt.on('-a', "convert Asayake into AsayaKe") { asayake_mode = "convert" }
 opt.on('-A', "both Asayake and AsayaKe are output") { asayake_mode = "both" }
-opt.on('-g', "append grammatical annotations") { grammer = true }
+opt.on('-g', "append grammatical annotations") { grammar = true }
 opt.on('-k', "generate hiragana-to-katakana pairs (「ねこ /ネコ/」)") { skip_hira2kana = false }
 opt.on('-K', "generate identical pairs (「ねこ /ねこ/」)") { skip_identical = false }
 opt.on('-u', "don't add original comments as annotation") { unannotate = true }
@@ -68,7 +68,7 @@ while gets
   next if skip_hira2kana && key.to_katakana == candidate
 
   comment = nil
-  if grammer
+  if grammar
     comment = hinsi
     comment += "[φ>]" if hinsi =~ /接頭語/
     comment += "[φ#]" if hinsi =~ /助数詞/
@@ -83,13 +83,13 @@ while gets
   if asayake_mode != "none"
     new_key, new_candidate, postfix = okuri_nasi_to_ari(key, candidate)
     if !new_key.nil?
-      if grammer
+      if grammar
 	comment_extra += "(-#{postfix})"
 
 	if (hinsi =~ /名詞/ ||
-	  hinsi =~ /副詞/ ||
-	  hinsi =~ /連体詞/ ||
-	  hinsi =~ /体言/ )
+	    hinsi =~ /副詞/ ||
+	    hinsi =~ /連体詞/ ||
+	    hinsi =~ /体言/ )
 	  print_orig = true
 	else
 	  print_orig = false
@@ -98,7 +98,7 @@ while gets
       print_pair(new_key, new_candidate, unannotate ? nil : notes,
 		  comment.delete("φ") + comment_extra)
       print_orig = false if asayake_mode != "both"
-    elsif grammer
+    elsif grammar
       # XXX XXX Unfortunately, prime-dict doesn't have data of exact
       # conjugation types for adjective verbs; this should yield a lot of
       # unwanted okuri-ari pairs, such as 「どうどうn /堂々/」(タリ活用).
@@ -140,5 +140,5 @@ while gets
       end
     end
   end
-  print_pair(key + okuri, candidate, unannotate ? nil : notes, grammer ? comment : nil) if print_orig
+  print_pair(key + okuri, candidate, unannotate ? nil : notes, grammar ? comment : nil) if print_orig
 end

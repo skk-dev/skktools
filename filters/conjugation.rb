@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: conjugation.rb,v 1.2 2005/06/19 17:03:21 skk-cvs Exp $
+## Version: $Id: conjugation.rb,v 1.3 2005/08/21 17:05:39 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/19 17:03:21 $
+## Last Modified: $Date: 2005/08/21 17:05:39 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -30,9 +30,9 @@
 ## words given, using annotations designed for this purpose
 ## (esp. in SKK-JISYO.notes).
 ##
-##     「あいしあu /愛し合;‖ワ行五段[wiueot(c)/」
+##     「あいしあu /愛し合;‖ワ行五段[wiueot(c)]/」
 ##
-## This pair is developed into:
+## This pair is expanded into:
 ##
 ##     「あいしあw /愛し合/」
 ##     「あいしあi /愛し合/」
@@ -77,7 +77,7 @@ okuri_nasi_too = "oneletter"
 purge = false
 
 # 見あげる、見ばえ、見ちゃった、見どころ、見えない、見はらし、見ごたえ、
-# 見いだす、見じ、見かねる、見まい、見ない、見おろす、見っぱなし、見る、
+# 見いだす、見じ、見かねる、見ます、見ない、見おろす、見っぱなし、見る、
 # 見せる、見て、見うしなう、見わける、見よう、見ず。
 # ([flqvx]) - x can be useful, however it doesn't work well (「見ぃな」)
 all_strings = "abcdeghijkmnoprstuwyz"
@@ -95,7 +95,7 @@ IrregularConjugationTable = [
       "くr", "くn",
       # (こ) 来い, 来ない, 来られる, 来させる, 来よう, 来ず
       "こi", "こn", "こr", "こs", "こy", "こz",
-      # (き) 来ちゃう, 来づらい, 来ます, 来ぬ, 来そう, 来て, 来やがった,
+      # (き) 来ちゃう, 来づらい, 来ます, 来な, 来そう, 来て, 来やがった,
       # (きえない, きはしない, きいな, きっこない)
       "きc", "きd", "きm", "きn", "きs", "きt", "きy",
     ]],
@@ -209,7 +209,7 @@ while gets
       derivation += okuri if !derivation[okuri]
 
       derivation.delete("^a-z>").each_byte do |byte|
-	new_okuri=byte.chr
+	new_okuri = byte.chr
 	print_pair2("#{stem}#{new_okuri}", word, annotation, comment,
 			(okuri == new_okuri))
 	print_pair2(">#{stem}#{new_okuri}", word, annotation, comment, false) if suffix
