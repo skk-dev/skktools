@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: skkdictools.rb,v 1.3 2005/06/19 17:03:21 skk-cvs Exp $
+## Version: $Id: skkdictools.rb,v 1.4 2005/08/28 17:51:47 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/19 17:03:21 $
+## Last Modified: $Date: 2005/08/28 17:51:47 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 ##
 ### Commentary:
 ## Based on registdic.cgi and skkform.rb by Mikio NAKAJIMA.
+## (Prolly we'd better integrate skkdictools.rb and skkform.rb into one?)
 ##
 ### Instruction:
 ##
@@ -35,6 +36,11 @@
 
 #require 'jcode'
 #require 'kconv'
+
+## for Goo::search
+#require 'cgi'
+#require 'socket'
+#require 'timeout'
 
 # exceptions:
 #	["ち" , "c"] (eg. 「にいちゃん /兄ちゃん/」→「にいc /兄/」)
@@ -164,6 +170,35 @@ class String
     return word, annotation, nil if delimiter.nil?
     annotation, comment = annotation.split(delimiter, 2)
     return word, annotation, comment
+  end
+end
+
+class Goo
+  def search(key)
+    hits = tries = 0
+    key = Kconv.toeuc(key)
+    key = CGI::escape(key)
+    timeout(20) {
+      begin
+	tries += 1
+	sock = TCPSocket.open("search.goo.ne.jp", 80)
+	sock.printf("GET /web.jsp?DC=1&MT=\"%s\" HTTP/1.0\r\n\r\n", key)
+	sock.readlines.each do |line|
+	  line = Kconv.toeuc(line)
+	  if (/<b>約*([,0-9]+)<\/b>件中/ =~ line)
+	    hits = $1.gsub(/,/, '').to_i
+	    return hits if hits > 0
+	  # 0hits, or system error?
+	  elsif (/<br>該当する検索結果が見当たりません。/ =~ line)
+	  #elsif (/<br>検索システムから検索結果を正常に取得できなかった可能性があります。/ =~ line) next
+	    return 0
+	  end
+	end
+      ensure
+	sock.close if sock
+      end while tries < 3 && hits < 1
+    }
+    "unknown"
   end
 end
 

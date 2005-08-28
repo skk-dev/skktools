@@ -1,6 +1,17 @@
+2005-08-29  MITA Yuusuke  <clefs@mail.goo.ne.jp>
+	* convert2skk/chasen2skk.rb:
+	* convert2skk/skk-wordpicker.rb:
+	* convert2skk/aozora2skk.rb:
+	* convert2skk/doc2skk.sh:
+	* convert2skk/README:
+
+	[skk 5806] New files.
+
+	* filters/skkdictools.rb: borrowed 'Goo' class from skkform.rb
+
 2005-08-22  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 
-    * convert2skk/prime2skk.rb: aesthetic changes.
+	* convert2skk/prime2skk.rb: aesthetic changes.
 	* filters/conjugation.rb: aesthetic changes.
 	* READMEs/README.filters: symlink.
 
