@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: conjugation.rb,v 1.3 2005/08/21 17:05:39 skk-cvs Exp $
+## Version: $Id: conjugation.rb,v 1.4 2005/09/19 16:21:12 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/08/21 17:05:39 $
+## Last Modified: $Date: 2005/09/19 16:21:12 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -56,9 +56,9 @@
 ##     「しんこく /深刻;‖形容動詞[φdns]/」
 ##
 ##     「しんこく /深刻/」
-##     「しんこくd /深刻;‖形容動詞[φdns]/」
-##     「しんこくn /深刻;‖形容動詞[φdns]/」
-##     「しんこくs /深刻;‖形容動詞[φdns]/」
+##     「しんこくd /深刻/」
+##     「しんこくn /深刻/」
+##     「しんこくs /深刻/」
 ##     
 ##
 ## NOTE: skkdictools.rb should be in the loadpath of ruby.
@@ -92,23 +92,25 @@ IrregularConjugationTable = [
   [ "カ変", "くr",
     [
       # (く) 来る, 来んな (,くっぞ, くっかな (, くっべ))
-      "くr", "くn",
+      "くr", "くn", # "くb",
       # (こ) 来い, 来ない, 来られる, 来させる, 来よう, 来ず
       "こi", "こn", "こr", "こs", "こy", "こz",
       # (き) 来ちゃう, 来づらい, 来ます, 来な, 来そう, 来て, 来やがった,
-      # (きえない, きはしない, きいな, きっこない)
       "きc", "きd", "きm", "きn", "きs", "きt", "きy",
+      # (きえない, きはしない・きはる, きいな, きっこない, きおる)
+      #"きe", "きh", "きi", "きk", "きo",
     ]],
 
   [ "サ変", "すr",
     [
       # (す) 為る, 為まい (,すんな, すっぞ, すっかな)
-      "すr", "すm",
+      "すr", "すm", #"すn", "すz", "すk",
       # (し) 為ちゃえ, 為ます, 為ない, 為ろ, 為そう, 為て, 為よう
-      # (,しっこない, しうる, しづらい)
       "しc", "しm", "しn", "しr", "しs", "しt", "しy",
+      # (,しっこない, しうる, しづらい)
+      #"しk", "しu", "しd",
       # (せ) 為よ, 為ず (,せい, せば)
-      "せy", "せz"
+      "せy", "せz", #"せi", "せb"
     ]],
 
   [ "ア行下二", "うr",
@@ -116,8 +118,9 @@ IrregularConjugationTable = [
       # (う) 有り得べし, 有り得る
       "うb", "うr",
       # (え) 得ちゃう, 得ます, 得ない, 得る, 得そう, 得て, 得よう, 得ず
-      # (,えっかな, えじ, えで(か))
       "えc", "えm", "えn", "えr", "えs", "えt", "えy", "えz"
+      # (,えっかな, えじ, えで(か))
+      #"えk", "えj", "えd",
     ]]
 ]
 
@@ -168,6 +171,7 @@ while gets
     annotation, comment = tmp[1].split("‖", 2)
     next if comment.nil?
     next if purge && annotation =~ /※|\?$/
+    comment.sub!(/¶.*$/, '')
 
     new_index = 0
     while index = (comment[new_index .. -1] =~ /\[([^\]]*)\]/)

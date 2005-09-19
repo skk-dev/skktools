@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: skk-wordpicker.rb,v 1.1 2005/08/28 17:53:19 skk-cvs Exp $
+## Version: $Id: skk-wordpicker.rb,v 1.2 2005/09/19 16:21:12 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/08/28 17:53:19 $
+## Last Modified: $Date: 2005/09/19 16:21:12 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@ Kakasi_rectify_table = [
 
 katakana_words = false
 katakana_majiri = false
+katakana_only = false
 append_goohits = false
 keyword = ""
 #fetch_from_goo = false
@@ -59,6 +60,7 @@ append_notes = false
 # -g might be a bad idea; better eliminate pairs already in SKK-JISYO.L first
 opt.on('-g', 'append goo hit numbers') { append_goohits = true }
 opt.on('-k', 'extract katakana words (if WORD not given)') { katakana_words = true }
+opt.on('--katakana-only', 'extract katakana words only') { katakana_only = katakana_words= true } # this doens't require KAKASI
 opt.on('-K', 'extract words containing katakana') { katakana_majiri = true }
 opt.on('-n', 'append notes') { append_notes = true }
 opt.on('-w WORD', 'extract pairs containing WORD') { |v| keyword = v }
@@ -84,7 +86,8 @@ while gets
   $_.gsub!(/<[\/]*b>/, '')
 
   if keyword.empty?
-    results = results + $_.scan(/[央-件任□]{2,}/) if katakana_words
+    results = results + $_.scan(/[央-件任][央-件任□]+/) if katakana_words
+    next if katakana_only
     if katakana_majiri
       results = results + $_.scan(/[央-件任□]*[陛-籉]+[央-件任□]*/)
     else
@@ -102,7 +105,12 @@ results.uniq!
 results.each {|word|
   # decline one-letter words
   next if word.size < 3
-  yomi = `echo "#{word}"|kakasi -JH -KH`.chomp!
+  if katakana_only
+    # efficiency
+    yomi = word.to_hiragana
+  else
+    yomi = `echo "#{word}"|kakasi -JH -KH`.chomp!
+  end
 
   Kakasi_rectify_table.each do |table|
     key_exp  = Regexp.compile(table[0])

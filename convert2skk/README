@@ -10,15 +10,90 @@ convert2skk/*
 各スクリプトの説明
 ==================
 
+prime2skk.rb      - prime-dict をSKK化
+ipadic2skk.rb     - IPADIC (ver. 2.7.0以降) をSKK化
+
 chasen2skk.rb     - ChaSenの出力をSKK化
 skk-wordpicker.rb - 各種テキストをKAKASIでSKK化
 aozora2skk.rb     - 青空文庫からSKK辞書を作成
 doc2skk.sh        - 以上３つのフロントエンド
 
 
+prime2skk.rb
+------------
+
+　予測入力システム PRIME の辞書である prime-dict を SKK形式に変換します。
+
+	http://taiyaki.org/prime/
+
+
+#!/bin/sh
+prime2skk.rb -gA prime-dict > prime-dict.skk
+conjugation.rb -UCop prime-dict.skk > prime-dict-conj.skk
+skkdic-expr2 prime-dict.skk + prime-dict-conj.skk | annotation-filter.rb -k > SKK-JI
+SYO.prim
+e
+
+
+　273433 candidates の、きちんと okuri-ari も持っている SKK辞書が作成さ
+れます。prime-dict は L辞書がベースの一つになっていることもあり、L辞書と
+の重なりを除くと 41491 candidates になります。
+
+　なお、prime-dict のライセンスはGPLです。
+
+
+ipadic2skk.rb
+-------------
+
+　形態素解析システム茶筅の辞書 IPADIC を SKK形式に変換します。
+
+	http://chasen.naist.jp/hiki/ChaSen/
+
+　2.7.0以降のバージョンにしか対応していないのでご注意ください。
+
+#!/bin/sh
+ipadicpath=/path/to/ipadic-2.7.0
+ipadic2skk.rb -gA $ipadicpath/*.dic > SKK-JISYO.ipadic.raw
+conjugation.rb -op SKK-JISYO.ipadic.raw | skkdic-expr 2 > SKK-JISYO.ipadic.conj
+complete-numerative.rb SKK-JISYO.ipadic.raw | skkdic-expr2 > SKK-JISYO.ipadic.num
+skkdic-expr2 SKK-JISYO.ipadic.raw + SKK-JISYO.ipadic.conj + SKK-JISYO.ipadic.num | a
+nnotatio
+n-filter.rb > SKK-JISYO.ipadic
+
+
+　こちらは 225340 candidates の辞書になります。L辞書との重なりを除いても
+152140 candidates あります。
+
+　ただし、固有名詞の類がかなり多いので、実際には
+
+ipadic2skk.rb $ipadicpath/Noun.name.dic > SKK-JISYO.ipadic.jinmei
+ipadic2skk.rb $ipadicpath/Noun.org.dic $ipadicpath/Noun.proper.dic > SKK-JISYO.ipadi
+c.proper
+noun
+ipadic2skk.rb $ipadicpath/Noun.place.dic > SKK-JISYO.ipadic.geo
+
+　と専門辞書として取り出した方が有用でしょう。
+
+　　　　　　　　　　　　　　 candidates　SKK辞書との重なりを除いた数
+SKK-JISYO.ipadic　　　　　　　　 225340　　 152140
+SKK-JISYO.ipadic.jinmei　　　　　 30758　　　12989
+SKK-JISYO.ipadic.geo　　　　　　　71494　　　18548
+SKK-JISYO.ipadic.propernoun　　　 40027　　　34807
+
+
+　なお、IPADICのライセンスはICOTライセンスであり、このスクリプトで
+IPADICから変換した辞書にもICOTライセンスが適用されると思われます。
+
+　個人で利用なさる分には気になさる必要はありませんが、SKKで配布し
+ている辞書に追加するなどの場合には注意が必要です。
+
+
 
 doc2skk.sh
 ----------
+
+　読みのついていない平文から語彙を抽出し、読みを推測してSKK辞書に
+変換するスクリプトです。
 
 　ファイル、URL(-u)のいずれかを読み込み、またはキーワード(-w)をウ
 ェブで検索して、他の３つのスクリプトに適宜渡して SKK 辞書形式で出
@@ -125,7 +200,10 @@ aozora2skk.rb
 
 % aozora2skk.rb kusamakura.txt | skkdic-expr2 > kusamakura.skk
 
+　あるいは
+
 % doc2skk.rb -a 'http://www.aozora.gr.jp/cards/000148/files/776_14941.html' > kusamakura.skk
+
 
 　有用な例：
 
@@ -136,12 +214,13 @@ aozora2skk.rb
 	じれ /焦慮/
 
 　ノイズの例：
+
 	あいかえり /二三子相顧;ルビがどこまでかかるかわからない！/
 	あるい /歩行;用言は全滅です/
 
 
-　今から漱石について書くぞ！　という時にこれで下拵えしておくと結構
-助かるかもしれません。
+　今から漱石について書くぞ！　という時にこれで下拵えしておくと多少
+楽ができるかもしれません。
 
 
 限界
@@ -160,7 +239,7 @@ aozora2skk.rb
 　人名も苦手です。
 
 	かたりちゅう /語注;{かたり->ご}ちゅう/
-	まるやままさと /丸山真人;ま{さ->こ}と,政治学者/
+	わたなべこうづび /渡辺香津美/
 
 
 　ipadic は連濁に関する情報を持っていないので、生成される読みも当

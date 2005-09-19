@@ -1,3 +1,9 @@
+2005-09-20  MITA Yuusuke  <clefs@mail.goo.ne.jp>
+	* convert2skk/chasen2skk.rb: some grammatical rules added.
+	* convert2skk/skk-wordpicker.rb: --katakana-only
+	* filters/conjugation.rb: ignore comments after '¶'.
+	* filters/skkdictools.rb: String.concatify
+
 2005-08-29  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 	* convert2skk/chasen2skk.rb:
 	* convert2skk/skk-wordpicker.rb:

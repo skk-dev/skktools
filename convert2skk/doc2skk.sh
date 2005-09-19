@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: doc2skk.sh,v 1.1 2005/08/28 17:51:47 skk-cvs Exp $
+## Version: $Id: doc2skk.sh,v 1.2 2005/09/19 16:21:12 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/08/28 17:51:47 $
+## Last Modified: $Date: 2005/09/19 16:21:12 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -75,9 +75,9 @@
 ##
 ldic=/usr/local/share/skk/SKK-JISYO.L
 converterpath=./
-charsetfileter="qkc"
-#charsetfileter="nkf -e"
-chasencom="chasen -j -r chasenrc"
+charsetfilter="qkc"
+#charsetfilter="nkf -e"
+chasencom="chasen -j"
 mecabcom="mecab -Ochasen"
 analyser=$chasencom
 converter="chasen2skk.rb"
@@ -161,6 +161,7 @@ if [ $help = true ]; then
   echo ' -a            use aozora2skk.rb'
   echo ' -c            use ChaSen (default)'
   echo ' -e <options>  options for $converter (eg. -e k)'
+  echo ' -h            show this help message'
   echo ' -k            use KAKASI'
   echo ' -m            use MeCab'
   echo ' -u <URL>      fetch the webpage specified'
@@ -179,6 +180,6 @@ elif [ "$keyword" ]; then
   sourcefile=$tmpfile
 fi
 
-$charsetfileter $sourcefile "$@" | $analyser | ruby -Ke $converterpath$converter $extraopts $extraopts2 > $tmpfile2
+$charsetfilter $sourcefile "$@" | $analyser | ruby -Ke $converterpath$converter $extraopts $extraopts2 > $tmpfile2
 skkdic-expr2 $tmpfile2 - $ldic
 rm -f $tmpfile $tmpfile2

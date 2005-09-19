@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: skkdictools.rb,v 1.4 2005/08/28 17:51:47 skk-cvs Exp $
+## Version: $Id: skkdictools.rb,v 1.5 2005/09/19 16:21:12 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/08/28 17:51:47 $
+## Last Modified: $Date: 2005/09/19 16:21:12 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -151,6 +151,16 @@ class String
 
   def csv_unquote
     self.sub(/^\"(.+)\"$/, '\1')
+  end
+
+  def concatify
+    #if !(/^([-\w]+.*)$/ =~ self) && (/[;\r\n\/\"]/ =~ self)
+    if /[;\r\n\/\"]/ =~ self
+      tmp = self.gsub(/;/, '\\\073').gsub(/\//, '\\\057').gsub(/\r/, '\\r').gsub(/\n/, '\\n').gsub(/"/, '\\"')
+      return '(concat "' + tmp + '")'
+    else
+      return self
+    end
   end
 
   # 09/30/04 => 04/09/30

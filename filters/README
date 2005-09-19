@@ -56,7 +56,7 @@ abbrev ペアを、和英変換ペアに加工して出力します。
 元のペアについていた annotation を添付せずに削除します。
 
 
-% abbrev-convert.rb -w SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.hira-kata
+% abbrev-convert.rb -w SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.waei
 
 　L辞書の abbrev ペアを元に、和英変換辞書を作成します。
 
@@ -86,7 +86,7 @@ annotation-filter.rb
 % annotation-filter.rb SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.L.unannotated
 
 　何も指定しなければ、全ての annotation を除去して出力します。
-(unannotation.awk と同等です。)
+(skkdic-expr2が必要な他はunannotation.awk と同等です。)
 
 % annotation-filter.rb -d SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.L.minimally-annotated
 

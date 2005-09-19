@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: prime2skk.rb,v 1.3 2005/08/21 17:05:39 skk-cvs Exp $
+## Version: $Id: prime2skk.rb,v 1.4 2005/09/19 16:21:12 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/08/21 17:05:39 $
+## Last Modified: $Date: 2005/09/19 16:21:12 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -40,6 +40,7 @@ require 'jcode'
 require 'skkdictools'
 require 'optparse'
 opt = OptionParser.new
+
 skip_identical = true
 skip_hira2kana = true
 grammar = false
