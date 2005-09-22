@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.8 2005/06/19 17:03:21 skk-cvs Exp $
+Version: $Id: skkdic-expr2.c,v 1.9 2005/09/22 16:16:53 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2005/06/19 17:03:21 $
+Last Modified: $Date: 2005/09/22 16:16:53 $
 
 This file is part of Daredevil SKK.
 
@@ -56,14 +56,14 @@ extern int errno;
 #ifdef MAXLINE
 #define BLEN MAXLINE
 #else
-#define BLEN 8192
+#define BLEN 65536
 #endif
 
 /* 辞書ツリー */
 GTree *okuriAri;
 GTree *okuriNashi;
 
-char annotation_delimiter[16];
+char annotation_delimiter[64];
 
 static gint strCmp(gconstpointer, gconstpointer, gpointer);
 static gint strCmpR(gconstpointer, gconstpointer, gpointer);

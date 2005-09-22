@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: skk-wordpicker.rb,v 1.2 2005/09/19 16:21:12 skk-cvs Exp $
+## Version: $Id: skk-wordpicker.rb,v 1.3 2005/09/22 16:16:53 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/09/19 16:21:12 $
+## Last Modified: $Date: 2005/09/22 16:16:53 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -74,7 +74,7 @@ rescue OptionParser::InvalidOption => e
   exit 1
 end
 
-keyword_pat = Regexp.compile("[°¡-ô¦]*#{keyword}[°¡-ô¦]*")
+keyword_pat = Regexp.compile("[°¡-ô¦¡¹]*#{keyword}[°¡-ô¦¡¹]*")
 #kanji_pat = "[
 results = []
 
@@ -89,9 +89,9 @@ while gets
     results = results + $_.scan(/[¥¡-¥ó¥ô][¥¡-¥ó¥ô¡¼]+/) if katakana_words
     next if katakana_only
     if katakana_majiri
-      results = results + $_.scan(/[¥¡-¥ó¥ô¡¼]*[°¡-ô¦]+[¥¡-¥ó¥ô¡¼]*/)
+      results = results + $_.scan(/[¥¡-¥ó¥ô¡¼]*[°¡-ô¦¡¹]+[¥¡-¥ó¥ô¡¼]*/)
     else
-      results = results + $_.scan(/[°¡-ô¦]{2,}/)
+      results = results + $_.scan(/[°¡-ô¦¡¹]{2,}/)
     end
   else
     #next if $_ !~ /([°¡-ô¦]*²Á³Ê[°¡-ô¦]*)/

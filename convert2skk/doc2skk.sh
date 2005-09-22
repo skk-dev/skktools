@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: doc2skk.sh,v 1.2 2005/09/19 16:21:12 skk-cvs Exp $
+## Version: $Id: doc2skk.sh,v 1.3 2005/09/22 16:16:53 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/09/19 16:21:12 $
+## Last Modified: $Date: 2005/09/22 16:16:53 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -90,8 +90,9 @@ sourceurl=
 keyword=
 sourcefile=
 help=false
+purge=true
 
-args=`getopt ackme:hu:w:W: $*`
+args=`getopt ackme:hPu:w:W: $*`
 if [ $? != 0 ]; then
   help=true
 fi
@@ -122,6 +123,9 @@ do
     shift;;
     -h)
     help=true;
+    shift;;
+    -P)
+    purge=false;
     shift;;
     -u)
     # this actually works with filename also (if using w3m)
@@ -164,6 +168,7 @@ if [ $help = true ]; then
   echo ' -h            show this help message'
   echo ' -k            use KAKASI'
   echo ' -m            use MeCab'
+  echo ' -P            not eliminate duplications with SKK-JISYO.L'
   echo ' -u <URL>      fetch the webpage specified'
   echo ' -w <keyword>  query goo'
   echo ' -W <keyword>  query goo and/or extract words containing it'
@@ -181,5 +186,11 @@ elif [ "$keyword" ]; then
 fi
 
 $charsetfilter $sourcefile "$@" | $analyser | ruby -Ke $converterpath$converter $extraopts $extraopts2 > $tmpfile2
-skkdic-expr2 $tmpfile2 - $ldic
+
+if [ $purge = true ]; then
+  skkdic-expr2 $tmpfile2 - $ldic
+else
+  cat $tmpfile2
+fi
+
 rm -f $tmpfile $tmpfile2

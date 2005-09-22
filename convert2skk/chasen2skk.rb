@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: chasen2skk.rb,v 1.2 2005/09/19 16:21:12 skk-cvs Exp $
+## Version: $Id: chasen2skk.rb,v 1.3 2005/09/22 16:16:53 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/09/19 16:21:12 $
+## Last Modified: $Date: 2005/09/22 16:16:53 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -91,9 +91,9 @@ poisoned = terminate = false
 while gets
   midasi, yomi, root, part, conj = $_.split("	", 5)
   #if midasi !~ /^[°¡-ô¦¥¡-¥ó¥ô¡¼]+$/ || terminate
-  if (midasi !~ /^[°¡-ô¦¥¡-¥ó¥ô¡¼]+$/ &&
+  if (midasi !~ /^[°¡-ô¦¥¡-¥ó¥ô¡¼¡¹]+$/ &&
       (!allow_noun_chains || part !~ /Ì¾»ì/ || part =~ /Èó¼«Î©/ ||
-      midasi !~ /^[°¡-ô¦¥¡-¥ó¥ô¡¼¤¡-¤ó]+$/ )) || terminate
+      midasi !~ /^[°¡-ô¦¥¡-¥ó¥ô¡¼¡¹¤¡-¤ó]+$/ )) || terminate
   #if (midasi !~ /^[°¡-ô¦¥¡-¥ó¥ô¡¼]+$/ && conj !~ /Ï¢ÍÑ·Á/) || terminate
     #next if count < 1
     if count < 1
@@ -111,14 +111,14 @@ while gets
       next
     end
 
-    if midasi =~ /^[^°¡-ô¦¥¡-¥ó¥ô¡¼]+$/ && !terminate
+    if midasi =~ /^[^°¡-ô¦¥¡-¥ó¥ô¡¼¡¹]+$/ && !terminate
       # nothing
     else
       if part =~ /ÀÜÂ³»ì|ÀÜÆ¬»ì|Éû»ì[^²Ä]/
 	# nothing - decline some parts
       elsif midasi =~ /ÊÂ¤Ó|µÚ¤Ó/
 	# nothing - (HACK) decline conjonctions that ChaSen overlooks
-      elsif midasi =~ /^[¤¡-¤ó]+[°¡-ô¦¥¡-¥ó¥ô¡¼]+/
+      elsif midasi =~ /^[¤¡-¤ó]+[°¡-ô¦¥¡-¥ó¥ô¡¼¡¹]+/
 	# nothing - this applies to quasi-words such as:
 	# ¤Ë´Ø¤¹¤ë        ¥Ë¥«¥ó¥¹¥ë      ¤Ë´Ø¤¹¤ë        ½õ»ì-³Ê½õ»ì-Ï¢¸ì
       else

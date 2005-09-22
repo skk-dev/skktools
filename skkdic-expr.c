@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.8 2000/12/15 10:04:50 minakaji Exp $
+Version: $Id: skkdic-expr.c,v 1.9 2005/09/22 16:16:53 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/12/15 10:04:50 $
+Last Modified: $Date: 2005/09/22 16:16:53 $
 
 This file is part of Daredevil SKK.
 
@@ -84,7 +84,7 @@ extern int errno;
 #ifdef MAXLINE
 #define BLEN MAXLINE
 #else
-#define BLEN 4096
+#define BLEN 65536
 #endif
 
 /* 作業用ファイル名 */
