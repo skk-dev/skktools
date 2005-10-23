@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: skkdictools.rb,v 1.5 2005/09/19 16:21:12 skk-cvs Exp $
+## Version: $Id: skkdictools.rb,v 1.6 2005/10/23 17:28:33 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/09/19 16:21:12 $
+## Last Modified: $Date: 2005/10/23 17:28:33 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -84,6 +84,8 @@ def okuri_nasi_to_ari(midasi, candidate)
 
   okuri = key_kana_postfix[1]
   # handle some exceptions
+  # XXX inplace of changing "t" into "c", this function should return
+  # both "t" and "c"
   okuri = "c" if can_postfix =~ /^っち/ || can_postfix =~ /^ち[ゃゅょ]/
   okuri = "p" if can_postfix =~ /^っ[ぱ-ぽ]/
   okuri = "k" if can_postfix =~ /^っ[か-こ]/

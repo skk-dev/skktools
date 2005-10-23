@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.9 2005/09/22 16:16:53 skk-cvs Exp $
+Version: $Id: skkdic-expr2.c,v 1.10 2005/10/23 17:28:33 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2005/09/22 16:16:53 $
+Last Modified: $Date: 2005/10/23 17:28:33 $
 
 This file is part of Daredevil SKK.
 
@@ -519,6 +519,8 @@ int main(int argc, char **argv)
 
 static int isOkuriAri(gchar *p)
 {
+	if (*p == '>' || *p == '#')
+		p++;
 	if ((*p & 0x80) == 0)
 		return 0;
 	while(*p != '\0') {

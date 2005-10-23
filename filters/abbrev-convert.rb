@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: abbrev-convert.rb,v 1.3 2005/06/19 17:03:21 skk-cvs Exp $
+## Version: $Id: abbrev-convert.rb,v 1.4 2005/10/23 17:28:33 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/06/19 17:03:21 $
+## Last Modified: $Date: 2005/10/23 17:28:33 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -87,8 +87,9 @@ while gets
 
   tokens.each do |token|
     tmp = token.split(";")
-    next if tmp[0] =~ /[^央-任□]/
+    next if tmp[0] =~ /[^央-任□’=﹥▽]/
     next if tmp[0].length <= stem
+    next if tmp[0] !~ /[央-任]/ # at least 1 valid letter
     next if purge && tmp[1] =~ /◢/
     next if purge && tmp[1] =~ /\?$/
     candidates.push tmp
@@ -109,7 +110,7 @@ while gets
     print "\n"
   when "waei"
     candidates.each do |word,annotation|
-      word.tr!('央-件', '丑-氏').gsub!(/任/, '丹‵')
+      word = word.tr('央-件', '丑-氏').gsub(/任/, '丹‵').gsub(/[’=﹥▽]/, '')
       if !unannotate && !annotation.nil?
 	print "#{word} /#{midasi};#{annotation}/\n"
       else
@@ -118,7 +119,7 @@ while gets
     end
   when "hira-kata"
     candidates.each do |word,annotation|
-      word_hira = word.tr('央-件', '丑-氏').gsub(/任/, '丹‵')
+      word_hira = word.tr('央-件', '丑-氏').gsub(/任/, '丹‵').gsub(/[’=﹥▽]/, '')
       if !unannotate && !annotation.nil?
 	print "#{word_hira} /#{word};#{annotation}/"
       else
@@ -128,7 +129,7 @@ while gets
     end
   when "hira-kata-with-spell"
     candidates.each do |word,annotation|
-      word_hira = word.tr('央-件', '丑-氏').gsub(/任/, '丹‵')
+      word_hira = word.tr('央-件', '丑-氏').gsub(/任/, '丹‵').gsub(/[’=﹥▽]/, '')
       if !unannotate && !annotation.nil?
 	print "#{word_hira} /#{word};#{midasi}”#{annotation}/"
       else

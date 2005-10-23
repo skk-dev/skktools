@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: conjugation.rb,v 1.4 2005/09/19 16:21:12 skk-cvs Exp $
+## Version: $Id: conjugation.rb,v 1.5 2005/10/23 17:28:33 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/09/19 16:21:12 $
+## Last Modified: $Date: 2005/10/23 17:28:33 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -92,7 +92,7 @@ IrregularConjugationTable = [
   [ "カ変", "くr",
     [
       # (く) 来る, 来んな (,くっぞ, くっかな (, くっべ))
-      "くr", "くn", # "くb",
+      "くr", "くn", # "くz", "くk", "くb",
       # (こ) 来い, 来ない, 来られる, 来させる, 来よう, 来ず
       "こi", "こn", "こr", "こs", "こy", "こz",
       # (き) 来ちゃう, 来づらい, 来ます, 来な, 来そう, 来て, 来やがった,
@@ -152,7 +152,7 @@ while gets
   midasi, tokens = $_.parse_skk_entry
   next if tokens.nil?
 
-  if (/^(>?[ぁ-ん゛]*)([a-z]+)$/ =~ midasi)
+  if (/^(>?[ぁ-ん゛ー]*)([a-z]+)$/ =~ midasi)
     stem = $1
     okuri = $2
   elsif okuri_nasi_too == "none"
@@ -184,6 +184,10 @@ while gets
 	derivation.gsub!(/[()]/, '')
       end
 
+      # XXX what if 「あu /合;‖補助動詞[<wiueot(c)]/」?
+      suffix = derivation.gsub!(/</, '')
+      numerative = derivation.gsub!(/#/, '')
+
       if derivation == "a-z"
 	derivation = all_strings 
       elsif derivation == "*"
@@ -196,15 +200,13 @@ while gets
 	    new_midasi = "#{core}#{tail}"
 	    print_pair2(new_midasi, word, annotation, comment,
 			(new_midasi == midasi))
+	    print_pair2(">" + new_midasi, word, annotation, comment,
+			(new_midasi == midasi)) if suffix
 	  end
 	  break
 	end
 	next
       end
-
-      # XXX what if 「あu /合;‖補助動詞[<wiueot(c)]/」?
-      suffix = derivation.gsub!(/</, '')
-      numerative = derivation.gsub!(/#/, '')
 
       if derivation.gsub!(/φ/, '')
 	print_pair2(stem, word, annotation, comment, (okuri == ""))
