@@ -1,5 +1,5 @@
 2005-10-24  anonymous contributor @ wiki
-	* skkdic-expr2.c: fix for okuri-ari entries with '>'
+	* skkdic-expr2.c: fix for okuri-ari entries starting with '>' or '#'
 
 2005-10-24  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 	* filters/conjugation.rb:
@@ -12,6 +12,8 @@
 	* filters/skkdictools.rb:
 
 	aesthetic changes.
+
+	* skkdic-sort.c: fix for okuri-ari entries starting with '>' or '#'
 
 2005-09-23  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 	* skkdic-count.c:

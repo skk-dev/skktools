@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-sort.c,v 1.3 2000/10/05 17:16:44 czkmt Exp $
+Version: $Id: skkdic-sort.c,v 1.4 2005/10/24 15:57:32 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2000/10/05 17:16:44 $
+Last Modified: $Date: 2005/10/24 15:57:32 $
 
 This file is part of Daredevil SKK.
 
@@ -118,7 +118,8 @@ hexcomp(a, b)
 static int okuriari(p)
      unsigned char *p;
 {
-  if ((p[0] & 0x80) == 0) return 0;
+  if (((p[0] & 0x80) == 0) &&
+      ((p[0] != '>' && p[0] != '#') || (p[1] & 0x80) == 0)) return 0;
   while(*p != ' ')
     if (*p == '\0') return 0; /* 空白がない行は本当は異常として扱うべき */
     else            ++ p;
