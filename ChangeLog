@@ -1,3 +1,7 @@
+2005-12-25  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* COPYING: Install the most recent one.
+
 2005-10-24  anonymous contributor @ wiki
 	* skkdic-expr2.c: fix for okuri-ari entries starting with '>' or '#'
 
