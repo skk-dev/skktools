@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: aozora2skk.rb,v 1.1 2005/08/28 17:51:47 skk-cvs Exp $
+## Version: $Id: aozora2skk.rb,v 1.2 2006/01/04 10:35:06 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2005/08/28 17:51:47 $
+## Last Modified: $Date: 2006/01/04 10:35:06 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,8 +19,8 @@
 
 ## You should have received a copy of the GNU General Public License
 ## along with this program, see the file COPYING.  If not, write to the
-## Free Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
-## MA 02111-1307, USA.
+## Free Software Foundation Inc., 51 Franklin St, Fifth Floor, Boston,
+## MA 02110-1301, USA.
 ##
 ### Commentary:
 ##

@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.10 2005/10/23 17:28:33 skk-cvs Exp $
+Version: $Id: skkdic-expr2.c,v 1.11 2006/01/04 10:35:06 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2005/10/23 17:28:33 $
+Last Modified: $Date: 2006/01/04 10:35:06 $
 
 This file is part of Daredevil SKK.
 
@@ -21,8 +21,8 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with SKK; see the file COPYING.  If not, write to
-the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
-*/
+the Free Software Foundation,  Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA 02110-1301, USA. */
 
 /* skkdic-expr2.c
    このプログラムは SKK の辞書のマージや削除を行います。

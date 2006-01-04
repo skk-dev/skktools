@@ -5,8 +5,8 @@
 #
 # Author: NAKAJIMA Mikio <minakaji@namazu.org>
 # Created: March 18, 2003
-# Last Modified: $Date: 2003/03/22 10:25:16 $
-# Version: $Id: dic-it2skk.rb,v 1.2 2003/03/22 10:25:16 minakaji Exp $
+# Last Modified: $Date: 2006/01/04 10:35:06 $
+# Version: $Id: dic-it2skk.rb,v 1.3 2006/01/04 10:35:06 skk-cvs Exp $
 
 # This file is part of Daredevil SKK.
 
@@ -22,8 +22,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Daredevil SKK, see the file COPYING.  If not, write to the
-# Free Software Foundation Inc., 59 Temple Place - Suite 330, Boston,
-# MA 02111-1307, USA.
+# Free Software Foundation Inc., 51 Franklin St, Fifth Floor, Boston,
+# MA 02110-1301, USA.
 #
 # Commentary:
 # As to dic-it dictionary, See
