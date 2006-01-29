@@ -1,5 +1,9 @@
 2006-01-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* Version 1.2 released.
+
+2006-01-29  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* Makefile.in: Check for configure.ac instead of configure.in.
 
 	* configure.in: No longer in repository.
