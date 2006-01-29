@@ -4,9 +4,9 @@
 #
 # Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile.in,v 1.11 2005/04/23 22:44:38 skk-cvs Exp $
+# Version: $Id: Makefile.in,v 1.12 2006/01/29 15:03:49 skk-cvs Exp $
 # Keywords: japanese
-# Last Modified: $Date: 2005/04/23 22:44:38 $
+# Last Modified: $Date: 2006/01/29 15:03:49 $
 #
 # This file is part of Daredevil SKK
 #
@@ -28,7 +28,7 @@
 #### Start of system configuration section. ####
 
 SHELL = /bin/sh
-VERSION = 1.1
+VERSION = 1.2
 @SET_MAKE@
 
 srcdir = @srcdir@
@@ -76,12 +76,12 @@ skkdic-count$(EXEEXT): $(srcdir)/skkdic-count.c
 skkdic-expr2$(EXEEXT): $(srcdir)/skkdic-expr2.c
 	$(CC) $(DEFS) $(GLIB_CFLAGS) -o $@ $(srcdir)/skkdic-expr2.c $(GLIB_LIBS) $(LDFLAGS)
 
-${srcdir}/configure: configure.in #aclocal.m4
+${srcdir}/configure: configure.ac #aclocal.m4
 	cd ${srcdir} && autoconf
 
 # autoheader might not change config.h.in, so touch a stamp file.
 #${srcdir}/config.h.in: stamp-h.in
-#${srcdir}/stamp-h.in: configure.in aclocal.m4 acconfig.h config.h.top config.h.bot
+#${srcdir}/stamp-h.in: configure.ac aclocal.m4 acconfig.h config.h.top config.h.bot
 #	cd ${srcdir} && autoheader
 #	echo timestamp > ${srcdir}/stamp-h.in
 #
