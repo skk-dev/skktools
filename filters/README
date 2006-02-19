@@ -246,9 +246,9 @@ make-tankan-dic.rb
 　CVSをご利用の方は、skk/dicディレクトリで make all とすればこれらのスク
 リプトを応用した各種のプリセット辞書を生成できます。
 
-・　和英変換や形容動詞・サ変動詞のokuri-ari変換に対応した SKK-JISYO.L+
+・　和英変換や形容動詞・サ変動詞の okuri-ari 変換に対応した SKK-JISYO.L+
 ・　annotation を最小限に抑えた SKK-JISYO.L.taciturn
-・　SKKで提供している全ての辞書を統合したSKK-JISYO.total+zipcode
+・　SKK で提供している全ての辞書を統合した SKK-JISYO.total+zipcode
 
 　などがその一例です。Makefile もご参照ください。
 
@@ -259,8 +259,7 @@ make-tankan-dic.rb
 　現時点では、ユーザー辞書に含まれる、送り仮名を含んだデータ("[]"で括ら
 れたもの)には対応していません。
 
-　EUC-JP 以外のエンコーディングにも対応していません。JISX0213の文字を含
-む辞書類には使用できませんので特にご注意ください。
+　EUC-JP 以外のエンコーディングにも対応していません。
 
 　ほぼ全てのスクリプトが、skkdic-expr2 との併用を前提としています。出力
 結果を実際の辞書として使用する前に必ず skkdic-expr2 を通すようにしてくだ
