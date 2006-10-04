@@ -1,4 +1,12 @@
-2005-01-30  MITA Yuusuke  <clefs@mail.goo.ne.jp>
+2006-10-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
+
+	* Makefile.in: Set VERSION according to file `VERSION'.
+
+	* VERSION: Bump to 1.2.
+
+2006-01-30  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 
 	* filters/make-tankan-dic.rb: New file.
 
