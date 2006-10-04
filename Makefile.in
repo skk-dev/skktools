@@ -4,9 +4,9 @@
 #
 # Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile.in,v 1.12 2006/01/29 15:03:49 skk-cvs Exp $
+# Version: $Id: Makefile.in,v 1.13 2006/10/04 14:49:38 skk-cvs Exp $
 # Keywords: japanese
-# Last Modified: $Date: 2006/01/29 15:03:49 $
+# Last Modified: $Date: 2006/10/04 14:49:38 $
 #
 # This file is part of Daredevil SKK
 #
@@ -28,7 +28,7 @@
 #### Start of system configuration section. ####
 
 SHELL = /bin/sh
-VERSION = 1.2
+VERSION = @VERSION@
 @SET_MAKE@
 
 srcdir = @srcdir@
