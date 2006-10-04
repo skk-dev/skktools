@@ -3,9 +3,9 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: doc2skk.sh,v 1.4 2006/01/04 10:35:06 skk-cvs Exp $
+## Version: $Id: doc2skk.sh,v 1.5 2006/10/04 14:59:30 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2006/01/04 10:35:06 $
+## Last Modified: $Date: 2006/10/04 14:59:30 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -178,8 +178,8 @@ fi 1>&2
 if [ "$sourceurl" ]; then
   $browser "$sourceurl" > $tmpfile
   sourcefile=$tmpfile
-elif [ "$sourcefile" ]; then
-  #nothing
+#elif [ "$sourcefile" ]; then
+#  nothing
 elif [ "$keyword" ]; then
   $browser "http://search.goo.ne.jp/web.jsp?MT=\"$keyword\"&DC=100&CK=1" > $tmpfile
   sourcefile=$tmpfile
