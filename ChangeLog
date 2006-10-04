@@ -6,6 +6,9 @@
 
 	* VERSION: Bump to 1.2.
 
+	* convert2skk/doc2skk.sh: Comment out unused elif where program is
+	checking for $sourcefile.
+
 2006-01-30  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 
 	* filters/make-tankan-dic.rb: New file.
