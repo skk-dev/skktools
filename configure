@@ -8,7 +8,7 @@
 # gives unlimited permission to copy, distribute and modify it.
 ## --------------------- ##
 ## M4sh Initialization.  ##
-## --------------------- ##
+## --------------------- ## 
 
 # Be more Bourne compatible
 DUALCASE=1; export DUALCASE # for MKS sh
