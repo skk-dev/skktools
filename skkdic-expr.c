@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.11 2007/09/17 01:03:02 skk-cvs Exp $
+Version: $Id: skkdic-expr.c,v 1.12 2007/09/17 01:43:43 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2007/09/17 01:03:02 $
+Last Modified: $Date: 2007/09/17 01:43:43 $
 
 This file is part of Daredevil SKK.
 
@@ -88,10 +88,15 @@ extern int errno;
 #define BLEN 65536
 #endif
 
+
+/* ファイル名など文字列の最大長 */
+
+#define SLEN 256
+
 /* 作業用ファイル名 */
-char file_name[256];
-char okuri_tail_name[256];
-char okuri_head_name[256];
+char file_name[SLEN];
+char okuri_tail_name[SLEN];
+char okuri_head_name[SLEN];
 
 /* 作業用データベース */
 DBM *db;
@@ -123,32 +128,32 @@ static void db_remove_file(fname)
    file_name には content が格納される */
 static void db_remove_files()
 {
-    char pag_name[256];
-    char dir_name[256];
+    char pag_name[SLEN];
+    char dir_name[SLEN];
 
     db_remove_file(file_name);
-    sprintf(pag_name, "%s.pag", file_name);
+    snprintf(pag_name, SLEN, "%s.pag", file_name);
     db_remove_file(pag_name);
-    sprintf(dir_name, "%s.dir", file_name);
+    snprintf(dir_name, SLEN, "%s.dir", file_name);
     db_remove_file(dir_name);
-    sprintf(dir_name, "%s.db", file_name);
+    snprintf(dir_name, SLEN, "%s.db", file_name);
     db_remove_file(dir_name);
 
     if (okurigana_flag) {
 	db_remove_file(okuri_head_name);
-	sprintf(pag_name, "%s.pag", okuri_head_name);
+	snprintf(pag_name, SLEN, "%s.pag", okuri_head_name);
 	db_remove_file(pag_name);
-	sprintf(dir_name, "%s.dir", okuri_head_name);
+	snprintf(dir_name, SLEN, "%s.dir", okuri_head_name);
 	db_remove_file(dir_name);
-	sprintf(dir_name, "%s.db", okuri_head_name);
+	snprintf(dir_name, SLEN, "%s.db", okuri_head_name);
 	db_remove_file(dir_name);
 
 	db_remove_file(okuri_tail_name);
-	sprintf(pag_name, "%s.pag", okuri_tail_name);
+	snprintf(pag_name, SLEN, "%s.pag", okuri_tail_name);
 	db_remove_file(pag_name);
-	sprintf(dir_name, "%s.dir", okuri_tail_name);
+	snprintf(dir_name, SLEN, "%s.dir", okuri_tail_name);
 	db_remove_file(dir_name);
-	sprintf(dir_name, "%s.db", okuri_tail_name);
+	snprintf(dir_name, SLEN, "%s.db", okuri_tail_name);
 	db_remove_file(dir_name);
     }
 }
@@ -816,10 +821,10 @@ int main(argc, argv)
 	exit(1);
     }
 
-    sprintf(file_name, "%s/skkdic%d", tmpdir, getpid());
+    snprintf(file_name, SLEN, "%s/skkdic%d", tmpdir, getpid());
     if (okurigana_flag) {
-	sprintf(okuri_head_name, "%s/skkhead%d", tmpdir, getpid());
-	sprintf(okuri_tail_name, "%s/skktail%d", tmpdir, getpid());
+	snprintf(okuri_head_name, SLEN, "%s/skkhead%d", tmpdir, getpid());
+	snprintf(okuri_tail_name, SLEN, "%s/skktail%d", tmpdir, getpid());
     }
     set_signal_handler();
     db_make_files();

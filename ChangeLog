@@ -1,3 +1,10 @@
+2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Tatsuya Kinoshita <tats@debian.org>.
+
+	* skkdic-expr.c (SLEN): Define the max length of strings.
+	(db_remove_files, main): Use snprintf() instead of sprintf().
+
 2007-09-17  Tatsuya Kinoshita  <tats@debian.org>
 
 	* skkdic-expr.c (db_make_files): Call dbm_open with O_EXCL to
