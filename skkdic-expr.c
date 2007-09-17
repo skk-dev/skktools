@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.17 2007/09/17 17:24:57 skk-cvs Exp $
+Version: $Id: skkdic-expr.c,v 1.18 2007/09/17 18:05:27 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2007/09/17 17:24:57 $
+Last Modified: $Date: 2007/09/17 18:05:27 $
 
 This file is part of Daredevil SKK.
 
@@ -31,6 +31,11 @@ Boston, MA 02110-1301, USA. */
 
 #include <config.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#ifdef HAVE_MKDTEMP
+#include <unistd.h>
+#endif /* HAVE_MKDTEMP */
 
 #ifdef HAVE_LIBDB
 #define DB_DBM_HSEARCH 1

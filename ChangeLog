@@ -1,5 +1,12 @@
 2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* skkdic-expr.c: Include stdlib.h, string.h.
+	Include unistd.h if HAVE_MKDTEMP is defined.
+
+	* skkdic-sort.c: Include stdlib.h.
+
+2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* skkdic-expr.c (main): Old code for setting tmpdir was not
 	deleted.  Fixed.  Also revert bad codes to the original.
 

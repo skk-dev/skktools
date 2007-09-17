@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-sort.c,v 1.5 2006/01/04 10:35:06 skk-cvs Exp $
+Version: $Id: skkdic-sort.c,v 1.6 2007/09/17 18:05:27 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2006/01/04 10:35:06 $
+Last Modified: $Date: 2007/09/17 18:05:27 $
 
 This file is part of Daredevil SKK.
 
@@ -31,6 +31,7 @@ Boston, MA 02110-1301, USA. */
 
 #include <config.h>
 #include <stdio.h>
+#include <stdlib.h>
 #ifdef HAVE_MALLOC_H
 #include <malloc.h>
 #endif
