@@ -3,23 +3,26 @@
 /* Define as the return type of signal handlers (int or void).  */
 #undef RETSIGTYPE
 
-/* Define if you have the <db1/ndbm.h> header file.  */
+/* Define to 1 if you have the <db1/ndbm.h> header file.  */
 #undef HAVE_DB1_NDBM_H
 
-/* Define if you have the <fcntl.h> header file.  */
+/* Define to 1 if you have the <fcntl.h> header file.  */
 #undef HAVE_FCNTL_H
 
-/* Define if you have the <malloc.h> header file.  */
+/* Define to 1 if you have the <malloc.h> header file.  */
 #undef HAVE_MALLOC_H
 
-/* Define if you have the <ndbm.h> header file.  */
+/* Define to 1 if you have the <ndbm.h> header file.  */
 #undef HAVE_NDBM_H
 
-/* Define if you have the db library (-ldb).  */
+/* Define to 1 if you have the db library (-ldb).  */
 #undef HAVE_LIBDB
 
-/* Define if you have the gdbm library (-lgdbm).  */
+/* Define to 1 if you have the gdbm library (-lgdbm).  */
 #undef HAVE_LIBGDBM
 
-/* Define if you have the ndbm library (-lndbm).  */
+/* Define to 1 if you have the ndbm library (-lndbm).  */
 #undef HAVE_LIBNDBM
+
+/* Define to 1 if you have mkdtemp().  */
+#undef HAVE_MKDTEMP

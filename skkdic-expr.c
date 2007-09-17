@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.13 2007/09/17 01:56:10 skk-cvs Exp $
+Version: $Id: skkdic-expr.c,v 1.14 2007/09/17 11:02:50 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2007/09/17 01:56:10 $
+Last Modified: $Date: 2007/09/17 11:02:50 $
 
 This file is part of Daredevil SKK.
 
@@ -788,6 +788,11 @@ int main(argc, argv)
     char *tmpdir;
 
     output = stdout;
+
+    tmpdir = getenv("TMPDIR");
+    if (tmpdir == NULL) {
+      tmpdir = TMPDIR;
+    }
     tmpdir = TMPDIR;
 
     /* 引数の処理 */
@@ -818,8 +823,13 @@ int main(argc, argv)
 	exit(1);
     }
 
+#ifdef HAVE_MKDTEMP
+    snprintf(tmpsubdir, sizeof(tmpsubdir), "%s/skkdicXXXXXX", tmpdir);
+    if (mkdtemp(tmpsubdir) == NULL) {
+#else /* not HAVE_MKDTEMP */
     snprintf(tmpsubdir, sizeof(tmpsubdir), "%s/skkdic%d", tmpdir, getpid());
     if (mkdir(tmpsubdir, 0700)) {
+#endif /* not HAVE_MKDTEMP */
 	perror(tmpsubdir);
 	exit(1);
     }

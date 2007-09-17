@@ -2,6 +2,15 @@
 
 	Suggested by Tatsuya Kinoshita <tats@debian.org>.
 
+	* configure.ac: Check for mkdtemp().
+
+	* skkdic-expr.c (main): Use mkdtemp() if it is available.
+	Set tmpdir to the TMPDIR environment variable if it is defined.
+
+2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	Suggested by Tatsuya Kinoshita <tats@debian.org>.
+
 	* skkdic-expr.c (db_remove_files, main): Use snprintf() instead of
 	sprintf().
 

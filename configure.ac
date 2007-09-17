@@ -12,6 +12,9 @@ AC_ARG_WITH(skkdic-expr2,
   [  --without-skkdic-expr2  skip compiling skkdic-expr2],
   [WITH_SKKDIC_EXPR2="$withval"])
 
+dnl checks for Unix variants
+AC_GNU_SOURCE
+
 dnl Checks for programs.
 AC_PROG_AWK
 AC_PROG_CC
@@ -26,6 +29,25 @@ AC_PATH_PROGS(MD5, md5 md5sum)
 AC_PATH_PROG(TAR, tar,, /usr/local/bin:$PATH)
 dnl Checks for executable suffix.
 AC_EXEEXT
+
+dnl Checks for system functions.
+
+dnl snprintf_available=yes
+dnl AC_CHECK_FUNC(snprintf,, snprintf_available=no)
+dnl if test $snprintf_available = no; then
+dnl    echo "Error: snprintf() not available." >&2 && exit 1
+dnl fi
+dnl cat >>confdefs.h <<_ACEOF
+dnl #define HAVE_SNPRINTF 1
+dnl _ACEOF
+
+mkdtemp_available=yes
+AC_CHECK_FUNC(mkdtemp,, mkdtemp_available=no)
+if test $mkdtemp_available = yes; then
+      cat >>confdefs.h <<_ACEOF
+#define HAVE_MKDTEMP 1
+_ACEOF
+fi
 
 dnl Checks for libraries.
 
