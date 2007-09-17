@@ -1,7 +1,9 @@
 2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* configure.ac, config.h.in: Check for unistd.h.
+
 	* skkdic-expr.c: Include stdlib.h, string.h.
-	Include unistd.h if HAVE_MKDTEMP is defined.
+	Include unistd.h if HAVE_MKDTEMP and HAVE_UNISTD is defined.
 
 	* skkdic-sort.c: Include stdlib.h.
 

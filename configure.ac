@@ -32,22 +32,10 @@ AC_EXEEXT
 
 dnl Checks for system functions.
 
-dnl snprintf_available=yes
-dnl AC_CHECK_FUNC(snprintf,, snprintf_available=no)
-dnl if test $snprintf_available = no; then
+AC_CHECK_FUNCS(mkdtemp snprintf)
+dnl if test $ac_cv_func_snprintf = no; then
 dnl    echo "Error: snprintf() not available." >&2 && exit 1
 dnl fi
-dnl cat >>confdefs.h <<_ACEOF
-dnl #define HAVE_SNPRINTF 1
-dnl _ACEOF
-
-mkdtemp_available=yes
-AC_CHECK_FUNC(mkdtemp,, mkdtemp_available=no)
-if test $mkdtemp_available = yes; then
-      cat >>confdefs.h <<_ACEOF
-#define HAVE_MKDTEMP 1
-_ACEOF
-fi
 
 dnl Checks for libraries.
 
