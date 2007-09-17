@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.14 2007/09/17 11:02:50 skk-cvs Exp $
+Version: $Id: skkdic-expr.c,v 1.15 2007/09/17 11:23:43 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2007/09/17 11:02:50 $
+Last Modified: $Date: 2007/09/17 11:23:43 $
 
 This file is part of Daredevil SKK.
 
@@ -786,10 +786,11 @@ int main(argc, argv)
     int negate, i;
     FILE *output;
     char *tmpdir;
+    char tmpdir_env = getenv("TMPDIR");
 
     output = stdout;
 
-    tmpdir = getenv("TMPDIR");
+    tmpdir = &tmpdir_env;
     if (tmpdir == NULL) {
       tmpdir = TMPDIR;
     }
@@ -825,7 +826,8 @@ int main(argc, argv)
 
 #ifdef HAVE_MKDTEMP
     snprintf(tmpsubdir, sizeof(tmpsubdir), "%s/skkdicXXXXXX", tmpdir);
-    if (mkdtemp(tmpsubdir) == NULL) {
+    mkdtemp(tmpsubdir);
+    if (tmpsubdir == NULL) {
 #else /* not HAVE_MKDTEMP */
     snprintf(tmpsubdir, sizeof(tmpsubdir), "%s/skkdic%d", tmpdir, getpid());
     if (mkdir(tmpsubdir, 0700)) {
@@ -841,7 +843,7 @@ int main(argc, argv)
     }
     set_signal_handler();
     db_make_files();
-    
+
     negate = 0;
     for (; i < argc; ++ i) {
 	if (argv[i][0] == '+') {
