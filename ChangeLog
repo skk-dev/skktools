@@ -1,3 +1,8 @@
+2007-09-17  Tatsuya Kinoshita  <tats@debian.org>
+
+	* skkdic-expr.c (db_make_files): Call dbm_open with O_EXCL to
+	avoid symlink attacks overwriting arbitrary files.
+
 2006-10-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.

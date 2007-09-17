@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.10 2006/01/04 10:35:06 skk-cvs Exp $
+Version: $Id: skkdic-expr.c,v 1.11 2007/09/17 01:03:02 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2006/01/04 10:35:06 $
+Last Modified: $Date: 2007/09/17 01:03:02 $
 
 This file is part of Daredevil SKK.
 
@@ -157,7 +157,7 @@ static void db_remove_files()
 static void db_make_files()
 {
     db_remove_files();
-    if ((db = dbm_open(file_name, O_RDWR|O_CREAT, 0600)) == NULL){
+    if ((db = dbm_open(file_name, O_RDWR|O_CREAT|O_EXCL, 0600)) == NULL){
 	perror(file_name);
 	exit(1);
     }
@@ -166,12 +166,12 @@ static void db_make_files()
 	exit(1);
     }
     if (okurigana_flag) {
-	if ((okuriheaddb = dbm_open(okuri_head_name, O_RDWR|O_CREAT, 0600)) 
+	if ((okuriheaddb = dbm_open(okuri_head_name, O_RDWR|O_CREAT|O_EXCL, 0600)) 
 	    == NULL){
 	    perror(okuri_head_name);
 	    exit(1);
 	}
-	if ((okuritaildb = dbm_open(okuri_tail_name, O_RDWR|O_CREAT, 0600)) 
+	if ((okuritaildb = dbm_open(okuri_tail_name, O_RDWR|O_CREAT|O_EXCL, 0600)) 
 	    == NULL){
 	    perror(okuri_tail_name);
 	    exit(1);
