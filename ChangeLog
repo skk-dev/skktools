@@ -2,12 +2,12 @@
 
 	Suggested by Tatsuya Kinoshita <tats@debian.org>.
 
-	* skkdic-expr.c (SLEN): Define the max length of strings.
-	(db_remove_files, main): Use snprintf() instead of sprintf().
+	* skkdic-expr.c (db_remove_files, main): Use snprintf() instead of
+	sprintf().
 
 2007-09-17  Tatsuya Kinoshita  <tats@debian.org>
 
-	* skkdic-expr.c (db_make_files): Call dbm_open with O_EXCL to
+	* skkdic-expr.c (main): Safely create temporary subdirectory to
 	avoid symlink attacks overwriting arbitrary files.
 
 2006-10-04  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
