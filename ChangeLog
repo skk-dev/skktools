@@ -14,7 +14,7 @@
 
 2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	Suggested by Tatsuya Kinoshita <tats@debian.org>.
+	Patches by Tatsuya Kinoshita <tats@debian.org>.
 
 	* configure.ac: Check for mkdtemp().
 
