@@ -29,3 +29,6 @@
 
 /* Define to 1 if you have mkdtemp().  */
 #undef HAVE_MKDTEMP
+
+/* Define to 1 if you have snprintf().  */
+#undef HAVE_SNPRINTF
