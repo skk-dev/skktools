@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.19 2007/09/17 22:59:53 skk-cvs Exp $
+Version: $Id: skkdic-expr.c,v 1.20 2007/09/20 09:46:41 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2007/09/17 22:59:53 $
+Last Modified: $Date: 2007/09/20 09:46:41 $
 
 This file is part of Daredevil SKK.
 
@@ -106,6 +106,22 @@ DBM *db;
 DBM *okuriheaddb;
 DBM *okuritaildb;
 FILE *dbcontent;
+
+/* snprintf() がない環境のための定義 */
+#ifndef HAVE_SNPRINTF
+/* #include <stdio.h> */
+#include <stdarg.h>
+int snprintf(char *s, size_t maxlen, const char *format, ...)
+{
+    va_list ap;
+    int n;
+
+    va_start(ap, format);
+    n = vsprintf(s, format, ap);
+    va_end(ap);
+    return n;
+}
+#endif
 
 /* 送りがながついたエントリを含めて処理を行わせるかどうか */
 int	okurigana_flag;

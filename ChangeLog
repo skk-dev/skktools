@@ -1,3 +1,11 @@
+2007-09-19  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* skkdic-expr.c: Transiently define snprintf() for old systems.
+
+2007-09-20  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* config.h.in: Add HAVE_SNPRINTF.
+
 2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* configure.ac, config.h.in: Check for unistd.h.
