@@ -17,8 +17,9 @@
 
 2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
-	* skkdic-expr.c (main): Old code for setting tmpdir was not
-	deleted.  Fixed.  Also revert bad codes to the original.
+	* skkdic-expr.c (main): Fix my mistakes, i.e. old code for setting
+	tmpdir was not deleted.  Fixed.  Also revert bad codes to the
+	original.
 
 2007-09-17  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
