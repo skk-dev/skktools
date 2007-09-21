@@ -4,9 +4,9 @@
 #
 # Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: Makefile.in,v 1.13 2006/10/04 14:49:38 skk-cvs Exp $
+# Version: $Id: Makefile.in,v 1.14 2007/09/21 23:32:51 skk-cvs Exp $
 # Keywords: japanese
-# Last Modified: $Date: 2006/10/04 14:49:38 $
+# Last Modified: $Date: 2007/09/21 23:32:51 $
 #
 # This file is part of Daredevil SKK
 #
@@ -129,11 +129,9 @@ tar: clean
 	ln -sf tools skktools-$(VERSION) ;\
 	$(TAR) cvpf skktools-$(VERSION).tar --exclude-from=skktools-$(VERSION)/skk.ex \
                --dereference skktools-$(VERSION) ;\
-	$(BZIP2) -cf skktools-$(VERSION).tar > skktools-$(VERSION).tar.bz2 ;\
 	$(GZIP) -cf skktools-$(VERSION).tar > skktools-$(VERSION).tar.gz ;\
 	rm -f skktools-$(VERSION).tar ;\
 	rm -f skktools-$(VERSION) ;\
-	$(MD5) skktools-$(VERSION).tar.bz2 >skktools-$(VERSION).tar.bz2.md5 ;\
 	$(MD5) skktools-$(VERSION).tar.gz >skktools-$(VERSION).tar.gz.md5
 
 snapshot: clean

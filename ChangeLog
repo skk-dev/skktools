@@ -1,3 +1,8 @@
+2007-09-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile.in (tar): Do not create bzip2 archive.
+	* VERSION: 1.3
+
 2007-09-19  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* skkdic-expr.c: Transiently define snprintf() for old systems.
