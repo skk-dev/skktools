@@ -1,7 +1,11 @@
+2007-09-22  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Version 1.3 released.
+
 2007-09-21  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Makefile.in (tar): Do not create bzip2 archive.
-	* VERSION: 1.3
+	* VERSION: 1.3.
 
 2007-09-19  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
