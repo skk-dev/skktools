@@ -3,9 +3,9 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.11 2006/01/04 10:35:06 skk-cvs Exp $
+Version: $Id: skkdic-expr2.c,v 1.12 2007/09/26 03:40:35 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2006/01/04 10:35:06 $
+Last Modified: $Date: 2007/09/26 03:40:35 $
 
 This file is part of Daredevil SKK.
 
@@ -254,10 +254,10 @@ static void cleanTree(GTree *tree)
 
 static GSList *splitCandidates(gchar *str)
 {
-	unsigned char *p, *q;
+	guchar *p, *q;
 	GSList *list = NULL;
 
-	p = str;
+	p = (guchar *)str;
 	while(*p >= 0x20) {
 		if(*p == '/') {
 			q = ++p;
@@ -273,7 +273,7 @@ static GSList *splitCandidates(gchar *str)
 				if(*q == '\0') break;
 				q++;
 			}
-			list = g_slist_append(list, g_strndup(p, (int)q - (int)p));
+			list = g_slist_append(list, g_strndup((gchar *)p, q - p));
 			p = q;
 		} else {
 			p++;
