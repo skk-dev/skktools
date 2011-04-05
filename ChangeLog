@@ -2,6 +2,10 @@
 
 	* Makefile.in (skkdic-expr, skkdic-sort, skkdic-count): Use
 	LDFLAGS.
+	* configure: Regenerate.
+	* configure.ac: Check gdbm/ndbm.h.
+	* skkdic-expr.c: Remove old copy of gdbm/ndbm.h.  Include
+	gdbm/ndbm.h for libgdbm.
 
 2011-04-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
