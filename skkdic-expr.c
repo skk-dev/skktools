@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.20 2007/09/20 09:46:41 skk-cvs Exp $
+Version: $Id: skkdic-expr.c,v 1.21 2011/04/05 04:34:29 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2007/09/20 09:46:41 $
+Last Modified: $Date: 2011/04/05 04:34:29 $
 
 This file is part of Daredevil SKK.
 
@@ -43,21 +43,9 @@ Boston, MA 02110-1301, USA. */
 #define DB_DBM_HSEARCH 1
 #include <db.h>
 #else /* not HAVE_LIBDB */
-#ifdef HAVE_LIBGDBM
-/* gdbm に付属の ndbm.h は make install ではインストールされない */
-#define  DBM_REPLACE 1
-typedef struct {
-	char *dptr;
-	int   dsize;
-	} datum;
-typedef struct {int dummy[10];} DBM;
-extern DBM 	*dbm_open ();
-extern datum	 dbm_fetch ();
-extern int	 dbm_store ();
-extern int	 dbm_delete ();
-extern datum	 dbm_firstkey ();
-extern datum	 dbm_nextkey ();
-#else /* not HAVE_LIBGDBM */
+#ifdef HAVE_GDBM_NDBM_H
+#include <gdbm/ndbm.h>
+#else /* not HAVE_GDBM_NDBM_H */
 #ifdef HAVE_NDBM_H
 #include <ndbm.h>
 #else /* not HAVE_NDBM_H */
@@ -65,13 +53,13 @@ extern datum	 dbm_nextkey ();
 #include <db1/ndbm.h>
 #endif /* HAVE_DB1_NDBM_H */
 #endif /* HAVE_NDBM_H */
-#endif /* HAVE_LIBGDBM */
+#endif /* HAVE_GDBM_NDBM_H */
 #endif /* HAVE_LIBDB */
 
 #include <errno.h>
 #include <signal.h>
 
-#ifdef HAVE_FCNTL_H 
+#ifdef HAVE_FCNTL_H
 #include <fcntl.h>
 #endif
 

@@ -6,6 +6,9 @@
 /* Define to 1 if you have the <db1/ndbm.h> header file.  */
 #undef HAVE_DB1_NDBM_H
 
+/* Define to 1 if you have the <gfbm/ndbm.h> header file.  */
+#undef HAVE_GDBM_NDBM_H
+
 /* Define to 1 if you have the <fcntl.h> header file.  */
 #undef HAVE_FCNTL_H
 

@@ -4,6 +4,7 @@
 	LDFLAGS.
 	* configure: Regenerate.
 	* configure.ac: Check gdbm/ndbm.h.
+	* config.h.in: Add HAVE_GDBM_NDBM_H.
 	* skkdic-expr.c: Remove old copy of gdbm/ndbm.h.  Include
 	gdbm/ndbm.h for libgdbm.
 
