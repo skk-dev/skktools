@@ -1,3 +1,8 @@
+2011-04-05  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* Makefile.in (skkdic-expr, skkdic-sort, skkdic-count): Use
+	LDFLAGS.
+
 2011-04-02  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* configure: Regenerate with Autoconf 2.66.
