@@ -1,3 +1,8 @@
+2011-04-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
+	* configure: Regenerate.
+	* configure.ac: Fix the check for gdbm/ndbm.h.
+
 2011-04-06  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
