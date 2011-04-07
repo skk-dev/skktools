@@ -1,5 +1,6 @@
 2011-04-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* VERSION: Bump to 1.3.2.
 	* configure: Regenerate.
 	* configure.ac: Fix the check for gdbm/ndbm.h.
 
