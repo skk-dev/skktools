@@ -41,15 +41,6 @@ dnl Checks for libraries.
 
 if test "$WITH_GDBM" = yes; then
    AC_CHECK_LIB(gdbm, dbm_open,, AC_CHECK_LIB(gdbm_compat, dbm_open,,, -lgdbm))
-   if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
-      AC_CHECK_HEADERS(gdbm/ndbm.h)
-      if test "$ac_cv_header_gdbm_ndbm_h" = yes; then
-      	 LIBS="$LIBS  -lgdbm"
-	 cat >>confdefs.h <<_ACEOF
-#define HAVE_LIBGDBM 1
-_ACEOF
-      fi
-   fi
 fi
 
 if test "x$LIBS" = x; then
@@ -60,16 +51,17 @@ if test "x$LIBS" = x; then
       fi
       if test "x$LIBS" = x; then
          AC_CHECK_LIB(gdbm, dbm_open,, AC_CHECK_LIB(gdbm_compat, dbm_open,,, -lgdbm))
-         if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
-            AC_CHECK_HEADERS(gdbm/ndbm.h)
-            if test "$ac_cv_header_gdbm_ndbm_h" = yes; then
-	       LIBS="$LIBS  -lgdbm"
-	       cat >>confdefs.h <<_ACEOF
+      fi
+   fi
+fi
+
+if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
+   AC_CHECK_HEADERS(gdbm/ndbm.h)
+   if test "$ac_cv_header_gdbm_ndbm_h" = yes; then
+      LIBS="$LIBS  -lgdbm"
+      cat >>confdefs.h <<_ACEOF
 #define HAVE_LIBGDBM 1
 _ACEOF
-            fi
-    	 fi
-      fi
    fi
 fi
 
