@@ -1,7 +1,8 @@
 2011-04-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* configure: Regenerate.
-	* configure.ac: Simplify.
+	* configure.ac: Check for dbm when --with-gdbm fails for
+	gdbm/ndbm.h.
 
 2011-04-07  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 

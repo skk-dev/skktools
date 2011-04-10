@@ -11668,6 +11668,30 @@ fi
 
 fi
 
+
+   if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
+      for ac_header in gdbm/ndbm.h
+do :
+  ac_fn_c_check_header_mongrel "$LINENO" "gdbm/ndbm.h" "ac_cv_header_gdbm_ndbm_h" "$ac_includes_default"
+if test "x$ac_cv_header_gdbm_ndbm_h" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_GDBM_NDBM_H 1
+_ACEOF
+
+fi
+
+done
+
+      if test "$ac_cv_header_gdbm_ndbm_h" = yes; then
+         LIBS="$LIBS  -lgdbm"
+         cat >>confdefs.h <<_ACEOF
+#define HAVE_LIBGDBM 1
+_ACEOF
+      else
+         LIBS=""
+      fi
+   fi
+
 fi
 
 if test "x$LIBS" = x; then
@@ -11862,12 +11886,9 @@ fi
 
 fi
 
-      fi
-   fi
-fi
 
-if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
-   for ac_header in gdbm/ndbm.h
+         if test "$ac_cv_lib_gdbm_compat_dbm_open" = yes; then
+            for ac_header in gdbm/ndbm.h
 do :
   ac_fn_c_check_header_mongrel "$LINENO" "gdbm/ndbm.h" "ac_cv_header_gdbm_ndbm_h" "$ac_includes_default"
 if test "x$ac_cv_header_gdbm_ndbm_h" = x""yes; then :
@@ -11879,11 +11900,17 @@ fi
 
 done
 
-   if test "$ac_cv_header_gdbm_ndbm_h" = yes; then
-      LIBS="$LIBS  -lgdbm"
-      cat >>confdefs.h <<_ACEOF
+            if test "$ac_cv_header_gdbm_ndbm_h" = yes; then
+               LIBS="$LIBS  -lgdbm"
+               cat >>confdefs.h <<_ACEOF
 #define HAVE_LIBGDBM 1
 _ACEOF
+            else
+               LIBS=""
+            fi
+         fi
+
+      fi
    fi
 fi
 
