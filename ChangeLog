@@ -1,5 +1,9 @@
 2011-04-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
+	* Version 1.3.2 released.
+
+2011-04-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
+
 	* configure: Regenerate.
 	* configure.ac: Check for dbm when --with-gdbm fails for
 	gdbm/ndbm.h.
