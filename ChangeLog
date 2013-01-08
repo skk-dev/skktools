@@ -1,3 +1,9 @@
+2013-01-08  Keisuke Kawahara  <kyohsuke@conafie.jp>
+
+	* skkdic-expr.c (add_okuri_item, subtract_okuri_item)
+	(subtract_okuri_tail_line, okuri_type_out): Fix failing build
+	under clang on Mac OSX.
+
 2011-04-10  Tetsuo Tsukamoto  <czkmt@remus.dti.ne.jp>
 
 	* Version 1.3.2 released.

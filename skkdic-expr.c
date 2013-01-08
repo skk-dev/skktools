@@ -4,9 +4,9 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-expr.c,v 1.21 2011/04/05 04:34:29 skk-cvs Exp $
+Version: $Id: skkdic-expr.c,v 1.22 2013/01/08 12:24:00 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2011/04/05 04:34:29 $
+Last Modified: $Date: 2013/01/08 12:24:00 $
 
 This file is part of Daredevil SKK.
 
@@ -316,7 +316,7 @@ static void append_item(base, s, e)
 /* 各送りがなエントリは、"わりこmみ"のようなキーを持ち、
  * その値は、"/割り込/割込/"となる
  */
-static char *add_okuri_item(key, s)
+void add_okuri_item(key, s)
      datum 		*key;
      unsigned char 	*s;
 {
@@ -535,7 +535,7 @@ delete_item(base, s, e)
 /* 各送りがなエントリは、"わりこmみ"のようなキーを持つことになる
  * その値は、"/割り込/割込/"となる
  */
-static char *subtract_okuri_item(key, s)
+void subtract_okuri_item(key, s)
      datum 		*key;
      unsigned char 	*s;
 {
@@ -585,7 +585,7 @@ static char *subtract_okuri_item(key, s)
 
 /* tailで指している文字列からlineに含まれる語尾を削除
  */
-static int subtract_okuri_tail_line(tails, line)
+void subtract_okuri_tail_line(tails, line)
      unsigned char 	*tails, *line;
 {
     unsigned char     	*s, *e;
@@ -688,7 +688,7 @@ static void subtract_file(srcname)
     fclose(fp);
 }
 
-static int	okuri_type_out(key, output)
+void okuri_type_out(key, output)
      datum	*key;
      FILE	*output;
 {
