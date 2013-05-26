@@ -1,3 +1,23 @@
+2013-05-21  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* convert2skk/aozora2skk.rb, convert2skk/canna2skk.rb:
+	* convert2skk/chasen2skk.rb, convert2skk/ctdicconv.rb:
+	* convert2skk/ipadic2skk.rb, convert2skk/prime2skk.rb:
+	* convert2skk/skk-wordpicker.rb, filters/abbrev-convert.rb:
+	* filters/annotation-filter.rb, filters/asayaKe.rb:
+	* filters/complete-numerative.rb, filters/conjugation.rb:
+	* filters/make-tankan-dic.rb, filters/skkdictools.rb: Add magic
+	comment for Ruby 1.9.
+
+2013-05-20  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* convert2skk/aozora2skk.rb, convert2skk/chasen2skk.rb:
+	* convert2skk/ctdicconv.rb, convert2skk/ipadic2skk.rb:
+	* convert2skk/prime2skk.rb, convert2skk/skk-wordpicker.rb:
+	* filters/abbrev-convert.rb, filters/annotation-filter.rb:
+	* filters/make-tankan-dic.rb: Check RUBY_VERSION to prevent
+	LoadError of `jcode' for Ruby 1.9.
+
 2013-01-08  Keisuke Kawahara  <kyohsuke@conafie.jp>
 
 	* skkdic-expr.c (add_okuri_item, subtract_okuri_item)

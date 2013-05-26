@@ -1,11 +1,12 @@
 #!/usr/local/bin/ruby -Ke
+# -*- coding: euc-jp -*-
 ## Copyright (C) 2006 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: make-tankan-dic.rb,v 1.1 2006/01/29 16:36:40 skk-cvs Exp $
+## Version: $Id: make-tankan-dic.rb,v 1.2 2013/05/26 09:47:48 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2006/01/29 16:36:40 $
+## Last Modified: $Date: 2013/05/26 09:47:48 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -37,7 +38,7 @@
 ## XXX This won't work with SKK-JISYO.JIS3_4; helas, ruby basically cannot
 ## handle JISX0213!
 ## 
-require 'jcode'
+require 'jcode' if RUBY_VERSION.to_f < 1.9
 #require 'kconv'
 require 'skkdictools'
 require 'optparse'

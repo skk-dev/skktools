@@ -1,11 +1,12 @@
 #!/usr/local/bin/ruby -Ke
+# -*- coding: euc-jp -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: complete-numerative.rb,v 1.3 2006/01/04 10:35:06 skk-cvs Exp $
+## Version: $Id: complete-numerative.rb,v 1.4 2013/05/26 09:47:48 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2006/01/04 10:35:06 $
+## Last Modified: $Date: 2013/05/26 09:47:48 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by

@@ -1,12 +1,13 @@
 #!/usr/bin/env ruby
+# -*- coding: euc-jp -*-
 # canna2skk.rb -- convert Canna dictionary to SKK-JISYO format.
 #
 # Copyright (C) 2003 NAKAJIMA Mikio <minakaji@namazu.org>
 #
 # Author: NAKAJIMA Mikio <minakaji@namazu.org>
 # Created: March 23, 2003
-# Last Modified: $Date: 2006/01/04 10:35:06 $
-# Version: $Id: canna2skk.rb,v 1.2 2006/01/04 10:35:06 skk-cvs Exp $
+# Last Modified: $Date: 2013/05/26 09:47:48 $
+# Version: $Id: canna2skk.rb,v 1.3 2013/05/26 09:47:48 skk-cvs Exp $
 
 # This file is part of Daredevil SKK.
 
