@@ -13,12 +13,13 @@
 
 # Author: Masaaki Sato <msatoh@mrit.mei.co.jp>
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: makedbmdic5,v 1.1 2000/03/12 12:17:49 minakaji Exp $
+# Version: $Id: makedbmdic5,v 1.2 2013/05/30 14:44:24 skk-cvs Exp $
 # Keywords: jisyo, dbm, gdbm, perl
-# Last Modified: $Date: 2000/03/12 12:17:49 $
+# Last Modified: $Date: 2013/05/30 14:44:24 $
 
-require "getopts.pl";
-&Getopts(BG);
+use Getopt::Std;
+getopts('BG'); 
+our($opt_B, $opt_G);
 
 if (defined $opt_B){
 	use DB_File;

@@ -1,3 +1,10 @@
+2013-05-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
+
+	* dbm/makedbmdic5: Use Getopt::Std (Perl 5.16) instead of
+	getopts.pl (Perl 5.14) .
+
 2013-05-21  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
 
 	* convert2skk/aozora2skk.rb, convert2skk/canna2skk.rb:
