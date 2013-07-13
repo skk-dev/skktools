@@ -1,3 +1,8 @@
+2013-07-13  Tatsuya Kinoshita  <tats@vega.ocn.ne.jp>
+
+	* compile, config.sub, config.guess, depcomp, install-sh:
+	* ltmain.sh, missing: Update with Debian libtool 2.4.2-1.3.
+
 2013-07-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* skk2cdb.py: Move from dic/skk2cdb.py.
