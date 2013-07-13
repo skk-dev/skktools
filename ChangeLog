@@ -1,3 +1,7 @@
+2013-07-13  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* skk2cdb.py: Move from dic/skk2cdb.py.
+
 2013-05-30  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	Suggested by Tatsuya Kinoshita <tats@vega.ocn.ne.jp>.
