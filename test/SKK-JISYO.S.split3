@@ -1,0 +1,47 @@
+;; -*- fundamental -*- ; coding: euc-jp -*-
+;; Small size dictionary for SKK system
+;; Copyright (C) 1988-1995, 1997, 1999-2003
+;;
+;; Masahiko Sato <masahiko@kuis.kyoto-u.ac.jp>
+;; Hironobu Takahashi <takahasi@tiny.or.jp>,
+;; Masahiro Doteguchi, Miki Inooka,
+;; Yukiyoshi Kameyama <kameyama@kuis.kyoto-u.ac.jp>,
+;; Akihiko Sasaki, Dai Ando, Junichi Okukawa,
+;; Katsushi Sato and Nobuhiro Yamagishi
+;;
+;; Maintainer: SKK Development Team <skk@ring.gr.jp>
+;; Version: $Id: SKK-JISYO.S,v 1.55 2006/01/04 10:25:04 skk-cvs Exp $
+;; Keywords: japanese
+;; Last Modified: $Date: 2006/01/04 10:25:04 $
+;;
+;; This dictionary is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either versions 2, or (at your option)
+;; any later version.
+;;
+;; This dictionary is distributed in the hope that it will be useful
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with Daredevil SKK, see the file COPYING.  If not, write to the Free
+;; Software Foundation Inc., 51 Franklin St, Fifth Floor, Boston,
+;; MA 02110-1301, USA.
+;;
+;; okuri-ari entries.
+わるs /悪/
+わるk /悪/
+わるi /悪/
+わらu /笑/
+わらi /笑/
+わたt /渡/
+わたs /渡/
+わたr /渡/亘/亙/渉/
+わずらw /煩/
+わらび /蕨/
+わらべ /童/
+わり /割/
+わりばし /割箸/
+われ /我/
+わん /腕/碗/湾/椀/
