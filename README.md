@@ -2,7 +2,7 @@
 
 -\*- text -\*-
 
-$Date: 2005/08/21 17:05:39 $ Mikio Nakajima/中島幹夫 \<minakaji@osaka.email.ne.jp\>
+$Date: 2005/08/21 17:05:39 $ Mikio Nakajima/中島幹夫 \< minakaji<span></span>@osaka.email.ne.jp \>
 
 $Id: README,v 1.3 2005/08/21 17:05:39 skk-cvs Exp $
 
@@ -26,6 +26,6 @@ $ make install
 
 オリジナルの README は、./READMEs ディレクトリに収めています。
 
-Mikio Nakajima/中島幹夫 \<minakaji@osaka.email.ne.jp\>
+Mikio Nakajima/中島幹夫 \< minakaji<span></span>@osaka.email.ne.jp >
 
 http://www.asahi-net.or.jp/~gy2m-nkjm/
