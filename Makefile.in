@@ -120,6 +120,27 @@ clean:
 distclean:
 	rm -f config.h config.status config.cache config.log Makefile $(TARGETS) core
 
+test: test_skkdic-count test_skkdic-sort test_skkdic-expr test_skkdic-expr2
+
+test_skkdic-count:
+	./skkdic-count test/SKK-JISYO.S > test/skkdic-count.output &&\
+	diff test/result/skkdic-count test/skkdic-count.output &&\
+	rm -f test/skkdic-count.output
+
+test_skkdic-sort:
+	cat test/SKK-JISYO.S.shuffle | ./skkdic-sort > test/skkdic-sort.output &&\
+	diff test/result/skkdic-sort test/skkdic-sort.output &&\
+	rm -f test/skkdic-sort.output
+test_skkdic-expr: test_skkdic-sort
+	./skkdic-expr test/SKK-JISYO.S.split1 + test/SKK-JISYO.S.split2 - test/SKK-JISYO.S.split3 | ./skkdic-sort > test/skkdic-expr.output &&\
+	diff test/result/skkdic-expr test/skkdic-expr.output &&\
+	rm -f test/skkdic-expr.output
+
+test_skkdic-expr2: test_skkdic-sort
+	./skkdic-expr2 test/SKK-JISYO.S.split1 + test/SKK-JISYO.S.split2 - test/SKK-JISYO.S.split3 | ./skkdic-sort > test/skkdic-expr2.output &&\
+	diff test/result/skkdic-expr2 test/skkdic-expr2.output &&\
+	rm -f test/skkdic-expr2.output
+
 TAGS: $(SRCS)
 	etags $(SRCS)
 
@@ -148,4 +169,4 @@ snapshot: clean
 	$(MD5) $(SNAPBASE).tar.gz >$(SNAPBASE).tar.gz.md5
 
 
-.PHONY: clean distclean
+.PHONY: clean distclean test

@@ -1,0 +1,13 @@
+language: c
+install:
+  - sudo apt-get install -qq gnulib libgdbm-dev pinfo
+  - sudo mkdir /usr/include/gdbm
+  - sudo ln -s /usr/include/gdbm-ndbm.h /usr/include/gdbm/ndbm.h
+compiler:
+  - clang
+  - gcc
+os:
+  - linux
+script:
+  - ./configure 
+  - make && make test
