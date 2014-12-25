@@ -1,6 +1,14 @@
 2014-12-23  Keisuke Kawahara  <kyohsuke@conafie.jp>
 
-	* README.md: Written in Markdown.
+	* README.md: Unlink email address.
+
+	* README.md: adding README written in Markdown.
+
+	* .travis.yml, Makefile.in, test/SKK-JISYO.S, test/SKK-JISYO.S.shuffle:
+	* test/SKK-JISYO.S.split1, test/SKK-JISYO.S.split2:
+	* test/SKK-JISYO.S.split3, test/result/skkdic-count:
+	* test/result/skkdic-expr, test/result/skkdic-expr2:
+	* test/result/skkdic-sort: adding Travis CI.
 
 2014-12-22  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
