@@ -2,6 +2,8 @@
 
 	* README.md: modify.
 
+	* READMEs/README.filters: filters/README と重複する内容であるため削除した.
+
 2014-12-23  Keisuke Kawahara  <kyohsuke@conafie.jp>
 
 	* README.md: Unlink email address.
