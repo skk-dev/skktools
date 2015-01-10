@@ -1,31 +1,38 @@
-[![Build Status](https://travis-ci.org/skk-dev/skktools.svg)](https://travis-ci.org/skk-dev/skktools)
+skktools [![Build Status](https://travis-ci.org/skk-dev/skktools.svg)](https://travis-ci.org/skk-dev/skktools)
+=====
 
--\*- text -\*-
+SKK 辞書のメンテナンスや拡張に必要なファイルを集めたパッケージです。
 
-$Date: 2005/08/21 17:05:39 $ Mikio Nakajima/中島幹夫 \< minakaji<span></span>@osaka.email.ne.jp \>
+## 各ディレクトリについて
 
-$Id: README,v 1.3 2005/08/21 17:05:39 skk-cvs Exp $
+### トップディレクトリ
 
-SKK 辞書のメンテナンス、拡張に必要なファイルを集めたパッケージです。
+C で書かれたツール。READMEs ディレクトリに収めてある README.* もご覧ください。
 
-1. トップディレクトリ -- C で書かれたツール
+* skkdic-expr 複数の辞書のマージなど
+* skkdic-expr2 skkdic-expr の高速版
+* skkdic-sort 辞書のソート
+* skkdic-count 辞書の中の候補数を数える
+* skkdic-diff ふたつの辞書の差分を真鵺道形式で出力
 
-2. convert2skk ディレクトリ -- SKK 以外の辞書を SKK 形式に変換するため  
-   に使用するプログラム。
+### convert2skk ディレクトリ
+SKK 以外の辞書を SKK 形式に変換するために使用するプログラム。
 
-3. dbm ディレクトリ -- SKK 辞書を dbm 化するために使用するプログラム。  
-   pskkserv の一部。
+### dbm ディレクトリ
+SKK 辞書を dbm 化するために使用するプログラム。pskkserv の一部。
 
-4. filters ディレクトリ -- SKK 辞書を加工・編集するために使用するプログラム。
+### filters ディレクトリ
+SKK 辞書を加工・編集するために使用するプログラム。
 
-$ ./configure  
-$ make  
-$ make install  
-することで、1 のプログラムのみが make、インストールされます。  
-2, 3, 4 については必要に応じてお使い下さい。
+## ビルド方法
+トップディレクトリに置かれているプログラムについては、下記の手順で
+ビルド・インストールできます。
+```
+$ ./configure
+$ make
+$ make install
+```
 
-オリジナルの README は、./READMEs ディレクトリに収めています。
+他のディレクトリについては、必要に応じてそれぞれのディレクトリを参照してください。
 
-Mikio Nakajima/中島幹夫 \< minakaji<span></span>@osaka.email.ne.jp >
-
-http://www.asahi-net.or.jp/~gy2m-nkjm/
+Mikio Nakajima/中島幹夫 < minakaji<span></span>@osaka.email.ne.jp >
