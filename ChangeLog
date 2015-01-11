@@ -3,7 +3,7 @@
 	* ChangeLog: Convert to utf-8.
 	* README: Remove.
         * README.md: Modified.
-	* convert2skk/README: Modified.
+	* convert2skk/README.md: Rename from convert2skk/README.
 	* convert2skk/read.me: Rename from READMEs/read.me.
 	* convert2skk/obsolete/README.perl: Rename from READMEs/README.perl.
 	* filters/README.md: Rename from filters/README.
