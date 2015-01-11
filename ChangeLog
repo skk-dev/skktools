@@ -1,8 +1,12 @@
+2015-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* ChangeLog, convert2skk/README, filters/README: Convert to utf-8.
+
 2015-01-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* README.md: modify.
 
-	* READMEs/README.filters: filters/README $B$H=EJ#$9$kFbMF$G$"$k$?$a:o=|$7$?(B.
+	* READMEs/README.filters: filters/README と重複する内容であるため削除した.
 
 2014-12-23  Keisuke Kawahara  <kyohsuke@conafie.jp>
 
@@ -230,14 +234,14 @@
 	* convert2skk/chasen2skk.rb:
 	* convert2skk/skk-wordpicker.rb:
 
-	better '$B!9(B' handling.
+	better '々' handling.
 
 	* convert2skk/doc2skk.sh: -P option to stop using skkdic-expr2.
 
 2005-09-20  MITA Yuusuke  <clefs@mail.goo.ne.jp>
 	* convert2skk/chasen2skk.rb: some grammatical rules added.
 	* convert2skk/skk-wordpicker.rb: --katakana-only
-	* filters/conjugation.rb: ignore comments after '$B"y(B'.
+	* filters/conjugation.rb: ignore comments after '¶'.
 	* filters/skkdictools.rb: String.concatify
 
 2005-08-29  MITA Yuusuke  <clefs@mail.goo.ne.jp>
@@ -459,7 +463,7 @@
 
 2000-10-03  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
-	* convert2skk/edict2skk.awk: Do not filter "$BJ|Aw6X;_MQ8l(B".
+	* convert2skk/edict2skk.awk: Do not filter "放送禁止用語".
 
 2000-09-30  Mikio Nakajima  <minakaji@osaka.email.ne.jp>
 
@@ -582,3 +586,7 @@
 1998-12-07  Fumitoshi UKAI <ukai@debian.or.jp>
 
 	* skkdic-expr.c: Include db1/ndbm.h for GNU libc 2.1.
+
+;; Local Variables:
+;; coding: utf-8
+;; End:
