@@ -158,7 +158,7 @@ chasen2skk.rb
 
 
 　独自のオプションとして次のものがあります。
-　（doc2skk.rb からも -e オプションを介して指定できます）
+　（doc2skk.sh からも -e オプションを介して指定できます）
 
 -k  カタカナ語ペアを生成する（あいすぴっく /アイスピック/）
 -n  ChaSen の出力する文法情報を annotation として添付する
@@ -202,7 +202,7 @@ aozora2skk.rb
 
 　あるいは
 
-% doc2skk.rb -a 'http://www.aozora.gr.jp/cards/000148/files/776_14941.html' > kusamakura.skk
+% doc2skk.sh -a 'http://www.aozora.gr.jp/cards/000148/files/776_14941.html' > kusamakura.skk
 
 
 　有用な例：

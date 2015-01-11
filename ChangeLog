@@ -1,6 +1,10 @@
 2015-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* ChangeLog, convert2skk/README, filters/README: Convert to utf-8.
+	* README: Remove.
+        * README.md, convert2skk/README: Modified.
+	* convert2skk/obsolete/README.perl: Rename from READMEs/README.perl.
+	* convert2skk/read.me: Rename from READMEs/read.me.
 
 2015-01-10  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
