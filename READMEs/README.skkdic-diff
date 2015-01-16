@@ -1,55 +1,55 @@
 skkdic-diff
 
-�Ϥ����
+はじめに
 ========
-skkdic-diff����Ĥ�SKK����κ�ʬ���ƻ�����ǽ��Ϥ��ޤ������ƻ�ˤĤ�
-�Ƥϼ��Υڡ����򻲾Ȥ��Ƥ���������
+skkdic-diffは二つのSKK辞書の差分を真鵺道形式で出力します。真鵺道につい
+ては次のページを参照してください。
 
 http://www.mpi-sb.mpg.de/~hitoshi/otherprojects/manued/index-j.shtml
 
-���󥹥ȡ���
+インストール
 ============
-skkdic-diff��Gauche�ǽ񤫤�Ƥ��ޤ������Υڡ����������������ɤ�����
-�󥹥ȡ��뤷�Ƥ����������С������0.8�ʾ夬ɬ�פǤ���
+skkdic-diffはGaucheで書かれています。次のページからダウンロードし、イ
+ンストールしてください。バージョン0.8以上が必要です。
 
 http://www.shiro.dreamhost.com/scheme/gauche/index-j.html
 
-Gauche�μ¹ԥե������gosh�Ǥ������󥹥ȡ��뤵�줿gosh�Υѥ��˹�碌�ơ�
-skkdic-diff.scm����Ƭ�Ԥ��ѹ����Ƥ������������θ塢�ѥ����̤ä��ǥ���
-���ȥ��skkdic-diff�Ȥ���̾���ǥ��ԡ�����chmod +x���Ƥ���������
+Gaucheの実行ファイルはgoshです。インストールされたgoshのパスに合わせて、
+skkdic-diff.scmの先頭行を変更してください。その後、パスの通ったディレ
+クトリにskkdic-diffという名前でコピーし、chmod +xしてください。
 
-�ץ�����������
+プログラムの説明
 ================
-skkdic-diff��ư������򤹤�ˤ���򸫤��ۤ����ᤤ�Ǥ��礦�����Τ褦��
-��Ĥμ��������Ȥ���Ϳ����ȡ�
+skkdic-diffの動作を理解するには例を見たほうが早いでしょう。次のような
+二つの辞書を引数として与えると、
 
 -------- SKK-JISYO.old
-designer /�ǥ����ʡ�/
-���� /��/����/��/��/��/��/
-�Ƥ� /��/
-�Ƥ����� /Ū��/Ŭ��/
-�����ܤ����礦 /������/���ɾ�/
+designer /デサイナー/
+さい /際/差異/才/再/最/歳/
+てい /袋/
+てきかく /的確/適格/
+こくぼうしょう /国防相/国防省/
 
 -------- SKK-JISYO.new
-designer /�ǥ����ʡ�/
-���� /��/����/��/��/��/��/
-�Ƥ����� /Ū��/Ŭ��/Ŭ��/
-�ޤ̤��� /���ƻ/
-�����ܤ����礦 /���ɾ�/������/
+designer /デザイナー/
+さい /際/差異/才/再/最/歳/
+てきかく /的確/適格/適確/
+まぬえど /真鵺道/
+こくぼうしょう /国防省/国防相/
 
-���Τ褦�ʷ�̤���Ϥ��ޤ���
+このような結果を出力します。
 
 $ skkdic-diff SKK-JISYO.old SKK-JISYO.new
-designer /��{��->��}���ʡ�/
-{�Ƥ� /��/->}
-�Ƥ����� /Ū��/Ŭ��/{->Ŭ��/}
-{->�ޤ̤��� /���ƻ/}
-�����ܤ����礦 /{������/||���ɾ�/}
+designer /デ{サ->ザ}イナー/
+{てい /袋/->}
+てきかく /的確/適格/{->適確/}
+{->まぬえど /真鵺道/}
+こくぼうしょう /{国防相/||国防省/}
 
-������
+注意点
 ======
-�������Ǥϡ�skkdic-diff��EUC-JP����ˤ����б����Ƥ��ޤ���
+現時点では、skkdic-diffはEUC-JP辞書にしか対応していません。
 
-����
+著者
 ====
-��¼ �߼� <fuyuki@hadaly.org>
+木村 冬樹 <fuyuki@hadaly.org>

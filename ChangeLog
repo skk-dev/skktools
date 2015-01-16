@@ -1,3 +1,8 @@
+2015-01-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* READMEs/FAQ.txt, READMEs/README.C, READMEs/README.skkdic-diff:
+	* READMEs/README.skkdic-expr2: Convert to utf-8.
+
 2015-01-11  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* ChangeLog: Convert to utf-8.
