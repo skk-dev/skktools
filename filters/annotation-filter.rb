@@ -1,5 +1,5 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+# -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -39,11 +39,11 @@ unannotate_cap = 99999999
 doublebar = "remove"
 rulesets = Array.new
 default_rulesets = [
-  [ "exclude", '¢¨|\?$' ],
-  # [ "exclude", "\[ÈÜ\]" ],
-  [ "keep", 'µì»ú|°ÛÂÎ»ú|ËÜ»ú|Âç»ú|¢÷|¢ª' ],
-  # [ "keep", "NB:|=|¢â|¡â|ÏÂÀ½|<rare>" ],
-  # [ "cut", "¡Â" ] - 'doublebar' handles it inplace
+  [ "exclude", 'â€»|\?$' ],
+  # [ "exclude", "\[å‘\]" ],
+  [ "keep", 'æ—§å­—|ç•°ä½“å­—|æœ¬å­—|å¤§å­—|â€ |â†’' ],
+  # [ "keep", "NB:|=|â‰’|â‰ |å’Œè£½|<rare>" ],
+  # [ "cut", "â€–" ] - 'doublebar' handles it inplace
 ]
 
 
@@ -59,9 +59,9 @@ opt.on('-k', 'keep annotations by default') { keep_annotation = true }
 opt.on('-t', "extraction mode: output requested pairs only") { output_all = false }
 opt.on('-d', "apply default rulesets") { rulesets += default_rulesets }
 
-opt.on('-b', "sticky '¡Â' -- annotation after '¡Â' will always be kept") { doublebar = "sticky" }
-#opt.on('-B', "always remove annotations after '¡Â'") { doublebar = "remove" }
-opt.on('-B', "treat '¡Â' as a part of annotation") { doublebar = "dumb" }
+opt.on('-b', "sticky 'â€–' -- annotation after 'â€–' will always be kept") { doublebar = "sticky" }
+#opt.on('-B', "always remove annotations after 'â€–'") { doublebar = "remove" }
+opt.on('-B', "treat 'â€–' as a part of annotation") { doublebar = "dumb" }
 
 
 begin
@@ -74,13 +74,14 @@ end
 
 
 while gets
+  $_ = $_.encode("utf-8", "euc-jis-2004")
   next if $_ =~ /^;/ || $_ =~ /^$/
   midasi, tokens = $_.parse_skk_entry
-  total = tokens.nitems
+  total = tokens.count {|item| !item.nil? }
   #results = Array.new
 
   tokens.each do |token|
-    word, annotation, comment = token.skk_split_tokens( doublebar == "dumb" ? nil : '¡Â')
+    word, annotation, comment = token.skk_split_tokens( doublebar == "dumb" ? nil : 'â€–')
 
     do_unannotate = !keep_annotation
     do_output = output_all

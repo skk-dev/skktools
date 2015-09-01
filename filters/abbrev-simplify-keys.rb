@@ -1,4 +1,4 @@
-#!/usr/local/bin/ruby -Ke
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -52,6 +52,7 @@ rescue OptionParser::InvalidOption => e
 end
 
 while gets
+  $_ = $_.encode("utf-8", "euc-jis-2004")
   next if $_ =~ /^[^a-zA-Z0-9]/
   tmp = $_.chop.split(" /", 2)
   midasi = tmp.shift.downcase.delete('^a-z0-9')

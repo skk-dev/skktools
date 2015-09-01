@@ -1,5 +1,5 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+# -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -28,20 +28,20 @@
 ##
 ### Instruction:
 ## This script converts okuri-nasi pairs with okuri into okuri-ari:
-## ¡Ö¤¢¤µ¤ä¤± /Ä«¾Æ¤±/¡× ¢ª ¡Ö¤¢¤µ¤äk /Ä«¾Æ/¡×
+## ã€Œã‚ã•ã‚„ã‘ /æœç„¼ã‘/ã€ â†’ ã€Œã‚ã•ã‚„k /æœç„¼/ã€
 ##
 ## '-e' simply extracts such pairs.
 ## '-E' outputs both in original and converted forms.
 ##
 ## '-o' given, the okuri is appended as an annotation:
-## ¡Ö¤¢¤µ¤äk /Ä«¾Æ;¡Â-¤±/¡×
+## ã€Œã‚ã•ã‚„k /æœç„¼;â€–-ã‘/ã€
 ##
 ## '-O' given, the result will be in skk-henkan-okuri-strictly format:
-## ¡Ö¤¢¤µ¤äk /Ä«¾Æ/[¤±/Ä«¾Æ]/¡×
+## ã€Œã‚ã•ã‚„k /æœç„¼/[ã‘/æœç„¼]/ã€
 ##
 ## '-u' eliminates all the annotations.
 ##
-## '-p' eliminates pairs with "¢¨" or "?" annotations that are suspected
+## '-p' eliminates pairs with "â€»" or "?" annotations that are suspected
 ## as 'wrong' words.
 ##
 ## NOTE: skkdictools.rb should be in one of the ruby loadpaths.
@@ -65,7 +65,7 @@ opt.on('-E', 'extract and then convert okuri-nasi-with-okuri pairs') { mode = "b
 #opt.on('-f', 'output original pairs if conversion failed') { filter = true }
 opt.on('-o', 'append original "okurigana" as annotation') { okuri_mode = "annotation" }
 opt.on('-O', 'append original "okurigana" in skk-henkan-okuri-strictly format') { okuri_mode = "bracket" }
-opt.on('-p', 'purge candidates marked with "¢¨" or "?"') { purge = true }
+opt.on('-p', 'purge candidates marked with "â€»" or "?"') { purge = true }
 opt.on('-u', 'eliminate annotations') { unannotate = true }
 #opt.on('-s VAL', 'stem candidates equal or shorter than VAL letters') { |v| stem = v.to_i * 2 }
 
@@ -78,6 +78,7 @@ end
 
 
 while gets
+  $_ = $_.encode("utf-8", "euc-jis-2004")
   next if $_ =~ /^;/
   tmp = $_.chop.split(" /", 2)
   midasi = tmp.shift
@@ -86,7 +87,7 @@ while gets
   tokens.each do |token|
     candidate, annotation = token.split(";", 2)
     #next if tmp[0].length <= stem
-    next if purge && annotation =~ /¢¨/
+    next if purge && annotation =~ /â€»/
     next if purge && annotation =~ /\?$/
 
     key, prefix, postfix = okuri_nasi_to_ari(midasi, candidate)
@@ -105,9 +106,9 @@ while gets
 	case okuri_mode
 	when "annotation"
 	  if !unannotate && !annotation.nil?
-	    print ";#{annotation}¡Â-#{postfix}"
+	    print ";#{annotation}â€–-#{postfix}"
 	  else
-	    print ";¡Â-#{postfix}"
+	    print ";â€–-#{postfix}"
 	  end
 	when "bracket"
 	  if !unannotate && !annotation.nil?

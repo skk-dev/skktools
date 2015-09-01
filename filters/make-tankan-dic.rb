@@ -1,5 +1,5 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+# -*- coding: utf-8 -*-
 ## Copyright (C) 2006 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -51,7 +51,7 @@ max_size = 2
 
 
 opt.on('-u', 'remove annotations') { keep_annotation = false }
-opt.on('-p', 'purge candidates marked with "¢®" or "?"') { purge = true }
+opt.on('-p', 'purge candidates marked with "‚Äª" or "?"') { purge = true }
 opt.on('-m VAL', 'minimal size of each word (in byte)') { |i| min_size = i.to_i }
 opt.on('-M VAL', 'maximal size of each word (in byte)') { |i| max_size = i.to_i }
 
@@ -64,14 +64,15 @@ end
 
 
 while gets
-  next if $_ =~ /^;/ || $_ =~ /^$/ || $_ !~ /^[§°-§Û]/
+  $_ = $_.encode("utf-8", "euc-jis-2004")
+  next if $_ =~ /^;/ || $_ =~ /^$/ || $_ !~ /^[„ÅÅ-„Çì]/
   midasi, tokens = $_.parse_skk_entry
 
   notyet = true
   tokens.each do |token|
     word, annotation, comment = token.skk_split_tokens
     next if word.size < min_size || word.size > max_size
-    next if purge && annotation =~ /¢®/
+    next if purge && annotation =~ /‚Äª/
     next if purge && annotation =~ /\?$/
     # TODO: check if it's `Kanji'
     if notyet

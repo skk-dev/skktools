@@ -1,5 +1,5 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+# -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -26,8 +26,8 @@
 ### Instruction:
 ##
 ## This script is aimed to supplement missing numerative pairs by
-## generating, for example, °÷#§ﬁ§§ /#3ÀÁ/#1ÀÁ/#0ÀÁ/#2ÀÁ/°◊ from
-## °÷#§ﬁ§§ /#0ÀÁ/°◊.
+## generating, for example, „Äå#„Åæ„ÅÑ /#3Êûö/#1Êûö/#0Êûö/#2Êûö/„Äç from
+## „Äå#„Åæ„ÅÑ /#0Êûö/„Äç.
 ##
 ##     % complete-numerative.rb SKK-JISYO.L > SKK-JISYO.num
 ##     % skkdic-expr2 SKK-JISYO.L + SKK-JISYO.num > SKK-JISYO.L.new
@@ -64,7 +64,7 @@ mode = "convert"
 opt.on('-o ORDER', 'specify order of results, eg. "3102" => "/#3/#1/#0/#2/"') { |v| order = v } # TODO - check sanity
 #opt.on('-u', "don't add annotations for derived pairs") { annotation_mode = "self" }
 opt.on('-U', 'eliminate all the annotations') { annotation_mode = "none" }
-opt.on('-p', 'skip candidates marked with "¢®" or "?"') { purge = true }
+opt.on('-p', 'skip candidates marked with "‚Äª" or "?"') { purge = true }
 opt.on('-e', 'only extract numerative entries') { mode = "extract" }
 
 begin
@@ -75,10 +75,11 @@ rescue OptionParser::InvalidOption => e
 end
 
 while gets
+  $_ = $_.encode("utf-8", "euc-jis-2004")
   next if $_ =~ /^;/ || $_ =~ /^$/ || $_ !~ /^[^ ]*#/
   if mode == "extract"
     # XXX This is lazy -- there's a slim chance of extracting
-    # non-numerative pairs such as °÷# /°Ù/°◊
+    # non-numerative pairs such as „Äå# /ÔºÉ/„Äç
     # Anyway it's equivalent to doing grep '^[^ ;]*#'
     print $_
     next
@@ -88,7 +89,7 @@ while gets
   tokens.each do |token|
     word, annotation, comment = token.skk_split_tokens
     next if word !~ /#[0-3]/
-    next if purge && annotation =~ /¢®/
+    next if purge && annotation =~ /‚Äª/
     next if purge && annotation =~ /\?$/
     order.each_byte do |num|
       if annotation_mode == "none"

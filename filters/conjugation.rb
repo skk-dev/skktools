@@ -1,5 +1,5 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+# -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -31,35 +31,35 @@
 ## words given, using annotations designed for this purpose
 ## (esp. in SKK-JISYO.notes).
 ##
-##     ¡Ö¤¢¤¤¤·¤¢u /°¦¤·¹ç;¡Â¥ï¹Ô¸ÞÃÊ[wiueot(c)]/¡×
+##     ã€Œã‚ã„ã—ã‚u /æ„›ã—åˆ;â€–ãƒ¯è¡Œäº”æ®µ[wiueot(c)]/ã€
 ##
 ## This pair is expanded into:
 ##
-##     ¡Ö¤¢¤¤¤·¤¢w /°¦¤·¹ç/¡×
-##     ¡Ö¤¢¤¤¤·¤¢i /°¦¤·¹ç/¡×
-##     ¡Ö¤¢¤¤¤·¤¢u /°¦¤·¹ç/¡×
-##     ¡Ö¤¢¤¤¤·¤¢e /°¦¤·¹ç/¡×
-##     ¡Ö¤¢¤¤¤·¤¢o /°¦¤·¹ç/¡×
-##     ¡Ö¤¢¤¤¤·¤¢t /°¦¤·¹ç/¡×
-##     ¡Ö¤¢¤¤¤·¤¢c /°¦¤·¹ç/¡× (if -p option is given)
+##     ã€Œã‚ã„ã—ã‚w /æ„›ã—åˆ/ã€
+##     ã€Œã‚ã„ã—ã‚i /æ„›ã—åˆ/ã€
+##     ã€Œã‚ã„ã—ã‚u /æ„›ã—åˆ/ã€
+##     ã€Œã‚ã„ã—ã‚e /æ„›ã—åˆ/ã€
+##     ã€Œã‚ã„ã—ã‚o /æ„›ã—åˆ/ã€
+##     ã€Œã‚ã„ã—ã‚t /æ„›ã—åˆ/ã€
+##     ã€Œã‚ã„ã—ã‚c /æ„›ã—åˆ/ã€ (if -p option is given)
 ##
 ## By default, okuri-nasi pairs with one-letter 'candidate' will be expanded
 ## in the same manner, eg.:
 ##
-##     ¡Ö¤¢¤¤ /°¦;¡Â¥µÊÑÌ¾»ì[¦Õs]/¡×
+##     ã€Œã‚ã„ /æ„›;â€–ã‚µå¤‰åè©ž[Ï†s]/ã€
 ##
-##     ¡Ö¤¢¤¤ /°¦/¡×
-##     ¡Ö¤¢¤¤s /°¦/¡×
+##     ã€Œã‚ã„ /æ„›/ã€
+##     ã€Œã‚ã„s /æ„›/ã€
 ##
 ## while -O suppress this kind of expansion, -o option allows it for
 ## candidates of any length:
 ##
-##     ¡Ö¤·¤ó¤³¤¯ /¿¼¹ï;¡Â·ÁÍÆÆ°»ì[¦Õdns]/¡×
+##     ã€Œã—ã‚“ã“ã /æ·±åˆ»;â€–å½¢å®¹å‹•è©ž[Ï†dns]/ã€
 ##
-##     ¡Ö¤·¤ó¤³¤¯ /¿¼¹ï/¡×
-##     ¡Ö¤·¤ó¤³¤¯d /¿¼¹ï/¡×
-##     ¡Ö¤·¤ó¤³¤¯n /¿¼¹ï/¡×
-##     ¡Ö¤·¤ó¤³¤¯s /¿¼¹ï/¡×
+##     ã€Œã—ã‚“ã“ã /æ·±åˆ»/ã€
+##     ã€Œã—ã‚“ã“ãd /æ·±åˆ»/ã€
+##     ã€Œã—ã‚“ã“ãn /æ·±åˆ»/ã€
+##     ã€Œã—ã‚“ã“ãs /æ·±åˆ»/ã€
 ##     
 ##
 ## NOTE: skkdictools.rb should be in the loadpath of ruby.
@@ -77,51 +77,51 @@ okuri_nasi_too = "oneletter"
 #okuri_strictly_output = false
 purge = false
 
-# ¸«¤¢¤²¤ë¡¢¸«¤Ð¤¨¡¢¸«¤Á¤ã¤Ã¤¿¡¢¸«¤É¤³¤í¡¢¸«¤¨¤Ê¤¤¡¢¸«¤Ï¤é¤·¡¢¸«¤´¤¿¤¨¡¢
-# ¸«¤¤¤À¤¹¡¢¸«¤¸¡¢¸«¤«¤Í¤ë¡¢¸«¤Þ¤¹¡¢¸«¤Ê¤¤¡¢¸«¤ª¤í¤¹¡¢¸«¤Ã¤Ñ¤Ê¤·¡¢¸«¤ë¡¢
-# ¸«¤»¤ë¡¢¸«¤Æ¡¢¸«¤¦¤·¤Ê¤¦¡¢¸«¤ï¤±¤ë¡¢¸«¤è¤¦¡¢¸«¤º¡£
-# ([flqvx]) - x can be useful, however it doesn't work well (¡Ö¸«¤£¤Ê¡×)
+# è¦‹ã‚ã’ã‚‹ã€è¦‹ã°ãˆã€è¦‹ã¡ã‚ƒã£ãŸã€è¦‹ã©ã“ã‚ã€è¦‹ãˆãªã„ã€è¦‹ã¯ã‚‰ã—ã€è¦‹ã”ãŸãˆã€
+# è¦‹ã„ã ã™ã€è¦‹ã˜ã€è¦‹ã‹ã­ã‚‹ã€è¦‹ã¾ã™ã€è¦‹ãªã„ã€è¦‹ãŠã‚ã™ã€è¦‹ã£ã±ãªã—ã€è¦‹ã‚‹ã€
+# è¦‹ã›ã‚‹ã€è¦‹ã¦ã€è¦‹ã†ã—ãªã†ã€è¦‹ã‚ã‘ã‚‹ã€è¦‹ã‚ˆã†ã€è¦‹ãšã€‚
+# ([flqvx]) - x can be useful, however it doesn't work well (ã€Œè¦‹ãƒãªã€)
 all_strings = "abcdeghijkmnoprstuwyz"
 
-# #¤Ë¤ó /#3¿Í/#1¿Í/#0¿Í/#2¿Í/
+# #ã«ã‚“ /#3äºº/#1äºº/#0äºº/#2äºº/
 numerative_order = [3, 1, 0, 2]
 
-# ¥«ÊÑ (¤¯r /Íè/)
-# ¥µÊÑ (¤¹r /°Ù/)
-# ¥¢¹Ô²¼Æó (¤¢¤ê¤¦r /Í­¤êÆÀ/)
+# ã‚«å¤‰ (ãr /æ¥/)
+# ã‚µå¤‰ (ã™r /ç‚º/)
+# ã‚¢è¡Œä¸‹äºŒ (ã‚ã‚Šã†r /æœ‰ã‚Šå¾—/)
 IrregularConjugationTable = [
-  [ "¥«ÊÑ", "¤¯r",
+  [ "ã‚«å¤‰", "ãr",
     [
-      # (¤¯) Íè¤ë, Íè¤ó¤Ê (,¤¯¤Ã¤¾, ¤¯¤Ã¤«¤Ê (, ¤¯¤Ã¤Ù))
-      "¤¯r", "¤¯n", # "¤¯z", "¤¯k", "¤¯b",
-      # (¤³) Íè¤¤, Íè¤Ê¤¤, Íè¤é¤ì¤ë, Íè¤µ¤»¤ë, Íè¤è¤¦, Íè¤º
-      "¤³i", "¤³n", "¤³r", "¤³s", "¤³y", "¤³z",
-      # (¤­) Íè¤Á¤ã¤¦, Íè¤Å¤é¤¤, Íè¤Þ¤¹, Íè¤Ê, Íè¤½¤¦, Íè¤Æ, Íè¤ä¤¬¤Ã¤¿,
-      "¤­c", "¤­d", "¤­m", "¤­n", "¤­s", "¤­t", "¤­y",
-      # (¤­¤¨¤Ê¤¤, ¤­¤Ï¤·¤Ê¤¤¡¦¤­¤Ï¤ë, ¤­¤¤¤Ê, ¤­¤Ã¤³¤Ê¤¤, ¤­¤ª¤ë)
-      #"¤­e", "¤­h", "¤­i", "¤­k", "¤­o",
+      # (ã) æ¥ã‚‹, æ¥ã‚“ãª (,ãã£ãž, ãã£ã‹ãª (, ãã£ã¹))
+      "ãr", "ãn", # "ãz", "ãk", "ãb",
+      # (ã“) æ¥ã„, æ¥ãªã„, æ¥ã‚‰ã‚Œã‚‹, æ¥ã•ã›ã‚‹, æ¥ã‚ˆã†, æ¥ãš
+      "ã“i", "ã“n", "ã“r", "ã“s", "ã“y", "ã“z",
+      # (ã) æ¥ã¡ã‚ƒã†, æ¥ã¥ã‚‰ã„, æ¥ã¾ã™, æ¥ãª, æ¥ãã†, æ¥ã¦, æ¥ã‚„ãŒã£ãŸ,
+      "ãc", "ãd", "ãm", "ãn", "ãs", "ãt", "ãy",
+      # (ããˆãªã„, ãã¯ã—ãªã„ãƒ»ãã¯ã‚‹, ãã„ãª, ãã£ã“ãªã„, ããŠã‚‹)
+      #"ãe", "ãh", "ãi", "ãk", "ão",
     ]],
 
-  [ "¥µÊÑ", "¤¹r",
+  [ "ã‚µå¤‰", "ã™r",
     [
-      # (¤¹) °Ù¤ë, °Ù¤Þ¤¤ (,¤¹¤ó¤Ê, ¤¹¤Ã¤¾, ¤¹¤Ã¤«¤Ê)
-      "¤¹r", "¤¹m", #"¤¹n", "¤¹z", "¤¹k",
-      # (¤·) °Ù¤Á¤ã¤¨, °Ù¤Þ¤¹, °Ù¤Ê¤¤, °Ù¤í, °Ù¤½¤¦, °Ù¤Æ, °Ù¤è¤¦
-      "¤·c", "¤·m", "¤·n", "¤·r", "¤·s", "¤·t", "¤·y",
-      # (,¤·¤Ã¤³¤Ê¤¤, ¤·¤¦¤ë, ¤·¤Å¤é¤¤)
-      #"¤·k", "¤·u", "¤·d",
-      # (¤») °Ù¤è, °Ù¤º (,¤»¤¤, ¤»¤Ð)
-      "¤»y", "¤»z", #"¤»i", "¤»b"
+      # (ã™) ç‚ºã‚‹, ç‚ºã¾ã„ (,ã™ã‚“ãª, ã™ã£ãž, ã™ã£ã‹ãª)
+      "ã™r", "ã™m", #"ã™n", "ã™z", "ã™k",
+      # (ã—) ç‚ºã¡ã‚ƒãˆ, ç‚ºã¾ã™, ç‚ºãªã„, ç‚ºã‚, ç‚ºãã†, ç‚ºã¦, ç‚ºã‚ˆã†
+      "ã—c", "ã—m", "ã—n", "ã—r", "ã—s", "ã—t", "ã—y",
+      # (,ã—ã£ã“ãªã„, ã—ã†ã‚‹, ã—ã¥ã‚‰ã„)
+      #"ã—k", "ã—u", "ã—d",
+      # (ã›) ç‚ºã‚ˆ, ç‚ºãš (,ã›ã„, ã›ã°)
+      "ã›y", "ã›z", #"ã›i", "ã›b"
     ]],
 
-  [ "¥¢¹Ô²¼Æó", "¤¦r",
+  [ "ã‚¢è¡Œä¸‹äºŒ", "ã†r",
     [
-      # (¤¦) Í­¤êÆÀ¤Ù¤·, Í­¤êÆÀ¤ë
-      "¤¦b", "¤¦r",
-      # (¤¨) ÆÀ¤Á¤ã¤¦, ÆÀ¤Þ¤¹, ÆÀ¤Ê¤¤, ÆÀ¤ë, ÆÀ¤½¤¦, ÆÀ¤Æ, ÆÀ¤è¤¦, ÆÀ¤º
-      "¤¨c", "¤¨m", "¤¨n", "¤¨r", "¤¨s", "¤¨t", "¤¨y", "¤¨z"
-      # (,¤¨¤Ã¤«¤Ê, ¤¨¤¸, ¤¨¤Ç(¤«))
-      #"¤¨k", "¤¨j", "¤¨d",
+      # (ã†) æœ‰ã‚Šå¾—ã¹ã—, æœ‰ã‚Šå¾—ã‚‹
+      "ã†b", "ã†r",
+      # (ãˆ) å¾—ã¡ã‚ƒã†, å¾—ã¾ã™, å¾—ãªã„, å¾—ã‚‹, å¾—ãã†, å¾—ã¦, å¾—ã‚ˆã†, å¾—ãš
+      "ãˆc", "ãˆm", "ãˆn", "ãˆr", "ãˆs", "ãˆt", "ãˆy", "ãˆz"
+      # (,ãˆã£ã‹ãª, ãˆã˜, ãˆã§(ã‹))
+      #"ãˆk", "ãˆj", "ãˆd",
     ]]
 ]
 
@@ -139,7 +139,7 @@ opt.on('-C', 'eliminate all the comments') { $comment_mode = "discard" }
 opt.on('-p', "use OKURIs in parentheses too") { parentheses = "use" }
 opt.on('-o', "process okuri-nasi pairs too (eg. SAHEN verbs and adjective verbs)") { okuri_nasi_too = "all" }
 opt.on('-O', "never process okuri-nasi pairs") { okuri_nasi_too = "none" }
-opt.on('-x', 'skip candidates marked with "¢¨" or "?"') { purge = true }
+opt.on('-x', 'skip candidates marked with "â€»" or "?"') { purge = true }
 
 begin
   opt.parse!(ARGV)
@@ -149,11 +149,12 @@ rescue OptionParser::InvalidOption => e
 end
 
 while gets
+  $_ = $_.encode("utf-8", "euc-jis-2004")
   next if $_ =~ /^;/ || $_ =~ /^$/
   midasi, tokens = $_.parse_skk_entry
   next if tokens.nil?
 
-  if (/^(>?[¤¡-¤ó¡«¡¼]*)([a-z]+)$/ =~ midasi)
+  if (/^(>?[ã-ã‚“ã‚›ãƒ¼]*)([a-z]+)$/ =~ midasi)
     stem = $1
     okuri = $2
   elsif okuri_nasi_too == "none"
@@ -169,10 +170,10 @@ while gets
     next if tmp[1].nil?
     word = tmp[0]
     next if okuri.empty? && okuri_nasi_too == "oneletter" && word.length > 2
-    annotation, comment = tmp[1].split("¡Â", 2)
+    annotation, comment = tmp[1].split("â€–", 2)
     next if comment.nil?
-    next if purge && annotation =~ /¢¨|\?$/
-    comment.sub!(/¢ù.*$/, '')
+    next if purge && annotation =~ /â€»|\?$/
+    comment.sub!(/Â¶.*$/, '')
 
     new_index = 0
     while index = (comment[new_index .. -1] =~ /\[([^\]]*)\]/)
@@ -185,7 +186,7 @@ while gets
 	derivation.gsub!(/[()]/, '')
       end
 
-      # XXX what if ¡Ö¤¢u /¹ç;¡ÂÊä½õÆ°»ì[<wiueot(c)]/¡×?
+      # XXX what if ã€Œã‚u /åˆ;â€–è£œåŠ©å‹•è©ž[<wiueot(c)]/ã€?
       suffix = derivation.gsub!(/</, '')
       numerative = derivation.gsub!(/#/, '')
 
@@ -209,7 +210,7 @@ while gets
 	next
       end
 
-      if derivation.gsub!(/¦Õ/, '')
+      if derivation.gsub!(/Ï†/, '')
 	print_pair2(stem, word, annotation, comment, (okuri == ""))
       end
 

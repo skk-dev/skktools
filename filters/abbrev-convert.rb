@@ -1,5 +1,5 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+# -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -26,19 +26,19 @@
 ### Instruction:
 ## This script reads SKK-formatted dictionary from a file or stdin,
 ## extracts the pairs with alphabetic key and 'katakana' candidate (eg.
-## "player /•◊•Ï•§•‰°º/"), and then convert them into the other styles.
+## "player /„Éó„É¨„Ç§„É§„Éº/"), and then convert them into the other styles.
 ##
 ##    % abbrev-convert.rb SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.waei
 ##
 ## Default action is to produce reversed pairs that can be used to
 ## convert katakana-words into original spellings,
-## eg. "§◊§Ï§§§‰°º /player/".
+## eg. "„Å∑„Çå„ÅÑ„ÇÑ„Éº /player/".
 ##
 ##    % abbrev-convert.rb -k SKK-JISYO.L | skkdic-expr2 > SKK-JISYO.hira-kata
 ##
 ## If '-k' or '-K' option is given, the result is hiragana-katakana
-## pairs such as "§◊§Ï§§§‰°º /•◊•Ï•§•‰°º/". With '-K', the original
-## key is appended as an annotation ("§◊§Ï§§§‰°º /•◊•Ï•§•‰°º;player/").
+## pairs such as "„Å∑„Çå„ÅÑ„ÇÑ„Éº /„Éó„É¨„Ç§„É§„Éº/". With '-K', the original
+## key is appended as an annotation ("„Å∑„Çå„ÅÑ„ÇÑ„Éº /„Éó„É¨„Ç§„É§„Éº;player/").
 ##
 ##    % cat .skk-jisyo .skkinput-jisyo | abbrev-convert.rb -e SKK-JISYO.L | skkdic-expr2 > .skk-jisyo-abbrev
 ##
@@ -52,7 +52,7 @@
 ## 
 ## '-u' eliminates all the annotations.
 ##
-## '-p' eliminates pairs with "¢®" or "?" annotations that are suspected as 'wrong' words.
+## '-p' eliminates pairs with "‚Äª" or "?" annotations that are suspected as 'wrong' words.
 ##
 require 'jcode' if RUBY_VERSION.to_f < 1.9
 #require 'kconv'
@@ -68,9 +68,9 @@ opt.on('-e', 'extract alphabet-katakana pairs') { mode = "extract" }
 opt.on('-w', 'output hiragana-alphabet pairs') { mode = "waei" }
 opt.on('-k', 'output hiragana-katakana pairs') { mode = "hira-kata" }
 opt.on('-K', 'same as -k, with original MIDASI as annotation') { mode = "hira-kata-with-spell" }
-opt.on('-p', 'purge candidates marked with "¢®" or "?"') { purge = true }
+opt.on('-p', 'purge candidates marked with "‚Äª" or "?"') { purge = true }
 opt.on('-u', 'eliminate annotations') { unannotate = true }
-opt.on('-s VAL', 'stem candidates equal or shorter than VAL letters') { |v| stem = v.to_i * 2 }
+opt.on('-s VAL', 'stem candidates equal or shorter than VAL letters') { |v| stem = v.to_i }
 
 begin
   opt.parse!(ARGV)
@@ -80,6 +80,7 @@ rescue OptionParser::InvalidOption => e
 end
 
 while gets
+  $_ = $_.encode("utf-8", "euc-jis-2004")
   next if $_ =~ /^[^a-zA-Z0-9]/
   tmp = $_.chop.split(" /", 2)
   midasi = tmp.shift
@@ -88,15 +89,15 @@ while gets
 
   tokens.each do |token|
     tmp = token.split(";")
-    next if tmp[0] =~ /[^•°-•Ù°º°¶=°·°æ]/
+    next if tmp[0] =~ /[^„Ç°-„É¥„Éº„Éª=Ôºù‚Äê]/
     next if tmp[0].length <= stem
-    next if tmp[0] !~ /[•°-•Ù]/ # at least 1 valid letter
-    next if purge && tmp[1] =~ /¢®/
+    next if tmp[0] !~ /[„Ç°-„É¥]/ # at least 1 valid letter
+    next if purge && tmp[1] =~ /‚Äª/
     next if purge && tmp[1] =~ /\?$/
     candidates.push tmp
   end
 
-  next if candidates.nitems < 1
+  next if candidates.count {|item| !item.nil? } < 1
 
   case mode
   when "extract"
@@ -111,7 +112,7 @@ while gets
     print "\n"
   when "waei"
     candidates.each do |word,annotation|
-      word = word.tr('•°-•Û', '§°-§Û').gsub(/•Ù/, '§¶°´').gsub(/[°¶=°·°æ]/, '')
+      word = word.tr('„Ç°-„É≥', '„ÅÅ-„Çì').gsub(/„É¥/, '„ÅÜ„Çõ').gsub(/[„Éª=Ôºù‚Äê]/, '')
       if !unannotate && !annotation.nil?
 	print "#{word} /#{midasi};#{annotation}/\n"
       else
@@ -120,7 +121,7 @@ while gets
     end
   when "hira-kata"
     candidates.each do |word,annotation|
-      word_hira = word.tr('•°-•Û', '§°-§Û').gsub(/•Ù/, '§¶°´').gsub(/[°¶=°·°æ]/, '')
+      word_hira = word.tr('„Ç°-„É≥', '„ÅÅ-„Çì').gsub(/„É¥/, '„ÅÜ„Çõ').gsub(/[„Éª=Ôºù‚Äê]/, '')
       if !unannotate && !annotation.nil?
 	print "#{word_hira} /#{word};#{annotation}/"
       else
@@ -130,9 +131,9 @@ while gets
     end
   when "hira-kata-with-spell"
     candidates.each do |word,annotation|
-      word_hira = word.tr('•°-•Û', '§°-§Û').gsub(/•Ù/, '§¶°´').gsub(/[°¶=°·°æ]/, '')
+      word_hira = word.tr('„Ç°-„É≥', '„ÅÅ-„Çì').gsub(/„É¥/, '„ÅÜ„Çõ').gsub(/[„Éª=Ôºù‚Äê]/, '')
       if !unannotate && !annotation.nil?
-	print "#{word_hira} /#{word};#{midasi}°®#{annotation}/"
+	print "#{word_hira} /#{word};#{midasi}Ôºõ#{annotation}/"
       else
 	print "#{word_hira} /#{word};#{midasi}/"
       end

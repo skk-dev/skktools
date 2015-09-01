@@ -1,5 +1,5 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+# -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -44,38 +44,38 @@
 #require 'timeout'
 
 # exceptions:
-#	["¤Á" , "c"] (eg. ¡Ö¤Ë¤¤¤Á¤ã¤ó /·»¤Á¤ã¤ó/¡×¢ª¡Ö¤Ë¤¤c /·»/¡×)
-#	["¤Ã" , "p"] (eg. ¡Ö¤Ä¤Ã¤Ñ¤ë /ÆÍ¤Ã¤Ñ¤ë/¡×¢ª¡Ö¤Äp /ÆÍ/¡×)
-#	["¤Ã" , "c"] (eg. ¡Ö¤µ¤­¤Ã¤Á¤ç /Àè¤Ã¤Á¤ç/¡×¢ª¡Ö¤µ¤­c /Àè/¡×)
+#	["ã¡" , "c"] (eg. ã€Œã«ã„ã¡ã‚ƒã‚“ /å…„ã¡ã‚ƒã‚“/ã€â†’ã€Œã«ã„c /å…„/ã€)
+#	["ã£" , "p"] (eg. ã€Œã¤ã£ã±ã‚‹ /çªã£ã±ã‚‹/ã€â†’ã€Œã¤p /çª/ã€)
+#	["ã£" , "c"] (eg. ã€Œã•ãã£ã¡ã‚‡ /å…ˆã£ã¡ã‚‡/ã€â†’ã€Œã•ãc /å…ˆ/ã€)
 GyakuhikiOkurigana = [
-  ["¤¢" , "a"],
-  ["¤Ğ" , "b"], ["¤Ó" , "b"], ["¤Ö" , "b"], ["¤Ù" , "b"], ["¤Ü" , "b"],
-  ["¤À" , "d"], ["¤Â" , "d"], ["¤Å" , "d"], ["¤Ç" , "d"], ["¤É" , "d"],
-  ["¤¨" , "e"],
-  ["¤¬" , "g"], ["¤®" , "g"], ["¤°" , "g"], ["¤²" , "g"], ["¤´" , "g"],
-  ["¤Ï" , "h"], ["¤Ò" , "h"], ["¤Õ" , "h"], ["¤Ø" , "h"], ["¤Û" , "h"],
-  ["¤¤" , "i"],
-  ["¤¸" , "j"],
-  ["¤«" , "k"], ["¤­" , "k"], ["¤¯" , "k"], ["¤±" , "k"], ["¤³" , "k"],
-  ["¤Ş" , "m"], ["¤ß" , "m"], ["¤à" , "m"], ["¤á" , "m"], ["¤â" , "m"],
-  ["¤Ê" , "n"], ["¤Ë" , "n"], ["¤Ì" , "n"], ["¤Í" , "n"], ["¤Î" , "n"], ["¤ó" , "n"],
-  ["¤ª" , "o"],
-  ["¤Ñ" , "p"], ["¤Ô" , "p"], ["¤×" , "p"], ["¤Ú" , "p"], ["¤İ" , "p"],
-  ["¤é" , "r"], ["¤ê" , "r"], ["¤ë" , "r"], ["¤ì" , "r"], ["¤í" , "r"],
-  ["¤µ" , "s"], ["¤·" , "s"], ["¤¹" , "s"], ["¤»" , "s"], ["¤½" , "s"],
-  ["¤¿" , "t"], ["¤Á" , "t"], ["¤Ã" , "t"], ["¤Ä" , "t"], ["¤Æ" , "t"], ["¤È" , "t"],
-  ["¤¦" , "u"],
-  ["¤ï" , "w"], ["¤ò" , "w"],
-  ["¤¡" , "x"], ["¤£" , "x"], ["¤¥" , "x"], ["¤§" , "x"], ["¤©" , "x"],
-  ["¤ã" , "x"], ["¤å" , "x"], ["¤ç" , "x"], ["¤î" , "x"], ["¤ğ" , "x"], ["¤ñ" , "x"],
-  ["¤ã" , "y"], ["¤ä" , "y"], ["¤å" , "y"], ["¤æ" , "y"], ["¤ç" , "y"], ["¤è" , "y"],
-  ["¤¶" , "z"], ["¤¸" , "z"], ["¤º" , "z"], ["¤¼" , "z"], ["¤¾" , "z"]
+  ["ã‚" , "a"],
+  ["ã°" , "b"], ["ã³" , "b"], ["ã¶" , "b"], ["ã¹" , "b"], ["ã¼" , "b"],
+  ["ã " , "d"], ["ã¢" , "d"], ["ã¥" , "d"], ["ã§" , "d"], ["ã©" , "d"],
+  ["ãˆ" , "e"],
+  ["ãŒ" , "g"], ["ã" , "g"], ["ã" , "g"], ["ã’" , "g"], ["ã”" , "g"],
+  ["ã¯" , "h"], ["ã²" , "h"], ["ãµ" , "h"], ["ã¸" , "h"], ["ã»" , "h"],
+  ["ã„" , "i"],
+  ["ã˜" , "j"],
+  ["ã‹" , "k"], ["ã" , "k"], ["ã" , "k"], ["ã‘" , "k"], ["ã“" , "k"],
+  ["ã¾" , "m"], ["ã¿" , "m"], ["ã‚€" , "m"], ["ã‚" , "m"], ["ã‚‚" , "m"],
+  ["ãª" , "n"], ["ã«" , "n"], ["ã¬" , "n"], ["ã­" , "n"], ["ã®" , "n"], ["ã‚“" , "n"],
+  ["ãŠ" , "o"],
+  ["ã±" , "p"], ["ã´" , "p"], ["ã·" , "p"], ["ãº" , "p"], ["ã½" , "p"],
+  ["ã‚‰" , "r"], ["ã‚Š" , "r"], ["ã‚‹" , "r"], ["ã‚Œ" , "r"], ["ã‚" , "r"],
+  ["ã•" , "s"], ["ã—" , "s"], ["ã™" , "s"], ["ã›" , "s"], ["ã" , "s"],
+  ["ãŸ" , "t"], ["ã¡" , "t"], ["ã£" , "t"], ["ã¤" , "t"], ["ã¦" , "t"], ["ã¨" , "t"],
+  ["ã†" , "u"],
+  ["ã‚" , "w"], ["ã‚’" , "w"],
+  ["ã" , "x"], ["ãƒ" , "x"], ["ã…" , "x"], ["ã‡" , "x"], ["ã‰" , "x"],
+  ["ã‚ƒ" , "x"], ["ã‚…" , "x"], ["ã‚‡" , "x"], ["ã‚" , "x"], ["ã‚" , "x"], ["ã‚‘" , "x"],
+  ["ã‚ƒ" , "y"], ["ã‚„" , "y"], ["ã‚…" , "y"], ["ã‚†" , "y"], ["ã‚‡" , "y"], ["ã‚ˆ" , "y"],
+  ["ã–" , "z"], ["ã˜" , "z"], ["ãš" , "z"], ["ãœ" , "z"], ["ã" , "z"]
 ]
 
-# ("¤¢¤µ¤ä¤±", "Ä«¾Æ¤±") => ("¤¢¤µ¤äk", "Ä«¾Æ", "¤±")
-# ("¤Í¤³", "Ç­") => nil
+# ("ã‚ã•ã‚„ã‘", "æœç„¼ã‘") => ("ã‚ã•ã‚„k", "æœç„¼", "ã‘")
+# ("ã­ã“", "çŒ«") => nil
 def okuri_nasi_to_ari(midasi, candidate)
-  return nil if (/(.*[^¤¡-¤ó¡¼])([¤¡-¤ó]+)$/ !~ candidate)
+  return nil if (/(.*[^ã-ã‚“ãƒ¼])([ã-ã‚“]+)$/ !~ candidate)
   can_prefix = $1
   can_postfix = $2
   return nil if !(can_prefix && can_postfix && (/(.+)#{can_postfix}$/ =~ midasi))
@@ -87,9 +87,9 @@ def okuri_nasi_to_ari(midasi, candidate)
   # handle some exceptions
   # XXX inplace of changing "t" into "c", this function should return
   # both "t" and "c"
-  okuri = "c" if can_postfix =~ /^¤Ã¤Á/ || can_postfix =~ /^¤Á[¤ã¤å¤ç]/
-  okuri = "p" if can_postfix =~ /^¤Ã[¤Ñ-¤İ]/
-  okuri = "k" if can_postfix =~ /^¤Ã[¤«-¤³]/
+  okuri = "c" if can_postfix =~ /^ã£ã¡/ || can_postfix =~ /^ã¡[ã‚ƒã‚…ã‚‡]/
+  okuri = "p" if can_postfix =~ /^ã£[ã±-ã½]/
+  okuri = "k" if can_postfix =~ /^ã£[ã‹-ã“]/
 
   return key_prefix + okuri, can_prefix, can_postfix
 end
@@ -99,13 +99,13 @@ def print_pair(key, candidate, annotation = nil, comment = nil)
     if comment.nil? || comment.empty?
       print "#{key} /#{candidate};#{annotation}/\n"
     else
-      print "#{key} /#{candidate};#{annotation}¡Â#{comment}/\n"
+      print "#{key} /#{candidate};#{annotation}â€–#{comment}/\n"
     end
   else
     if comment.nil? || comment.empty?
       print "#{key} /#{candidate}/\n"
     else
-      print "#{key} /#{candidate};¡Â#{comment}/\n"
+      print "#{key} /#{candidate};â€–#{comment}/\n"
     end
   end
 end
@@ -113,18 +113,18 @@ end
 # borrowed from skkform.rb
 class String
   def to_katakana
-    self.gsub(/¤¦¡«/, '\\1¥ô').tr('¤¡-¤ó', '¥¡-¥ó')
+    self.gsub(/ã†ã‚›/, '\\1ãƒ´').tr('ã-ã‚“', 'ã‚¡-ãƒ³')
   end
 
   def to_hiragana
-    self.gsub(/¥ô/, '¤¦¡«').tr('¥¡-¥ó', '¤¡-¤ó')
+    self.gsub(/ãƒ´/, 'ã†ã‚›').tr('ã‚¡-ãƒ³', 'ã-ã‚“')
   end
 
   def cut_off_prefix_postfix
-    self.sub(/^[<>\?]([¡¼¤¡-¤ó]+)$/, '\1').sub(/^([¡¼¤¡-¤ó]+)[<>\?]$/, '\1')
+    self.sub(/^[<>\?]([ãƒ¼ã-ã‚“]+)$/, '\1').sub(/^([ãƒ¼ã-ã‚“]+)[<>\?]$/, '\1')
   end
 
-  # from ¡Ö¥ª¥Ö¥¸¥§¥¯¥È»Ø¸ş¥¹¥¯¥ê¥×¥È¸À¸ìruby¡×p121
+  # from ã€Œã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæŒ‡å‘ã‚¹ã‚¯ãƒªãƒ—ãƒˆè¨€èªrubyã€p121
   def csv_split(delimiter = ',')
     csv = []
     data = ""
@@ -177,7 +177,7 @@ class String
     return midasi, tokens
   end
 
-  def skk_split_tokens(delimiter = '¡Â')
+  def skk_split_tokens(delimiter = 'â€–')
     word, annotation = self.split(";", 2)
     return word, nil, nil if annotation.nil?
     return word, annotation, nil if delimiter.nil?
@@ -198,12 +198,12 @@ class Goo
 	sock.printf("GET /web.jsp?DC=1&MT=\"%s\" HTTP/1.0\r\n\r\n", key)
 	sock.readlines.each do |line|
 	  line = Kconv.toeuc(line)
-	  if (/<b>Ìó*([,0-9]+)<\/b>·ïÃæ/ =~ line)
+	  if (/<b>ç´„*([,0-9]+)<\/b>ä»¶ä¸­/ =~ line)
 	    hits = $1.gsub(/,/, '').to_i
 	    return hits if hits > 0
 	  # 0hits, or system error?
-	  elsif (/<br>³ºÅö¤¹¤ë¸¡º÷·ë²Ì¤¬¸«Åö¤¿¤ê¤Ş¤»¤ó¡£/ =~ line)
-	  #elsif (/<br>¸¡º÷¥·¥¹¥Æ¥à¤«¤é¸¡º÷·ë²Ì¤òÀµ¾ï¤Ë¼èÆÀ¤Ç¤­¤Ê¤«¤Ã¤¿²ÄÇ½À­¤¬¤¢¤ê¤Ş¤¹¡£/ =~ line) next
+	  elsif (/<br>è©²å½“ã™ã‚‹æ¤œç´¢çµæœãŒè¦‹å½“ãŸã‚Šã¾ã›ã‚“ã€‚/ =~ line)
+	  #elsif (/<br>æ¤œç´¢ã‚·ã‚¹ãƒ†ãƒ ã‹ã‚‰æ¤œç´¢çµæœã‚’æ­£å¸¸ã«å–å¾—ã§ããªã‹ã£ãŸå¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚/ =~ line) next
 	    return 0
 	  end
 	end
