@@ -1,3 +1,10 @@
+2015-09-01  Hiroshi Fujishima  <hirobo@tonteki.org>
+
+	* filters/abbrev-convert.rb, filters/abbrev-simplify-keys.rb:
+	* filters/annotation-filter.rb, filters/asayaKe.rb:
+	* filters/complete-numerative.rb, filters/conjugation.rb:
+	* filters/make-tankan-dic.rb, filters/skkdictools.rb: Support ruby-2.1.
+
 2015-01-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* READMEs/FAQ.txt, READMEs/README.C, READMEs/README.skkdic-diff:
