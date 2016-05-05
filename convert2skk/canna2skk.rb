@@ -1,5 +1,5 @@
-#!/usr/bin/env ruby
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+# -*- coding: utf-8 -*-
 # canna2skk.rb -- convert Canna dictionary to SKK-JISYO format.
 #
 # Copyright (C) 2003 NAKAJIMA Mikio <minakaji@namazu.org>
@@ -33,7 +33,7 @@
 # $ canna2skk.rb gcanna.t gcannaf.t > tmp.jisyo
 # $ skkdic-expr2 tmp.jisyo > SKK-JISYO.canna
 #
-# §´§Û #JS*8 ¥¨ #CNSUC2*2 ¥÷ #JS ¥Ã ¥” #JSSUC ¥÷
+# „Åã„Çì #JS*8 Â∑ª #CNSUC2*2 Èñì #JS Áº∂ Ë≤´ #JSSUC Èñì
 
 file = ARGV.shift
 open(file).each{|line|
@@ -44,9 +44,9 @@ open(file).each{|line|
     words = $2
     words.split(' ').each{|word|
       if (word =~ /[#*a-zA-Z0-9]+/ || key == word)
-	next
+          next
       else
-	print key, " /", word, "/\n"
+        print key, " /", word, "/\n"
       end
     }
   end

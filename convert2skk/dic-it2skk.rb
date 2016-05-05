@@ -1,4 +1,6 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+# -*- coding: utf-8 -*-
+
 # dic-it2skk.rb -- convert dic-it dictionary to SKK-JISYO format.
 #
 # Copyright (C) 2003 NAKAJIMA Mikio <minakaji@namazu.org>

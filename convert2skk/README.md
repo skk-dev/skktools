@@ -322,4 +322,5 @@ notes 辞書に転用できますし、やり方によっては SKK 以外にも
 	こうじゅつろうどく /口述朗読;‖<autogen>,名詞-サ変接続/
 
 ## 著者
-三田祐介 <clefs@mail.goo.ne.jp>
+
+三田祐介 < clefs<span></span>@mail.goo.ne.jp >

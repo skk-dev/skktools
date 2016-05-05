@@ -1,5 +1,5 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+# -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -32,11 +32,10 @@
 ##
 ## % aozora2skk.rb file-from-aozora-bunko.html > result.txt
 ##
-# ¡û
-require 'jcode' if RUBY_VERSION.to_f < 1.9
-#require 'kconv'
-#require 'skkdictools'
+# â—‹
+
 require 'optparse'
+
 opt = OptionParser.new
 
 results = []
@@ -45,18 +44,20 @@ note =false
 opt.on('-a', 'append annotation <autogen - aozora>') { note = true }
 begin
   opt.parse!(ARGV)
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
 
 
+
 while gets
+  $_.encode!("utf-8")
   $_.gsub!(/<[^>]*>/, '')
-  results = results + $_.scan(/([°¡-ô¦]{2,})[ ¡¡]*[\[(¡Ê¡Î¡Ì¡Ú]([¤¡-¤ó]*)[\])¡Ë¡Í¡Ï¡Û]/)
+  results = results + $_.scan(/([äºœ-ç†™]{2,})[ ã€€]*[\[(ï¼ˆï¼»ã€”ã€]([ã-ã‚“]*)[\])ï¼‰ã€•ï¼½ã€‘]/)
 end
 
 results.uniq!
 results.each {|word,yomi|
-  print "#{yomi} /#{word}#{note ? ';¡Â<autogen - aozora>' : ''}/\n"
+  print "#{yomi} /#{word}#{note ? ';â€–<autogen - aozora>' : ''}/\n"
 }
