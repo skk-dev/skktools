@@ -9,7 +9,7 @@ SKK 辞書を加工・編纂するためのツール群です。
 
 ## 実行環境
 
-バージョン 1.8 以降の ruby が必要です。skkdictools.rb を ruby のロード
+バージョン 2.1 以降の ruby が必要です。skkdictools.rb を ruby のロード
 パスが通っている場所に置いてください。
 
 ## abbrev-convert.rb
@@ -257,4 +257,4 @@ CVS をご利用の方は、skk/dic ディレクトリで `make all` とすれ�
 
 ## 著者
 
-三田祐介 <clefs@mail.goo.ne.jp>
+三田祐介 < clefs<span></span>@mail.goo.ne.jp >
