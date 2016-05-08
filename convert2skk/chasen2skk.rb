@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -42,6 +42,7 @@
 ## 散る    チル    散る    動詞-自立       五段・ラ行      基本形
 ##
 
+Encoding.default_external = "euc-jis-2004"
 require_relative 'skkdictools'
 require 'optparse'
 

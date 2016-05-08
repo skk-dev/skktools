@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -38,6 +38,7 @@
 ## NOTE: skkdictools.rb should be in one of the ruby loadpaths.
 ##
 
+Encoding.default_external = "euc-jis-2004"
 require_relative 'skkdictools'
 require 'optparse'
 opt = OptionParser.new

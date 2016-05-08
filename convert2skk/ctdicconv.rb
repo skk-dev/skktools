@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
 # ctdicconv.rb -- convert china_taiwan.csv to SKK-JISYO dictionary format.
@@ -29,6 +29,7 @@
 #
 # Commentary:
 
+Encoding.default_external = "euc-jis-2004"
 $ANNOTATION = true
 ##$ANNOTATION = false
 

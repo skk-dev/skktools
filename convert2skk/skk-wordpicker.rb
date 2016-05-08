@@ -1,5 +1,5 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby
+# -*- coding: euc-jis-2004 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -31,9 +31,9 @@
 ##
 ## skkdictools.rb and KAKASI are required.
 ##
-require 'jcode' if RUBY_VERSION.to_f < 1.9
-require 'kconv'
-require 'skkdictools'
+
+Encoding.default_external = "euc-jis-2004"
+require_relative 'skkdictools'
 
 require 'cgi'
 require 'socket'
@@ -70,7 +70,7 @@ opt.on('-w WORD', 'extract pairs containing WORD') { |v| keyword = v }
 begin
   opt.parse!(ARGV)
   #rulesets = default_rulesets if rulesets.empty?
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
