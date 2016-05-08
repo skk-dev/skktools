@@ -1,5 +1,6 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -36,9 +37,9 @@
 ## 
 ## NOTE: skkdictools.rb should be in one of the ruby loadpaths.
 ##
-require 'jcode' if RUBY_VERSION.to_f < 1.9
-#require 'kconv'
-require 'skkdictools'
+
+Encoding.default_external = "euc-jis-2004"
+require_relative 'skkdictools'
 require 'optparse'
 opt = OptionParser.new
 
@@ -51,30 +52,32 @@ unannotate = false
 opt.on('-a', "convert Asayake into AsayaKe") { asayake_mode = "convert" }
 opt.on('-A', "both Asayake and AsayaKe are output") { asayake_mode = "both" }
 opt.on('-g', "append grammatical annotations") { grammar = true }
-opt.on('-k', "generate hiragana-to-katakana pairs (¡Ö¤Í¤³ /¥Í¥³/¡×)") { skip_hira2kana = false }
-opt.on('-K', "generate identical pairs (¡Ö¤Í¤³ /¤Í¤³/¡×)") { skip_identical = false }
+opt.on('-k', "generate hiragana-to-katakana pairs (ã€Œã­ã“ /ãƒã‚³/ã€)") { skip_hira2kana = false }
+opt.on('-K', "generate identical pairs (ã€Œã­ã“ /ã­ã“/ã€)") { skip_identical = false }
 opt.on('-u', "don't add original comments as annotation") { unannotate = true }
 
 begin
   opt.parse!(ARGV)
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
 
 while gets
+  $_.encode!("utf-8")
+
   #line = $_.toeuc
-  key, hinsi, candidate, score, notes = $_.split("	", 5)
-  # ¤¸¤ç¤¦¤¿¤¤	Ì¾»ì	¾õÂÖ	377	comment=state	usage=¤â¤Î¤´¤È¤ÎÍÍ»Ò¡£¡Ö¾õÂÖÊÑ²½¡×
+  key, hinsi, candidate, _score, notes = $_.split("	", 5)
+  # ã˜ã‚‡ã†ãŸã„	åè©ž	çŠ¶æ…‹	377	comment=state	usage=ã‚‚ã®ã”ã¨ã®æ§˜å­ã€‚ã€ŒçŠ¶æ…‹å¤‰åŒ–ã€
   next if skip_identical && key == candidate
   next if skip_hira2kana && key.to_katakana == candidate
 
   comment = nil
   if grammar
     comment = hinsi
-    comment += "[¦Õ>]" if hinsi =~ /ÀÜÆ¬¸ì/
-    comment += "[¦Õ#]" if hinsi =~ /½õ¿ô»ì/
-    comment += "[¦Õ<]" if hinsi =~ /ÀÜÈø¸ì/
+    comment += "[Ï†>]" if hinsi =~ /æŽ¥é ­èªž/
+    comment += "[Ï†#]" if hinsi =~ /åŠ©æ•°è©ž/
+    comment += "[Ï†<]" if hinsi =~ /æŽ¥å°¾èªž/
   end
 
   print_orig = true
@@ -86,59 +89,59 @@ while gets
     new_key, new_candidate, postfix = okuri_nasi_to_ari(key, candidate)
     if !new_key.nil?
       if grammar
-	comment_extra += "(-#{postfix})"
+        comment_extra += "(-#{postfix})"
 
-	if (hinsi =~ /Ì¾»ì/ ||
-	    hinsi =~ /Éû»ì/ ||
-	    hinsi =~ /Ï¢ÂÎ»ì/ ||
-	    hinsi =~ /ÂÎ¸À/ )
-	  print_orig = true
-	else
-	  print_orig = false
-	end
+        if (hinsi =~ /åè©ž/ ||
+            hinsi =~ /å‰¯è©ž/ ||
+            hinsi =~ /é€£ä½“è©ž/ ||
+            hinsi =~ /ä½“è¨€/ )
+          print_orig = true
+        else
+          print_orig = false
+        end
       end
       print_pair(new_key, new_candidate, unannotate ? nil : notes,
-		  comment.delete("¦Õ") + comment_extra)
+                 comment.delete("Ï†") + comment_extra)
       print_orig = false if asayake_mode != "both"
     elsif grammar
       # XXX XXX Unfortunately, prime-dict doesn't have data of exact
       # conjugation types for adjective verbs; this should yield a lot of
-      # unwanted okuri-ari pairs, such as ¡Ö¤É¤¦¤É¤¦n /Æ²¡¹/¡×(¥¿¥ê³èÍÑ).
-      comment += "[¦Õdn(st)]" if hinsi =~ /·ÁÍÆÆ°»ì/
-      comment += "[¦Õs]" if hinsi =~ /¥µ¹Ô\(¤¹¤ë\)/
+      # unwanted okuri-ari pairs, such as ã€Œã©ã†ã©ã†n /å ‚ã€…/ã€(ã‚¿ãƒªæ´»ç”¨).
+      comment += "[Ï†dn(st)]" if hinsi =~ /å½¢å®¹å‹•è©ž/
+      comment += "[Ï†s]" if hinsi =~ /ã‚µè¡Œ\(ã™ã‚‹\)/
 
-      if hinsi =~ /([¥¢-¥ó])¹Ô¸ÞÃÊ/
-	okuri = GyakuhikiOkurigana.assoc($1.to_hiragana)[1]
+      if hinsi =~ /([ã‚¢-ãƒ³])è¡Œäº”æ®µ/
+        okuri = GyakuhikiOkurigana.assoc($1.to_hiragana)[1]
       end
 
-      if hinsi =~ /·ÁÍÆ»ì/
-	comment += "[iks(gm)]" 
-	okuri = "i"
-      elsif hinsi =~ /¥ï¹Ô¸ÞÃÊ/
-	comment += "[wiueot(c)]"
-	okuri = "u"
-      elsif hinsi =~ /¥¬¹Ô¸ÞÃÊ/
-	comment += "[gi]"
-      elsif hinsi =~ /¥«¹Ô¸ÞÃÊ/
-	#if candidate =~ /¹Ô$/
-	if key =~ /¤¤$/
-	  comment += "[ktc]"
-	elsif key =~ /¤æ$/
-	  comment += "[k]"
-	else
-	  comment += "[ki]"
-	end
-      elsif hinsi =~ /¥Þ¹Ô¸ÞÃÊ/
-	comment += "[mn]"
-      elsif hinsi =~ /¥é¹Ô¸ÞÃÊ/
-	comment += "[rt(cn)]"
-      elsif hinsi =~ /Íè\(¤¯\)/
-	comment += "[*]"
-	okuri = "r"
-      elsif hinsi =~ /°ìÃÊ/
-	# this can be of problem
-	comment += "[a-z]"
-	okuri = "r"
+      if hinsi =~ /å½¢å®¹è©ž/
+        comment += "[iks(gm)]" 
+        okuri = "i"
+      elsif hinsi =~ /ãƒ¯è¡Œäº”æ®µ/
+        comment += "[wiueot(c)]"
+        okuri = "u"
+      elsif hinsi =~ /ã‚¬è¡Œäº”æ®µ/
+        comment += "[gi]"
+      elsif hinsi =~ /ã‚«è¡Œäº”æ®µ/
+        #if candidate =~ /è¡Œ$/
+        if key =~ /ã„$/
+          comment += "[ktc]"
+        elsif key =~ /ã‚†$/
+          comment += "[k]"
+        else
+          comment += "[ki]"
+        end
+      elsif hinsi =~ /ãƒžè¡Œäº”æ®µ/
+        comment += "[mn]"
+      elsif hinsi =~ /ãƒ©è¡Œäº”æ®µ/
+        comment += "[rt(cn)]"
+      elsif hinsi =~ /æ¥\(ã\)/
+        comment += "[*]"
+        okuri = "r"
+      elsif hinsi =~ /ä¸€æ®µ/
+        # this can be of problem
+        comment += "[a-z]"
+        okuri = "r"
       end
     end
   end

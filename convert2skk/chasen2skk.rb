@@ -1,5 +1,6 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -36,19 +37,15 @@
 ##
 ## skkdictools.rb required.
 ##
-## TODO: pick up compound-verbs, eg. ¡ÖÉñ¤¤»¶¤ë¡×
-## Éñ¤¤    ¥Ş¥¤    Éñ¤¦    Æ°»ì-¼«Î©       ¸ŞÃÊ¡¦¥ï¹ÔÂ¥²»ÊØ        Ï¢ÍÑ·Á
-## »¶¤ë    ¥Á¥ë    »¶¤ë    Æ°»ì-¼«Î©       ¸ŞÃÊ¡¦¥é¹Ô      ´ğËÜ·Á
+## TODO: pick up compound-verbs, eg. ã€Œèˆã„æ•£ã‚‹ã€
+## èˆã„    ãƒã‚¤    èˆã†    å‹•è©-è‡ªç«‹       äº”æ®µãƒ»ãƒ¯è¡Œä¿ƒéŸ³ä¾¿        é€£ç”¨å½¢
+## æ•£ã‚‹    ãƒãƒ«    æ•£ã‚‹    å‹•è©-è‡ªç«‹       äº”æ®µãƒ»ãƒ©è¡Œ      åŸºæœ¬å½¢
 ##
-require 'jcode' if RUBY_VERSION.to_f < 1.9
-require 'kconv'
-require 'skkdictools'
 
-#require 'cgi'
-#require 'socket'
-#require 'timeout'
-
+Encoding.default_external = "euc-jis-2004"
+require_relative 'skkdictools'
 require 'optparse'
+
 opt = OptionParser.new
 
 katakana_words = false
@@ -77,12 +74,12 @@ opt.on('-w WORD', '--extract-word=WORD', 'extract pairs containing WORD') { |v| 
 
 begin
   opt.parse!(ARGV)
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
 
-#keyword_pat = Regexp.compile("[°¡-ô¦]*#{keyword}[°¡-ô¦]*")
+#keyword_pat = Regexp.compile("[äºœ-ç†™]*#{keyword}[äºœ-ç†™]*")
 
 count = 0
 #key = word = last_key = last_word = last_part = ""
@@ -90,49 +87,50 @@ key = word = last_part = ""
 poisoned = terminate = false
 
 while gets
-  midasi, yomi, root, part, conj = $_.split("	", 5)
-  #if midasi !~ /^[°¡-ô¦¥¡-¥ó¥ô¡¼]+$/ || terminate
-  if (midasi !~ /^[°¡-ô¦¥¡-¥ó¥ô¡¼¡¹]+$/ &&
-      (!allow_noun_chains || part !~ /Ì¾»ì/ || part =~ /Èó¼«Î©/ ||
-      midasi !~ /^[°¡-ô¦¥¡-¥ó¥ô¡¼¡¹¤¡-¤ó]+$/ )) || terminate
-  #if (midasi !~ /^[°¡-ô¦¥¡-¥ó¥ô¡¼]+$/ && conj !~ /Ï¢ÍÑ·Á/) || terminate
+  $_.encode!("utf-8")
+  midasi, yomi, _root, part, _conj = $_.split("	", 5)
+  #if midasi !~ /^[äºœ-ç†™ã‚¡-ãƒ³ãƒ´ãƒ¼]+$/ || terminate
+  if (midasi !~ /^[äºœ-ç†™ã‚¡-ãƒ³ãƒ´ãƒ¼ã€…]+$/ &&
+      (!allow_noun_chains || part !~ /åè©/ || part =~ /éè‡ªç«‹/ ||
+       midasi !~ /^[äºœ-ç†™ã‚¡-ãƒ³ãƒ´ãƒ¼ã€…ã-ã‚“]+$/ )) || terminate
+    #if (midasi !~ /^[äºœ-ç†™ã‚¡-ãƒ³ãƒ´ãƒ¼]+$/ && conj !~ /é€£ç”¨å½¢/) || terminate
     #next if count < 1
     if count < 1
       next if !handle_prefix
-      if part =~ /ÀÜÆ¬»ì/
-	# kludge - keep prefix w/o increasing count (cf.¡Ö¤´Î©ÇÉ¡×¡Ö¤ªÌ£Á¹¡×)
-	key = yomi.to_hiragana
-	word = midasi
-	last_part = part
-      #elsif part =~ /¼«Î©/ && conj =~ /Ï¢ÍÑ·Á/
-      #  hogehoge
+      if part =~ /æ¥é ­è©/
+        # kludge - keep prefix w/o increasing count (cf.ã€Œã”ç«‹æ´¾ã€ã€ŒãŠå‘³å™Œã€)
+        key = yomi.to_hiragana
+        word = midasi
+        last_part = part
+        #elsif part =~ /è‡ªç«‹/ && conj =~ /é€£ç”¨å½¢/
+        #  hogehoge
       else
-	key = word = last_part = ""
+        key = word = last_part = ""
       end
       next
     end
 
-    if midasi =~ /^[^°¡-ô¦¥¡-¥ó¥ô¡¼¡¹]+$/ && !terminate
+    if midasi =~ /^[^äºœ-ç†™ã‚¡-ãƒ³ãƒ´ãƒ¼ã€…]+$/ && !terminate
       # nothing
     else
-      if part =~ /ÀÜÂ³»ì|ÀÜÆ¬»ì|Éû»ì[^²Ä]/
-	# nothing - decline some parts
-      elsif midasi =~ /ÊÂ¤Ó|µÚ¤Ó/
-	# nothing - (HACK) decline conjonctions that ChaSen overlooks
-      elsif midasi =~ /^[¤¡-¤ó]+[°¡-ô¦¥¡-¥ó¥ô¡¼¡¹]+/
-	# nothing - this applies to quasi-words such as:
-	# ¤Ë´Ø¤¹¤ë        ¥Ë¥«¥ó¥¹¥ë      ¤Ë´Ø¤¹¤ë        ½õ»ì-³Ê½õ»ì-Ï¢¸ì
+      if part =~ /æ¥ç¶šè©|æ¥é ­è©|å‰¯è©[^å¯]/
+        # nothing - decline some parts
+      elsif midasi =~ /ä¸¦ã³|åŠã³/
+        # nothing - (HACK) decline conjonctions that ChaSen overlooks
+      elsif midasi =~ /^[ã-ã‚“]+[äºœ-ç†™ã‚¡-ãƒ³ãƒ´ãƒ¼ã€…]+/
+        # nothing - this applies to quasi-words such as:
+        # ã«é–¢ã™ã‚‹        ãƒ‹ã‚«ãƒ³ã‚¹ãƒ«      ã«é–¢ã™ã‚‹        åŠ©è©-æ ¼åŠ©è©-é€£èª
       else
-	key += yomi.to_hiragana
-	word += midasi
-	last_part = part
-	# asayaKify here?
+        key += yomi.to_hiragana
+        word += midasi
+        last_part = part
+        # asayaKify here?
       end
     end
 
-    if word =~ /^[¤¡-¤ó¡¼]+$/
+    if word =~ /^[ã-ã‚“ãƒ¼]+$/
       # nothing
-    elsif !katakana_words && word =~ /^[¥¡-¥ó¥ô¡¼]+$/
+    elsif !katakana_words && word =~ /^[ã‚¡-ãƒ³ãƒ´ãƒ¼]+$/
       # nothing
     elsif !keyword.empty? && !word.include?(keyword)
       # nothing
@@ -147,12 +145,12 @@ while gets
     count = 0
 
   else
-    if count > 0 && part =~ /ÀÜÂ³»ì|ÀÜÆ¬»ì|Éû»ì[^²Ä]/
+    if count > 0 && part =~ /æ¥ç¶šè©|æ¥é ­è©|å‰¯è©[^å¯]/
       terminate = true
       redo
-    elsif count == 0 && part =~ /ÀÜÈø/
-      # avoid generating ¡Ö²óÂç²ñ¡× from ¡ÖÂè£³²óÂç²ñ¡×
-      # ²ó      ¥«¥¤    ²ó      Ì¾»ì-ÀÜÈø-½õ¿ô»ì
+    elsif count == 0 && part =~ /æ¥å°¾/
+      # avoid generating ã€Œå›å¤§ä¼šã€ from ã€Œç¬¬ï¼“å›å¤§ä¼šã€
+      # å›      ã‚«ã‚¤    å›      åè©-æ¥å°¾-åŠ©æ•°è©
       key = word = last_part = ""
       next
     end
@@ -160,6 +158,6 @@ while gets
     key += yomi.to_hiragana
     word += midasi
     last_part = part
-    poisoned = true if part =~ /Ì¤ÃÎ¸ì/
+    poisoned = true if part =~ /æœªçŸ¥èª/
   end
 end

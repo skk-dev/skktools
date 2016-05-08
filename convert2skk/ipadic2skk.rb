@@ -1,5 +1,6 @@
-#!/usr/local/bin/ruby -Ke
-# -*- coding: euc-jp -*-
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -38,10 +39,11 @@
 ##
 ## NOTE: skkdictools.rb should be in the ruby loadpaths to have this work.
 ##
-require 'jcode' if RUBY_VERSION.to_f < 1.9
-#require 'kconv'
-require 'skkdictools'
+
+Encoding.default_external = "euc-jis-2004"
+require_relative 'skkdictools'
 require 'optparse'
+
 opt = OptionParser.new
 skip_identical = true
 skip_hira2kana = true
@@ -51,60 +53,62 @@ asayake_mode = "none"
 opt.on('-a', "convert Asayake into AsayaKe") { asayake_mode = "convert" }
 opt.on('-A', "both Asayake and AsayaKe are output") { asayake_mode = "both" }
 opt.on('-g', "append grammatical annotations") { grammar = true }
-opt.on('-k', "generate hiragana-to-katakana pairs (¡Ö¤Í¤³ /¥Í¥³/¡×)") { skip_hira2kana = false }
-opt.on('-K', "generate identical pairs (¡Ö¤Í¤³ /¤Í¤³/¡×)") { skip_identical = false }
+opt.on('-k', "generate hiragana-to-katakana pairs (ã€Œã­ã“ /ãƒã‚³/ã€)") { skip_hira2kana = false }
+opt.on('-K', "generate identical pairs (ã€Œã­ã“ /ã­ã“/ã€)") { skip_identical = false }
 
 begin
   opt.parse!(ARGV)
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
 
 while gets
+  $_.encode!("utf-8")
+
   #line = $_.toeuc
-  next if $_ !~ /^\(ÉÊ»ì \(([^)]*)\)\) \(\(¸«½Ð¤·¸ì \(([^ ]*) [0-9]*\)\) \(ÆÉ¤ß ([^ ]*)\)/
-  # (ÉÊ»ì (Ì¾»ì °ìÈÌ)) ((¸«½Ð¤·¸ì (³Ø²Ý 3999)) (ÆÉ¤ß ¥¬¥Ã¥«) (È¯²» ¥¬¥Ã¥«) )
+  next if $_ !~ /^\(å“è©ž \(([^)]*)\)\) \(\(è¦‹å‡ºã—èªž \(([^ ]*) [0-9]*\)\) \(èª­ã¿ ([^ ]*)\)/
+  # (å“è©ž (åè©ž ä¸€èˆ¬)) ((è¦‹å‡ºã—èªž (å­¦èª² 3999)) (èª­ã¿ ã‚¬ãƒƒã‚«) (ç™ºéŸ³ ã‚¬ãƒƒã‚«) )
   next if skip_hira2kana && $2 == $3
   hinsi = $1
   candidate = $2
-  key = $3.tr('¥¡-¥ó', '¤¡-¤ó').gsub(/¥ô/, '¤¦¡«')
+  key = $3.tr('ã‚¡-ãƒ³', 'ã-ã‚“').gsub(/ãƒ´/, 'ã†ã‚›')
   next if skip_identical && key == candidate
 
   conjugation = nil
-  if grammar && $_ =~ /\(³èÍÑ·¿ ([^)]*)\) \)$/
-    # (³èÍÑ·¿ ¸ÞÃÊ¡¦¥ï¹ÔÂ¥²»ÊØ) )
-    conjugation = $1.sub(/^(..)¡¦([¥¢-¥ó]¹Ô)/, '\2\1 ')
+  if grammar && $_ =~ /\(æ´»ç”¨åž‹ ([^)]*)\) \)$/
+    # (æ´»ç”¨åž‹ äº”æ®µãƒ»ãƒ¯è¡Œä¿ƒéŸ³ä¾¿) )
+    conjugation = $1.sub(/^(..)ãƒ»([ã‚¢-ãƒ³]è¡Œ)/, '\2\1 ')
   end
 
   comment = nil
   if grammar
     comment = hinsi
     comment += " " + conjugation if !conjugation.nil?
-    if hinsi =~ /ÀÜÆ¬»ì/
-      if hinsi =~ /¿ôÀÜÂ³/
-	# generate "#0"; complete-numerative.rb should do the rest
-	candidate += "#0"
-	key += "#"
+    if hinsi =~ /æŽ¥é ­è©ž/
+      if hinsi =~ /æ•°æŽ¥ç¶š/
+        # generate "#0"; complete-numerative.rb should do the rest
+        candidate += "#0"
+        key += "#"
       else
-	comment += "[¦Õ>]"
+        comment += "[Ï†>]"
       end
-    elsif hinsi =~ /ÀÜÈø/
-      if hinsi =~ /½õ¿ô»ì/
-	comment += "[¦Õ#]"
+    elsif hinsi =~ /æŽ¥å°¾/
+      if hinsi =~ /åŠ©æ•°è©ž/
+        comment += "[Ï†#]"
       else
-	comment += "[¦Õ<]"
+        comment += "[Ï†<]"
       end
     end
   end
 
   tail = ""
-  if key =~ /^\{(.*)\}([¤¡-¤ó]*)$/
+  if key =~ /^\{(.*)\}([ã-ã‚“]*)$/
     tail = $2
-    # (ÆÉ¤ß {¥Á¥Í¥Ä/¥¸¥Í¥Ä})
+    # (èª­ã¿ {ãƒãƒãƒ„/ã‚¸ãƒãƒ„})
     keys = $1.split("/")
   else
-    keys = key
+    keys = [key]
   end
 
   keys.each do |midasi|
@@ -115,40 +119,39 @@ while gets
     if asayake_mode != "none"
       new_midasi, new_candidate, postfix = okuri_nasi_to_ari(midasi, candidate)
       if !new_midasi.nil?
-	comment_extra = ""
-	if grammar
-	  comment_extra += "[iks(gm)]" if postfix == "¤¤" && hinsi =~ /·ÁÍÆ»ì/
+        comment_extra = ""
+        if grammar
+          comment_extra += "[iks(gm)]" if postfix == "ã„" && hinsi =~ /å½¢å®¹è©ž/
 
-	  comment_extra += "[wiueot(c)]" if postfix == "¤¦" && conjugation =~ /¥ï¹Ô¸ÞÃÊ/
-	  comment_extra += "[gi]" if postfix == "¤°" && conjugation =~ /¥¬¹Ô¸ÞÃÊ/
-	  comment_extra += "[mn]" if postfix == "¤à" && conjugation =~ /¥Þ¹Ô¸ÞÃÊ/
-	  comment_extra += "[*]" if postfix == "¤ë" && conjugation =~ /¥«ÊÑ/
-	  comment_extra += "[rt(cn)]" if postfix == "¤ë" && conjugation =~ /¥é¹Ô¸ÞÃÊ/
-	  # this can be of problem
-	  comment_extra += "[a-z]" if postfix == "¤ë" && conjugation =~ /°ìÃÊ/
+          comment_extra += "[wiueot(c)]" if postfix == "ã†" && conjugation =~ /ãƒ¯è¡Œäº”æ®µ/
+          comment_extra += "[gi]" if postfix == "ã" && conjugation =~ /ã‚¬è¡Œäº”æ®µ/
+          comment_extra += "[mn]" if postfix == "ã‚€" && conjugation =~ /ãƒžè¡Œäº”æ®µ/
+          comment_extra += "[*]" if postfix == "ã‚‹" && conjugation =~ /ã‚«å¤‰/
+          comment_extra += "[rt(cn)]" if postfix == "ã‚‹" && conjugation =~ /ãƒ©è¡Œäº”æ®µ/
+          # this can be of problem
+          comment_extra += "[a-z]" if postfix == "ã‚‹" && conjugation =~ /ä¸€æ®µ/
 
-	  #comment_extra += "[ki]" if postfix == "¤¯" && conjugation =~ /¥«¹Ô¸ÞÃÊ/
-	  if postfix == "¤¯" && conjugation =~ /¥«¹Ô¸ÞÃÊ/
-	    #if new_candidate =~ /¹Ô$/
-	    if new_midasi =~ /¤¤k$/
-	      comment_extra += "[ktc]"
-	    elsif new_midasi =~ /¤æk$/
-	      comment_extra += "[k]"
-	    else
-	      comment_extra += "[ki]"
-	    end
-	  end
+          #comment_extra += "[ki]" if postfix == "ã" && conjugation =~ /ã‚«è¡Œäº”æ®µ/
+          if postfix == "ã" && conjugation =~ /ã‚«è¡Œäº”æ®µ/
+            #if new_candidate =~ /è¡Œ$/
+            if new_midasi =~ /ã„k$/
+              comment_extra += "[ktc]"
+            elsif new_midasi =~ /ã‚†k$/
+              comment_extra += "[k]"
+            else
+              comment_extra += "[ki]"
+            end
+          end
 
-	  comment_extra += "(-#{postfix})"
-	  #print_orig = false if !comment_extra.empty?
-	  print_orig = false if hinsi =~ /Æ°»ì|·ÁÍÆ»ì/
-	end
-	print_pair(new_midasi, new_candidate, nil,
-		    comment.delete("¦Õ") + comment_extra)
-	print_orig = false if asayake_mode != "both"
+          comment_extra += "(-#{postfix})"
+          #print_orig = false if !comment_extra.empty?
+          print_orig = false if hinsi =~ /å‹•è©ž|å½¢å®¹è©ž/
+        end
+        print_pair(new_midasi, new_candidate, nil, comment.delete("Ï†") + comment_extra)
+        print_orig = false if asayake_mode != "both"
       else
-	comment += "[¦Õdn(s)]" if hinsi =~ /·ÁÍÆÆ°»ì¸ì´´/
-	comment += "[¦Õs]" if hinsi =~ /¥µÊÑÀÜÂ³/
+        comment += "[Ï†dn(s)]" if hinsi =~ /å½¢å®¹å‹•è©žèªžå¹¹/
+        comment += "[Ï†s]" if hinsi =~ /ã‚µå¤‰æŽ¥ç¶š/
       end
     end
     print_pair(midasi, candidate, nil, grammar ? comment : nil) if print_orig

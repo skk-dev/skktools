@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
 # dic-it2skk.rb -- convert dic-it dictionary to SKK-JISYO format.
 #
 # Copyright (C) 2003 NAKAJIMA Mikio <minakaji@namazu.org>
@@ -32,6 +34,7 @@
 # $ dic-it2skk.rb dic-it.txt > tmp.jisyo
 # $ skkdic-expr2 tmp.jisyo > SKK-JISYO.dic-it
 #
+Encoding.default_external = "euc-jis-2004"
 file = ARGV.shift
 open(file).each{|line|
   if !(line =~ /([^ \/]+)\/([^ ]+) *$/)

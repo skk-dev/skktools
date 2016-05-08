@@ -1,6 +1,5 @@
-#!/usr/bin/ruby -Ke
-# -*- coding: euc-jp -*-
-require 'jcode' if RUBY_VERSION.to_f < 1.9
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
 
 # ctdicconv.rb -- convert china_taiwan.csv to SKK-JISYO dictionary format.
 #
@@ -30,10 +29,11 @@ require 'jcode' if RUBY_VERSION.to_f < 1.9
 #
 # Commentary:
 
+Encoding.default_external = "euc-jis-2004"
 $ANNOTATION = true
 ##$ANNOTATION = false
 
-# from ¡Ö¥ª¥Ö¥¸¥§¥¯¥È»Ø¸þ¥¹¥¯¥ê¥×¥È¸À¸ìruby¡×p121
+# from ã€Œã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæŒ‡å‘ã‚¹ã‚¯ãƒªãƒ—ãƒˆè¨€èªžrubyã€p121
 def csv_split(source, delimiter = ',')
   csv = []
   data = ""
@@ -45,8 +45,8 @@ def csv_split(source, delimiter = ',')
     end
     if /^"/ =~ data
       if /[^"]"$/ =~ data or '""' == data
-	csv << data.sub(/^"(.*)"$/, '\1').gsub(/""/, '"')
-	data = ''
+        csv << data.sub(/^"(.*)"$/, '\1').gsub(/""/, '"')
+        data = ''
       end
     else
       csv << d
@@ -60,7 +60,7 @@ end
 file = ARGV.shift
 
 if not file
-  print "¥Õ¥¡¥¤¥ë¤ò»ØÄê¤·¤Æ²¼¤µ¤¤\n"
+  print "ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã—ã¦ä¸‹ã•ã„\n"
 else
   first = true
   File.foreach(file) do |line|
@@ -68,24 +68,24 @@ else
       first = false
       next
     end
-    #Ãæ¹ñ¡¦ÂæÏÑ,¼ïÊÌ,±Ñ¸ì¸«½Ð¤·,´Á»ú,ÆüËÜ¸ìÆÉ¤ß,Ãæ¹ñ¸ìÆÉ¤ß¡Ê¥«¥¿¥«¥Ê¡Ë,±Ñ¸ìÉ¸µ­2,´Á»úÊÌÌ¾,´Á»úÊÌÌ¾ÆÉ¤ß,¾ÊÅÔ,¾ÊÅÔÆÉ¤ß,annotation
-    c_t,d,e_key,kanji,j_key,c_key,english,kanji_alias,kanji_alias_key,capital,capital_key,annotation= csv_split(line.chomp)
+    #ä¸­å›½ãƒ»å°æ¹¾,ç¨®åˆ¥,è‹±èªžè¦‹å‡ºã—,æ¼¢å­—,æ—¥æœ¬èªžèª­ã¿,ä¸­å›½èªžèª­ã¿ï¼ˆã‚«ã‚¿ã‚«ãƒŠï¼‰,è‹±èªžæ¨™è¨˜2,æ¼¢å­—åˆ¥å,æ¼¢å­—åˆ¥åèª­ã¿,çœéƒ½,çœéƒ½èª­ã¿,annotation
+    _c_t, _d,e_key,kanji,j_key,c_key,_english,kanji_alias,kanji_alias_key,_capital,_capital_key,annotation= csv_split(line.chomp)
     if (e_key && !e_key.empty? && kanji && !kanji.empty?)
       e_key.strip!
       kanji.strip!
-      # ±Ñ¸ì¸«½Ð¤· /´Á»ú/
+      # è‹±èªžè¦‹å‡ºã— /æ¼¢å­—/
       if ($ANNOTATION && annotation && !annotation.empty?)
-	annotation.strip!
+        annotation.strip!
         print e_key, " /", kanji, ";", annotation, "/\n"
       else
         print e_key, " /", kanji, "/\n"
       end
 
-      # ÆüËÜ¸ì¸«½Ð¤· /Capitalized ±Ñ¸ì/
+      # æ—¥æœ¬èªžè¦‹å‡ºã— /Capitalized è‹±èªž/
       if (j_key && !j_key.empty?)
-	j_key.strip!
+        j_key.strip!
         if ($ANNOTATION && annotation && !annotation.empty?)
-	  annotation.strip!
+          annotation.strip!
           print j_key, " /", e_key.capitalize, ";", annotation, "/\n"
         else
           print j_key, " /", e_key.capitalize, "/\n"
@@ -94,35 +94,35 @@ else
     end
 
     if (j_key && !j_key.empty? && kanji && !kanji.empty?)
-      # ÆüËÜ¸ì¸«½Ð¤· /´Á»ú/
+      # æ—¥æœ¬èªžè¦‹å‡ºã— /æ¼¢å­—/
       if ($ANNOTATION && annotation && !annotation.empty?)
-	annotation.strip!
-	print j_key, " /", kanji, ";", annotation, "/\n"
+        annotation.strip!
+        print j_key, " /", kanji, ";", annotation, "/\n"
       else
-	print j_key, " /", kanji, "/\n"
+        print j_key, " /", kanji, "/\n"
       end
     end
 
     if (c_key && !c_key.empty? && kanji && !kanji.empty?)
       c_key.strip!
-      c_key.tr!("¥¡-¥ó", "¤¡-¤ó")
-      # Ãæ¹ñ¸ì¸«½Ð¤· /´Á»ú/
+      c_key.tr!("ã‚¡-ãƒ³", "ã-ã‚“")
+      # ä¸­å›½èªžè¦‹å‡ºã— /æ¼¢å­—/
       if ($ANNOTATION && annotation && !annotation.empty?)
-	print c_key, " /", kanji, ";", annotation, "/\n"
+        print c_key, " /", kanji, ";", annotation, "/\n"
       else
-	print c_key, " /", kanji, "/\n"
+        print c_key, " /", kanji, "/\n"
       end
     end
-    # ´Á»úÊÌÌ¾¸«½Ð¤· /´Á»úÊÌÌ¾/
+    # æ¼¢å­—åˆ¥åè¦‹å‡ºã— /æ¼¢å­—åˆ¥å/
     if (kanji_alias && kanji_alias_key &&
-	!kanji_alias.empty? && !kanji_alias_key.empty?)
+        !kanji_alias.empty? && !kanji_alias_key.empty?)
       if ($ANNOTATION && annotation && !annotation.empty?)
-	print kanji_alias_key, " /", kanji_alias, ";", annotation, "/\n"
+        print kanji_alias_key, " /", kanji_alias, ";", annotation, "/\n"
       else
-	print kanji_alias_key, " /", kanji_alias, "/\n"
+        print kanji_alias_key, " /", kanji_alias, "/\n"
       end
     end
-    # ¾ÊÅÔ¸«½Ð¤· /¾ÊÅÔ/
+    # çœéƒ½è¦‹å‡ºã— /çœéƒ½/
     #if (capital && capital_key &&
     #    !capital.empty? && !capital_key.empty?)
     #  print capital_key, " /", capital, "/\n"
