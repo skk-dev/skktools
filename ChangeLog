@@ -1,3 +1,17 @@
+2016-05-08  Keisuke Kawahara  <kyohsuke@conafie.jp>
+
+	 * convert2skk/README.md:
+         * convert2skk/aozora2skk.rb:
+         * convert2skk/canna2skk.rb:
+         * convert2skk/chasen2skk.rb:
+         * convert2skk/ctdicconv.rb:
+         * convert2skk/dic-it2skk.rb:
+         * convert2skk/ipadic2skk.rb:
+         * convert2skk/prime2skk.rb:
+         * convert2skk/skk-wordpicker.rb:
+         * filters/README.md:
+         * saihenkan.rb: convert ruby 2.2.x
+
 2015-09-01  Hiroshi Fujishima  <hirobo@tonteki.org>
 
 	* filters/abbrev-convert.rb, filters/abbrev-simplify-keys.rb:

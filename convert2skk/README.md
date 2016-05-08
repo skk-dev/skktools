@@ -12,7 +12,7 @@ SKK 辞書以外のものから SKK 辞書に変換するためのスクリプ�
 
 * `chasen2skk.rb` ChaSen の出力を SKK 化
 * `skk-wordpicker.rb` 各種テキストを KAKASI で SKK 化
-* `naozora2skk.rb` 青空文庫から SKK 辞書を作成
+* `aozora2skk.rb` 青空文庫から SKK 辞書を作成
 * `doc2skk.sh` 以上３つのフロントエンド
 
 ### prime2skk.rb
