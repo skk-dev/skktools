@@ -1,3 +1,14 @@
+2016-05-13  Tatsuya Kinoshita  <tats@debian.org>
+
+	* convert2skk/aozora2skk.rb, convert2skk/chasen2skk.rb:
+	* convert2skk/ipadic2skk.rb, convert2skk/prime2skk.rb:
+	Set correct encodings to STDOUT for Ruby scripts.
+	cf. https://github.com/skk-dev/skktools/pull/7
+
+	* convert2skk/ctdicconv.rb: Fix incorrect encodings for ctdicconv.rb.
+	This fixes error of `make SKK-JISYO.china_taiwan` in skk/dic.
+	cf. https://github.com/skk-dev/skktools/issues/9
+
 2016-05-08  Keisuke Kawahara  <kyohsuke@conafie.jp>
 
 	 * convert2skk/README.md:
