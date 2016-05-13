@@ -29,7 +29,9 @@
 #
 # Commentary:
 
+Encoding.default_internal = "utf-8"
 Encoding.default_external = "euc-jis-2004"
+STDOUT.set_encoding("euc-jis-2004", "utf-8")
 $ANNOTATION = true
 ##$ANNOTATION = false
 
