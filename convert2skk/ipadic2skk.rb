@@ -104,7 +104,7 @@ while gets
   end
 
   tail = ""
-  if key =~ /^\{(.*)\}([ぁ-ん]*)$/
+  if key =~ /^\{(.*)\}([ぁ-ん#]*)$/
     tail = $2
     # (読み {チネツ/ジネツ})
     keys = $1.split("/")
@@ -127,6 +127,7 @@ while gets
           comment_extra += "[wiueot(c)]" if postfix == "う" && conjugation =~ /ワ行五段/
           comment_extra += "[gi]" if postfix == "ぐ" && conjugation =~ /ガ行五段/
           comment_extra += "[mn]" if postfix == "む" && conjugation =~ /マ行五段/
+          comment_extra += "[bn]" if postfix == "ぶ" && conjugation =~ /バ行五段/
           comment_extra += "[*]" if postfix == "る" && conjugation =~ /カ変/
           comment_extra += "[rt(cn)]" if postfix == "る" && conjugation =~ /ラ行五段/
           # this can be of problem
