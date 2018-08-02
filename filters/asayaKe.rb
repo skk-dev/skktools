@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
@@ -48,6 +48,10 @@
 ##
 #require 'jcode'
 #require 'kconv'
+Encoding.default_internal = "utf-8"
+Encoding.default_external = "euc-jis-2004"
+STDOUT.set_encoding("euc-jis-2004", "utf-8")
+
 require 'skkdictools'
 require 'optparse'
 opt = OptionParser.new
@@ -57,7 +61,7 @@ unannotate = false
 okuri_mode = "none"
 #stem = 0
 purge = false
-filter = false
+#filter = false
 
 
 opt.on('-e', 'extract okuri-nasi-with-okuri pairs') { mode = "extract" }
@@ -71,7 +75,7 @@ opt.on('-u', 'eliminate annotations') { unannotate = true }
 
 begin
   opt.parse!(ARGV)
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end

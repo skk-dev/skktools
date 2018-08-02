@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
@@ -54,6 +54,10 @@
 ##
 ## '-p' eliminates pairs with "※" or "?" annotations that are suspected as 'wrong' words.
 ##
+Encoding.default_internal = "utf-8"
+Encoding.default_external = "euc-jis-2004"
+STDOUT.set_encoding("euc-jis-2004", "utf-8")
+
 require 'jcode' if RUBY_VERSION.to_f < 1.9
 #require 'kconv'
 require 'optparse'
@@ -74,7 +78,7 @@ opt.on('-s VAL', 'stem candidates equal or shorter than VAL letters') { |v| stem
 
 begin
   opt.parse!(ARGV)
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end

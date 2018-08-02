@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 ## Copyright (C) 2006 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
@@ -38,6 +38,10 @@
 ## XXX This won't work with SKK-JISYO.JIS3_4; helas, ruby basically cannot
 ## handle JISX0213!
 ## 
+Encoding.default_internal = "utf-8"
+Encoding.default_external = "euc-jis-2004"
+STDOUT.set_encoding("euc-jis-2004", "utf-8")
+
 require 'jcode' if RUBY_VERSION.to_f < 1.9
 #require 'kconv'
 require 'skkdictools'
@@ -57,7 +61,7 @@ opt.on('-M VAL', 'maximal size of each word (in byte)') { |i| max_size = i.to_i 
 
 begin
   opt.parse!(ARGV)
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
@@ -70,7 +74,7 @@ while gets
 
   notyet = true
   tokens.each do |token|
-    word, annotation, comment = token.skk_split_tokens
+    word, annotation, _comment = token.skk_split_tokens
     next if word.size < min_size || word.size > max_size
     next if purge && annotation =~ /※/
     next if purge && annotation =~ /\?$/
