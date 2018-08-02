@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
@@ -34,6 +35,9 @@
 ## '-s <num>' option suppresses keys less than <num> letters; this is
 ## highly recommended, since capitalisation and special letters can have
 ## considerable distinctive meanings in abbrev entries with short keys.
+Encoding.default_internal = "utf-8"
+Encoding.default_external = "euc-jis-2004"
+STDOUT.set_encoding("euc-jis-2004", "utf-8")
 
 #require 'jcode'
 
@@ -46,7 +50,7 @@ opt.on('-s VAL', 'stem keys(MIDASI) equal or shorter than VAL letters') { |v| st
 
 begin
   opt.parse!(ARGV)
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end

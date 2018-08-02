@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
@@ -26,6 +26,10 @@
 ### Instruction:
 ##
 ## 
+Encoding.default_internal = "utf-8"
+Encoding.default_external = "euc-jis-2004"
+STDOUT.set_encoding("euc-jis-2004", "utf-8")
+
 require 'jcode' if RUBY_VERSION.to_f < 1.9
 #require 'kconv'
 require 'skkdictools'
@@ -67,7 +71,7 @@ opt.on('-B', "treat '‖' as a part of annotation") { doublebar = "dumb" }
 begin
   opt.parse!(ARGV)
   #rulesets = default_rulesets if rulesets.empty?
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end

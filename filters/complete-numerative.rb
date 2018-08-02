@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -E euc-jis-2004:utf-8
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 ## Copyright (C) 2005 MITA Yuusuke <clefs@mail.goo.ne.jp>
 ##
@@ -49,6 +49,9 @@
 ##
 ## TODO: output /#3foo/#3bar/#1foo/#1bar/ instead of /#3foo/#1foo/#3bar/#1bar/
 ##
+Encoding.default_internal = "utf-8"
+Encoding.default_external = "euc-jis-2004"
+STDOUT.set_encoding("euc-jis-2004", "utf-8")
 
 #require 'jcode'
 #require 'kconv'
@@ -69,7 +72,7 @@ opt.on('-e', 'only extract numerative entries') { mode = "extract" }
 
 begin
   opt.parse!(ARGV)
-rescue OptionParser::InvalidOption => e
+rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
