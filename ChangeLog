@@ -1,3 +1,11 @@
+2018-08-03  Keisuke Kawahara  <kyohsuke@conafie.jp>
+
+	* filters/abbrev-convert.rb, filters/abbrev-simplify-keys.rb:
+	* filters/annotation-filter.rb, filters/asayaKe.rb:
+	* filters/complete-numerative.rb, filters/conjugation.rb:
+	* filters/make-tankan-dic.rb, filters/skkdictools.rb:
+	Fixes shebang.
+
 2017-03-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* README.md: gdbm-devel パッケージについて記載.
