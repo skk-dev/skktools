@@ -6,8 +6,6 @@
 #
 # Author: NAKAJIMA Mikio <minakaji@namazu.org>
 # Created: March 23, 2003
-# Last Modified: $Date: 2013/05/26 09:47:48 $
-# Version: $Id: canna2skk.rb,v 1.3 2013/05/26 09:47:48 skk-cvs Exp $
 
 # This file is part of Daredevil SKK.
 

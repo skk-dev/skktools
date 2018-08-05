@@ -4,9 +4,7 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: abbrev-simplify-keys.rb,v 1.4 2006/01/04 10:35:06 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2006/01/04 10:35:06 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by

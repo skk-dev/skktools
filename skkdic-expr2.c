@@ -3,9 +3,7 @@ Copyright (C) 2002 Kentaro Fukuchi
 
 Author: Kentaro Fukuchi
 Maintainer: Kentaro Fukuchi <fukuchi@users.sourceforge.net>
-Version: $Id: skkdic-expr2.c,v 1.12 2007/09/26 03:40:35 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2007/09/26 03:40:35 $
 
 This file is part of Daredevil SKK.
 

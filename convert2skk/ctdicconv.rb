@@ -7,8 +7,6 @@
 #
 # Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 # Created: Aug 2, 2002
-# Last Modified: $Date: 2013/05/26 09:47:48 $
-# Version: $Id: ctdicconv.rb,v 1.3 2013/05/26 09:47:48 skk-cvs Exp $
 
 # This file is part of Daredevil SKK.
 

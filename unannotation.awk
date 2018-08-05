@@ -3,8 +3,6 @@
 # Copyright (C) 2001, 2002 SKK Development Team <skk@ring.gr.jp>
 #
 # Maintainer: SKK Development Team <skk@ring.gr.jp>
-# Version: $Id: unannotation.awk,v 1.3 2006/01/04 10:35:06 skk-cvs Exp $
-# Last Modified: $Date: 2006/01/04 10:35:06 $
 #
 # This file is part of Daredevil SKK.
 #

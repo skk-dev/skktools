@@ -1,3 +1,20 @@
+2018-08-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* test/SKK-JISYO.S, test/SKK-JISYO.S.split1:
+	* test/SKK-JISYO.S.split2, test/SKK-JISYO.S.split3:
+	* filters/complete-numerative.rb, filters/make-tankan-dic.rb, filters/skkdictools.rb:
+	* filters/asayaKe.rb, filters/abbrev-simplify-keys.rb, filters/annotation-filter.rb:
+	* filters/abbrev-convert.rb, filters/conjugation.rb:
+	* dbm/makedbmdic4, dbm/makedbmdic5:
+	* convert2skk/ipadic2skk.rb, convert2skk/canna2skk.rb, convert2skk/prime2skk.rb:
+	* convert2skk/ctdicconv.rb, convert2skk/aozora2skk.rb, convert2skk/chasen2skk.rb:
+	* convert2skk/dic-it2skk.rb, convert2skk/skk-wordpicker.rb, convert2skk/edict2skk.awk:
+	* convert2skk/doc2skk.sh:
+	* READMEs/FAQ.txt:
+	* Makefile.am, Makefile.in, acinclude.m4, saihenkan.rb, skk-xml.el:
+	* skkdic-count.c, skkdic-diff.scm, skkdic-expr.c, skkdic-expr2.c, unannotation.awk:
+	Remove RCS keywords.
+
 2017-03-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* .cvsignore: Remove file.

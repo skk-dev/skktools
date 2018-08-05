@@ -5,8 +5,6 @@
 ;;
 ;; Author: Kimura Fuyuki <fuyuki@hadaly.org>
 ;; Created: August 11, 2003
-;; Last Modified: $Date: 2004/08/24 03:38:56 $
-;; Version: $Id: skkdic-diff.scm,v 1.2 2004/08/24 03:38:56 skk-cvs Exp $
 
 
 (use gauche.process)

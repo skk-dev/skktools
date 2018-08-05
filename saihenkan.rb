@@ -7,8 +7,6 @@
 #
 # Author: NAKAJIMA Mikio <minakaji@namazu.org>
 # Created: March 26, 2003
-# Last Modified: $Date: 2006/01/04 10:35:06 $
-# Version: $Id: saihenkan.rb,v 1.2 2006/01/04 10:35:06 skk-cvs Exp $
 
 # This file is part of Daredevil SKK.
 

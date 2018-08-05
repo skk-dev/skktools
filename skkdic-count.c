@@ -4,9 +4,7 @@ Copyright (C) 1994, 1996, 1999, 2000
 
 Author: Hironobu Takahashi, Masahiko Sato, Kiyotaka Sakai, Kenji Yabuuchi
 Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-Version: $Id: skkdic-count.c,v 1.9 2005/09/22 16:16:53 skk-cvs Exp $
 Keywords: japanese
-Last Modified: $Date: 2005/09/22 16:16:53 $
 
 This file is part of Daredevil SKK.
 

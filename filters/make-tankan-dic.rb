@@ -4,9 +4,7 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: make-tankan-dic.rb,v 1.2 2013/05/26 09:47:48 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2013/05/26 09:47:48 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by

@@ -13,9 +13,7 @@
 
 # Author: Masaaki Sato <msatoh@mrit.mei.co.jp>
 # Maintainer: Mikio Nakajima <minakaji@osaka.email.ne.jp>
-# Version: $Id: makedbmdic4,v 1.1 2000/03/12 12:17:49 minakaji Exp $
 # Keywords: jisyo, dbm, gdbm, perl
-# Last Modified: $Date: 2000/03/12 12:17:49 $
 
 $dot=20;
 $line=$dot * 50;

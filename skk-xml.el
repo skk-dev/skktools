@@ -2,10 +2,8 @@
 ;; Copyright (C) 2002 NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 
 ;; Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
-;; Version: $Id: skk-xml.el,v 1.3 2006/01/04 10:35:06 skk-cvs Exp $
 ;; Keywords: japanese
 ;; Created: Aug. 15, 2002
-;; Last Modified: $Date: 2006/01/04 10:35:06 $
 
 ;; This file is part of Daredevil SKK.
 

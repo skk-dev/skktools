@@ -4,8 +4,6 @@
 #
 # Author: NAKAJIMA Mikio <minakaji@osaka.email.ne.jp>
 # Created: Dec. 5, 1998
-# Last Modified: $Date: 2006/01/04 10:35:06 $
-# Version: $Id: edict2skk.awk,v 1.5 2006/01/04 10:35:06 skk-cvs Exp $
 
 # This file is part of Daredevil SKK.
 

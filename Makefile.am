@@ -4,9 +4,7 @@
 ##
 ## Author: SKK Development Team <skk@ring.gr.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: Makefile.am,v 1.1 2002/09/20 12:18:47 iida Exp $
 ## Keywords: japanese
-## Last Modified: $Date: 2002/09/20 12:18:47 $
 ##
 ## This file is part of Daredevil SKK.
 ## 

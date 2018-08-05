@@ -3,9 +3,7 @@
 ##
 ## Author: MITA Yuusuke <clefs@mail.goo.ne.jp>
 ## Maintainer: SKK Development Team <skk@ring.gr.jp>
-## Version: $Id: doc2skk.sh,v 1.5 2006/10/04 14:59:30 skk-cvs Exp $
 ## Keywords: japanese, dictionary
-## Last Modified: $Date: 2006/10/04 14:59:30 $
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
