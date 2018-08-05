@@ -1,5 +1,7 @@
 2018-08-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
+	* .cvsignore: Remove file.
+
 	* test/SKK-JISYO.S, test/SKK-JISYO.S.split1:
 	* test/SKK-JISYO.S.split2, test/SKK-JISYO.S.split3:
 	* filters/complete-numerative.rb, filters/make-tankan-dic.rb, filters/skkdictools.rb:
@@ -15,9 +17,7 @@
 	* skkdic-count.c, skkdic-diff.scm, skkdic-expr.c, skkdic-expr2.c, unannotation.awk:
 	Remove RCS keywords.
 
-2017-03-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
-
-	* .cvsignore: Remove file.
+	* README.md: Update.
 
 2018-08-03  Keisuke Kawahara  <kyohsuke@conafie.jp>
 
