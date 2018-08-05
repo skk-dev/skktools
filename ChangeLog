@@ -1,3 +1,7 @@
+2017-03-05  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* .cvsignore: Remove file.
+
 2018-08-03  Keisuke Kawahara  <kyohsuke@conafie.jp>
 
 	* filters/abbrev-convert.rb, filters/abbrev-simplify-keys.rb:
