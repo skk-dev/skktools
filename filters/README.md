@@ -9,8 +9,10 @@ SKK 辞書を加工・編纂するためのツール群です。
 
 ## 実行環境
 
-バージョン 2.1 以降の ruby が必要です。skkdictools.rb を ruby のロード
-パスが通っている場所に置いてください。
+バージョン 2.1.0 以降の ruby が必要です。skkdictools.rb を ruby のロードパスが通っている場所に置いてください。  
+ruby 2.0.x で利用したい場合、利用したいプログラム内の "euc-jis-2004" を "euc-jp-2004" と変更することで動作します。  
+2.0 より前の ruby で利用したい場合、[releases](https://github.com/skk-dev/skktools/releases) より skktools-1_3_3 をご利用ください。
+
 
 ## abbrev-convert.rb
 
