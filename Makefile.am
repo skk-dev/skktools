@@ -45,9 +45,6 @@ SNAPSHOTDIR   = $(srcdir)/..
 TARDIR	      = $(srcdir)/..
 THEDATE	      = `$(DATE) '+%Y%m%d'`
 
-dist-hook:
-	rm -rf `find $(distdir) -name CVS`
-
 snapshot:
 	ss=$(SNAPSHOTDIR); pv=$(PACKAGE)-$(VERSION); tg=$$pv.tar.gz; \
 	sb=$(SNAPBASE); st=$$sb.tar; sg=$$st.gz; s2=$$st.bz2; \
