@@ -1,3 +1,6 @@
+.git
+.gitignore
+.travis.yml
 *.log
 *~
 Makefile
