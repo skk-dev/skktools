@@ -1,3 +1,8 @@
+2020-02-12  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* READMEs/FAQ.md, READMEs/README.C.md, READMEs/README.skkdic-diff.md:
+	* READMEs/README.skkdic-expr2.md: convert to markdown file.
+
 2018-12-29  Takeshi Abe
 
 	* Makefile.am, skk.ex: Remove CVS related stuff.
