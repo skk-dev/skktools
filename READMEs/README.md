@@ -9,8 +9,7 @@ C 言語で書かれた SKK 辞書のユーティリティです。複数の SKK
 				薮内 健二     yab@kubota.co.jp
 				酒井 清隆     ksakai@kso.netwk.ntt-at.co.jp
 
-プログラム作成方法
-==================
+# 1. プログラム作成方法
 
 作成キットに含まれるシェルスクリプト "configure" を実行して Makefile 
 を作成します。
@@ -30,10 +29,9 @@ skkdic-count が作成されます。
   * 扱う辞書の行が 4096 バイトに近いかそれ以上になる場合は、Makefile の
     DEFS に書かれた MAXLEN を大きくして再コンパイルしてください。
 
-各プログラムの説明
-================
+# 2. 各プログラムの説明
 
-## 1. skkdic-expr
+## 2.1. skkdic-expr
 
 複数の SKK 辞書をマージしたり、他の辞書と同じ内容を引くのに使います。次
 のようにして使います。
@@ -85,7 +83,7 @@ skkdic-count が作成されます。
    $ skkdic-expr jisyo-a - jisyo-tmp > jisyo-common
    ```
 
-## 2. skkdic-sort
+## 2.2. skkdic-sort
 
 skkdic-expr はでたらめな順番で出力します。それを通常の SKK 辞書の形式に
 ソートして、 `;; okuri-ari entries.` と `;; okuri-nasi entries.` を挿
@@ -95,14 +93,13 @@ skkdic-expr はでたらめな順番で出力します。それを通常の SKK 
    $ skkdic-expr jisyo-a + jisyo-b | skkdic-sort > newdict
    ```
 
-## 3. skkdic-count
+## 2.3. skkdic-count
 
 SKK 辞書の中候補数を数えます。[] で囲まれた送りがなつきのブロックは候補
 としては数えない仕様になっています。
 
 
-使用および再配布について
-========================
+# 3. 使用および再配布について
 
 これらのプログラムは SKK と同じように Gnu General Public License (GPL)
 (Version 2 もしくはそれ以降のもの) の下で自由に再配布したり修正して使
