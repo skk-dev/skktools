@@ -1,3 +1,7 @@
+2020-03-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
+
+	* convert2skk/edict2toskk.el: Add new file.
+
 2020-02-16  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* READMEs/README.md: Rename from README.C.md.
