@@ -262,6 +262,7 @@ static GSList *splitCandidates(gchar *str)
 			if(*q < 0x20) break;
 			if(*q == '[') {
 				while(*q != ']') {
+					if(*q == '\0') break;
 					q++;
 				}
 				p = q;
