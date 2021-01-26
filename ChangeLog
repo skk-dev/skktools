@@ -1,3 +1,8 @@
+2021-01-26  Tatsuya Kinoshita  <tats@debian.org>
+
+	* skkdic-expr2.c (splitCandidates): Prevent buffer overflow read
+	when "/[" is found and "]" is not found in the candidates.
+
 2020-03-14  Tsuyoshi Kitamoto  <tsuyoshi.kitamoto@gmail.com>
 
 	* convert2skk/edict2toskk.el: Add new file.
