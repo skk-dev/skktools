@@ -31,14 +31,14 @@ if pack('=i',1) == pack('>i',1):
     return a
   def encode(a):
     a.byteswap()
-    return a.tostring()
+    return str(a)
 else:
   # little endian
   def decode(x):
     a = array('I', x)
     return a
   def encode(a):
-    return a.tostring()
+    return str(a)
 
 
 ##  CDB
@@ -63,7 +63,7 @@ class CDBReader:
   
   def __init__(self, cdbname, docache=1):
     self.name = cdbname
-    self._fp = file(cdbname, 'rb')
+    self._fp = open(cdbname, 'rb')
     hash0 = decode(self._fp.read(2048))
     self._hash0 = [ (hash0[i], hash0[i+1]) for i in range(0, 512, 2) ]
     self._hash1 = [ None ] * 256
@@ -160,7 +160,7 @@ class CDBMaker:
     self.fn = cdbname
     self.fntmp = tmpname
     self.numentries = 0
-    self._fp = file(tmpname, 'wb')
+    self._fp = open(tmpname, 'wb')
     self._pos = 2048                    # sizeof((h,p))*256
     self._bucket = [ array('I') for _ in range(256) ]
     return
@@ -179,8 +179,8 @@ class CDBMaker:
     (klen, vlen) = (len(k), len(v))
     self._fp.seek(self._pos)
     self._fp.write(pack('<II', klen, vlen))
-    self._fp.write(k)
-    self._fp.write(v)
+    self._fp.write(k.encode())
+    self._fp.write(v.encode())
     h = cdbhash(k)
     b = self._bucket[h % 256]
     b.append(h)
@@ -205,7 +205,7 @@ class CDBMaker:
           i = (i+2) % len(a)
         a[i] = h
         a[i+1] = p
-      self._fp.write(encode(a))
+      self._fp.write(encode(a).encode())
     # write header
     self._fp.seek(0)
     a = array('I')
@@ -213,7 +213,7 @@ class CDBMaker:
       a.append(pos_hash)
       a.append(len(b1))
       pos_hash += len(b1)*8
-    self._fp.write(encode(a))
+    self._fp.write(encode(a).encode())
     # close
     self._fp.close()
     os.rename(self.fntmp, self.fn)
@@ -239,7 +239,7 @@ class CDBMaker:
 
 # cdbdump
 def cdbdump(cdbname):
-  fp = file(cdbname, 'rb')
+  fp = open(cdbname, 'rb')
   (eor,) = unpack('<I', fp.read(4))
   return cdbiter(fp, eor)
 
@@ -297,7 +297,7 @@ def main(argv):
     return 1
   #
   maker = CDBMaker(outfile, outfile+'.tmp')
-  for line in fileinput.input(args):
+  for line in fileinput.input(args, openhook=fileinput.hook_encoded('euc-jp')):
     line = line.strip()
     if line.startswith(';'): continue
     try:
