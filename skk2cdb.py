@@ -31,14 +31,14 @@ if pack('=i',1) == pack('>i',1):
     return a
   def encode(a):
     a.byteswap()
-    return str(a)
+    return a
 else:
   # little endian
   def decode(x):
     a = array('I', x)
     return a
   def encode(a):
-    return str(a)
+    return a
 
 
 ##  CDB
@@ -205,7 +205,7 @@ class CDBMaker:
           i = (i+2) % len(a)
         a[i] = h
         a[i+1] = p
-      self._fp.write(encode(a).encode())
+      self._fp.write(encode(a))
     # write header
     self._fp.seek(0)
     a = array('I')
@@ -213,7 +213,7 @@ class CDBMaker:
       a.append(pos_hash)
       a.append(len(b1))
       pos_hash += len(b1)*8
-    self._fp.write(encode(a).encode())
+    self._fp.write(encode(a))
     # close
     self._fp.close()
     os.rename(self.fntmp, self.fn)
