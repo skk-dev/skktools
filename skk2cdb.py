@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 ##
 ##  skk2cdb.py - convertion tool for SKK dictionary.
 ##  by Yusuke Shinyama
@@ -16,12 +16,11 @@
 import sys, os
 from struct import pack, unpack
 from array import array
-from functools import reduce
 
 
 # calc hash value with a given key
-def cdbhash(s, n=0):
-  return reduce(lambda h,c: ((h*33) ^ ord(c)) & 0xffffffff, s, n+5381)
+def cdbhash(s, n=0L):
+  return reduce(lambda h,c: ((h*33) ^ ord(c)) & 0xffffffffL, s, n+5381L)
 
 if pack('=i',1) == pack('>i',1):
   # big endian
@@ -31,14 +30,14 @@ if pack('=i',1) == pack('>i',1):
     return a
   def encode(a):
     a.byteswap()
-    return a
+    return a.tostring()
 else:
   # little endian
   def decode(x):
     a = array('I', x)
     return a
   def encode(a):
-    return a
+    return a.tostring()
 
 
 ##  CDB
@@ -63,9 +62,9 @@ class CDBReader:
   
   def __init__(self, cdbname, docache=1):
     self.name = cdbname
-    self._fp = open(cdbname, 'rb')
+    self._fp = file(cdbname, 'rb')
     hash0 = decode(self._fp.read(2048))
-    self._hash0 = [ (hash0[i], hash0[i+1]) for i in range(0, 512, 2) ]
+    self._hash0 = [ (hash0[i], hash0[i+1]) for i in xrange(0, 512, 2) ]
     self._hash1 = [ None ] * 256
     (self._eod,_) = self._hash0[0]
     self._docache = docache
@@ -94,7 +93,7 @@ class CDBReader:
       self._hash1[h1] = hs
     i = ((h >> 8) % ncells) * 2
     n = ncells*2
-    for _ in range(ncells):
+    for _ in xrange(ncells):
       p1 = hs[i+1]
       if p1 == 0: raise KeyError(k)
       if hs[i] == h:
@@ -123,7 +122,7 @@ class CDBReader:
       return False
 
   def __contains__(self, k):
-    return k in self
+    return self.has_key(k)
 
   def firstkey(self):
     self._keyiter = None
@@ -133,7 +132,7 @@ class CDBReader:
     if not self._keyiter:
       self._keyiter = ( k for (k,v) in cdbiter(self._fp, self._eod) )
     try:
-      return next(self._keyiter)
+      return self._keyiter.next()
     except StopIteration:
       return None
 
@@ -141,7 +140,7 @@ class CDBReader:
     if not self._eachiter:
       self._eachiter = cdbiter(self._fp, self._eod)
     try:
-      return next(self._eachiter)
+      return self._eachiter.next()
     except StopIteration:
       return None
   
@@ -160,9 +159,9 @@ class CDBMaker:
     self.fn = cdbname
     self.fntmp = tmpname
     self.numentries = 0
-    self._fp = open(tmpname, 'wb')
+    self._fp = file(tmpname, 'wb')
     self._pos = 2048                    # sizeof((h,p))*256
-    self._bucket = [ array('I') for _ in range(256) ]
+    self._bucket = [ array('I') for _ in xrange(256) ]
     return
 
   def __len__(self):
@@ -179,8 +178,8 @@ class CDBMaker:
     (klen, vlen) = (len(k), len(v))
     self._fp.seek(self._pos)
     self._fp.write(pack('<II', klen, vlen))
-    self._fp.write(k.encode())
-    self._fp.write(v.encode())
+    self._fp.write(k)
+    self._fp.write(v)
     h = cdbhash(k)
     b = self._bucket[h % 256]
     b.append(h)
@@ -198,7 +197,7 @@ class CDBMaker:
       if not b1: continue
       blen = len(b1)
       a = array('I', [0]*blen*2)
-      for j in range(0, blen, 2):
+      for j in xrange(0, blen, 2):
         (h,p) = (b1[j],b1[j+1])
         i = ((h >> 8) % blen)*2
         while a[i+1]:             # is cell[i] already occupied?
@@ -239,7 +238,7 @@ class CDBMaker:
 
 # cdbdump
 def cdbdump(cdbname):
-  fp = open(cdbname, 'rb')
+  fp = file(cdbname, 'rb')
   (eor,) = unpack('<I', fp.read(4))
   return cdbiter(fp, eor)
 
@@ -249,7 +248,7 @@ def cdbmerge(iters):
   q = []
   for it in iters:
     try:
-      q.append((next(it),it))
+      q.append((it.next(),it))
     except StopIteration:
       pass
   k0 = None
@@ -263,7 +262,7 @@ def cdbmerge(iters):
     vs.append(v)
     k0 = k
     try:
-      q.append((next(it),it))
+      q.append((it.next(),it))
     except StopIteration:
       continue
   if vs: yield (k0,vs)
@@ -281,7 +280,7 @@ def main(argv):
   import fileinput
   import os.path
   def usage():
-    print('usage: %s [-f] outfile [infile ...]' % argv[0])
+    print 'usage: %s [-f] outfile [infile ...]' % argv[0]
     return 100
   try:
     (opts, args) = getopt.getopt(argv[1:], 'dfo:')
@@ -293,11 +292,11 @@ def main(argv):
   if not args: return usage()
   outfile = args.pop(0)
   if not force and os.path.exists(outfile):
-    print('file exists: %r' % outfile, file=sys.stderr)
+    print >>sys.stderr, 'file exists: %r' % outfile
     return 1
   #
   maker = CDBMaker(outfile, outfile+'.tmp')
-  for line in fileinput.input(args, openhook=fileinput.hook_encoded('euc-jp')):
+  for line in fileinput.input(args):
     line = line.strip()
     if line.startswith(';'): continue
     try:
