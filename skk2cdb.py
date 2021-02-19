@@ -175,12 +175,12 @@ class CDBMaker:
     raise TypeError
 
   def add(self, k, v):
-    (k, v) = (str(k), str(v))
+    (k, v) = (k.decode('iso-8859-1'), v.decode('iso-8859-1'))
     (klen, vlen) = (len(k), len(v))
     self._fp.seek(self._pos)
     self._fp.write(pack('<II', klen, vlen))
-    self._fp.write(k.encode())
-    self._fp.write(v.encode())
+    self._fp.write(k.encode('iso-8859-1'))
+    self._fp.write(v.encode('iso-8859-1'))
     h = cdbhash(k)
     b = self._bucket[h % 256]
     b.append(h)
@@ -297,11 +297,11 @@ def main(argv):
     return 1
   #
   maker = CDBMaker(outfile, outfile+'.tmp')
-  for line in fileinput.input(args, openhook=fileinput.hook_encoded('euc-jp')):
+  for line in fileinput.input(args, mode='rb'):
     line = line.strip()
-    if line.startswith(';'): continue
+    if line.startswith(b';'): continue
     try:
-      i = line.index(' ')
+      i = line.index(b' ')
     except ValueError:
       continue
     (k,v) = (line[:i], line[i+1:])
