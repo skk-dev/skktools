@@ -1,3 +1,15 @@
+2021-02-19  Tatsuya Kinoshita  <tats@debian.org>
+
+	* skk2cdb.py: Fix broken skk2cdb.py.
+
+2021-02-17  Shohei Kusakata  <shohei@kusakata.com>
+
+	* skk2cdb.py: Fix encoding error.
+
+	* skk2cdb.py: Fix error when running.
+
+	* skk2cdb.py: Migrate to Python 3.
+
 2021-01-26  Tatsuya Kinoshita  <tats@debian.org>
 
 	* skkdic-expr2.c (splitCandidates): Prevent buffer overflow read
