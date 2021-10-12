@@ -5,3 +5,9 @@ config.log
 config.status
 libtool
 stamp-h1
+
+# executable files
+skkdic-count
+skkdic-expr
+skkdic-expr2
+skkdic-sort
