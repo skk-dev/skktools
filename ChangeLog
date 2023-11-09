@@ -1,3 +1,12 @@
+2023-11-09  Tatsuya Kinoshita  <tats@debian.org>
+
+	* compile, config.guess, config.sub, depcomp, install-sh, ltmain.sh:
+	* missing: Update with Debian libtool 2.4.7-7.
+
+2021-10-12  Naoya Yamashita  <conao3@gmail.com>
+
+	* .gitignore: Ignore executale files.
+
 2021-02-19  Tatsuya Kinoshita  <tats@debian.org>
 
 	* skk2cdb.py: Fix broken skk2cdb.py.
