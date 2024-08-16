@@ -36,7 +36,6 @@
 ## XXX This won't work with SKK-JISYO.JIS3_4; helas, ruby basically cannot
 ## handle JISX0213!
 ## 
-STDOUT.set_encoding(Encoding.default_external, "utf-8")
 
 require 'jcode' if RUBY_VERSION.to_f < 1.9
 #require 'kconv'
@@ -48,12 +47,14 @@ keep_annotation = true
 purge = false
 min_size = 2
 max_size = 2
+encoding = "euc-jis-2004"
 
 
 opt.on('-u', 'remove annotations') { keep_annotation = false }
 opt.on('-p', 'purge candidates marked with "※" or "?"') { purge = true }
 opt.on('-m VAL', 'minimal size of each word (in byte)') { |i| min_size = i.to_i }
 opt.on('-M VAL', 'maximal size of each word (in byte)') { |i| max_size = i.to_i }
+opt.on('-8', 'read and write in utf8') { encoding = "utf-8" }
 
 begin
   opt.parse!(ARGV)
@@ -61,10 +62,12 @@ rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
+Encoding.default_external = encoding
+STDOUT.set_encoding(encoding, "utf-8")
 
 
 while gets
-  $_ = $_.encode("utf-8", Encoding.default_external)
+  $_.encode!("utf-8")
   next if $_ =~ /^;/ || $_ =~ /^$/ || $_ !~ /^[ぁ-ん]/
   midasi, tokens = $_.parse_skk_entry
 

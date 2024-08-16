@@ -27,7 +27,6 @@
 #
 # Commentary:
 
-STDOUT.set_encoding(Encoding.default_external, "utf-8")
 $ANNOTATION = true
 ##$ANNOTATION = false
 
@@ -55,7 +54,14 @@ def csv_split(source, delimiter = ',')
   csv
 end
 
+encoding = "euc-jis-2004"
 file = ARGV.shift
+if file == "-8"
+  encoding = "utf-8"
+  file = ARGV.shift
+end
+Encoding.default_external = encoding
+STDOUT.set_encoding(encoding, "utf-8")
 
 if not file
   print "ファイルを指定して下さい\n"

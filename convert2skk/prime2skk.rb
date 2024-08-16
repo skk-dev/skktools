@@ -36,7 +36,6 @@
 ## NOTE: skkdictools.rb should be in one of the ruby loadpaths.
 ##
 
-STDOUT.set_encoding(Encoding.default_external, "utf-8")
 require_relative 'skkdictools'
 require 'optparse'
 opt = OptionParser.new
@@ -46,6 +45,7 @@ skip_hira2kana = true
 grammar = false
 asayake_mode = "none"
 unannotate = false
+encoding = "euc-jis-2004"
 
 opt.on('-a', "convert Asayake into AsayaKe") { asayake_mode = "convert" }
 opt.on('-A', "both Asayake and AsayaKe are output") { asayake_mode = "both" }
@@ -53,6 +53,7 @@ opt.on('-g', "append grammatical annotations") { grammar = true }
 opt.on('-k', "generate hiragana-to-katakana pairs (「ねこ /ネコ/」)") { skip_hira2kana = false }
 opt.on('-K', "generate identical pairs (「ねこ /ねこ/」)") { skip_identical = false }
 opt.on('-u', "don't add original comments as annotation") { unannotate = true }
+opt.on('-8', "read and write in utf8") { encoding = "utf-8" }
 
 begin
   opt.parse!(ARGV)
@@ -60,6 +61,8 @@ rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
+Encoding.default_external = encoding
+STDOUT.set_encoding(encoding, "utf-8")
 
 while gets
   $_.encode!("utf-8")

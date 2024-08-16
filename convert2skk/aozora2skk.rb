@@ -32,21 +32,24 @@
 ##
 # ○
 
-STDOUT.set_encoding(Encoding.default_external, "utf-8")
 require 'optparse'
 
 opt = OptionParser.new
 
 results = []
-note =false
+note = false
+encoding = "euc-jis-2004"
 
 opt.on('-a', 'append annotation <autogen - aozora>') { note = true }
+opt.on('-8', 'utf-8') { encoding = "utf-8" }
 begin
   opt.parse!(ARGV)
 rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
+Encoding.default_external = encoding
+STDOUT.set_encoding(encoding, "utf-8")
 
 
 

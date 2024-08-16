@@ -54,6 +54,7 @@ append_goohits = false
 keyword = ""
 #fetch_from_goo = false
 append_notes = false
+encoding = "euc-jis-2004"
 
 # -g might be a bad idea; better eliminate pairs already in SKK-JISYO.L first
 opt.on('-g', 'append goo hit numbers') { append_goohits = true }
@@ -63,6 +64,7 @@ opt.on('-K', 'extract words containing katakana') { katakana_majiri = true }
 opt.on('-n', 'append notes') { append_notes = true }
 opt.on('-w WORD', 'extract pairs containing WORD') { |v| keyword = v }
 #opt.on('-W WORD', 'query goo and extract pairs containing WORD') { |v| keyword = v; fetch_from_goo = true }
+opt.on('-8', 'read and write in utf8') { encoding = "utf-8" }
 
 begin
   opt.parse!(ARGV)
@@ -72,6 +74,7 @@ rescue OptionParser::InvalidOption
   exit 1
 end
 
+Encoding.default_external = encoding
 keyword_pat = Regexp.compile("[°¡-ô¦¡¹]*#{keyword}[°¡-ô¦¡¹]*")
 #kanji_pat = "[
 results = []

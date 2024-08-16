@@ -33,7 +33,6 @@
 ## '-s <num>' option suppresses keys less than <num> letters; this is
 ## highly recommended, since capitalisation and special letters can have
 ## considerable distinctive meanings in abbrev entries with short keys.
-STDOUT.set_encoding(Encoding.default_external, "utf-8")
 
 #require 'jcode'
 
@@ -41,8 +40,10 @@ require 'optparse'
 opt = OptionParser.new
 
 stem = 0
+encoding = "euc-jis-2004"
 
 opt.on('-s VAL', 'stem keys(MIDASI) equal or shorter than VAL letters') { |v| stem = v.to_i }
+opt.on('-8', 'read and write in utf8') { encoding = "utf-8" }
 
 begin
   opt.parse!(ARGV)
@@ -50,9 +51,11 @@ rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
+Encoding.default_external = encoding
+STDOUT.set_encoding(encoding, "utf-8")
 
 while gets
-  $_ = $_.encode("utf-8", Encoding.default_external)
+  $_.encode!("utf-8")
   next if $_ =~ /^[^a-zA-Z0-9]/
   tmp = $_.chop.split(" /", 2)
   midasi = tmp.shift.downcase.delete('^a-z0-9')

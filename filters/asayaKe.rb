@@ -46,7 +46,6 @@
 ##
 #require 'jcode'
 #require 'kconv'
-STDOUT.set_encoding(Encoding.default_external, "utf-8")
 
 require 'skkdictools'
 require 'optparse'
@@ -58,6 +57,7 @@ okuri_mode = "none"
 #stem = 0
 purge = false
 #filter = false
+encoding = "euc-jis-2004"
 
 
 opt.on('-e', 'extract okuri-nasi-with-okuri pairs') { mode = "extract" }
@@ -68,6 +68,7 @@ opt.on('-O', 'append original "okurigana" in skk-henkan-okuri-strictly format') 
 opt.on('-p', 'purge candidates marked with "※" or "?"') { purge = true }
 opt.on('-u', 'eliminate annotations') { unannotate = true }
 #opt.on('-s VAL', 'stem candidates equal or shorter than VAL letters') { |v| stem = v.to_i * 2 }
+opt.on('-8', 'read and write in utf8') { encoding = "utf-8" }
 
 begin
   opt.parse!(ARGV)
@@ -75,10 +76,12 @@ rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
+Encoding.default_external = encoding
+STDOUT.set_encoding(encoding, "utf-8")
 
 
 while gets
-  $_ = $_.encode("utf-8", Encoding.default_external)
+  $_.encode!("utf-8")
   next if $_ =~ /^;/
   tmp = $_.chop.split(" /", 2)
   midasi = tmp.shift
