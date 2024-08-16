@@ -47,9 +47,7 @@
 ##
 ## TODO: output /#3foo/#3bar/#1foo/#1bar/ instead of /#3foo/#1foo/#3bar/#1bar/
 ##
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
+STDOUT.set_encoding(Encoding.default_external, "utf-8")
 
 #require 'jcode'
 #require 'kconv'
@@ -76,7 +74,7 @@ rescue OptionParser::InvalidOption
 end
 
 while gets
-  $_ = $_.encode("utf-8", "euc-jis-2004")
+  $_ = $_.encode("utf-8", Encoding.default_external)
   next if $_ =~ /^;/ || $_ =~ /^$/ || $_ !~ /^[^ ]*#/
   if mode == "extract"
     # XXX This is lazy -- there's a slim chance of extracting

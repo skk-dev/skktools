@@ -30,7 +30,6 @@
 ## skkdictools.rb and KAKASI are required.
 ##
 
-Encoding.default_external = "euc-jis-2004"
 require_relative 'skkdictools'
 
 require 'cgi'

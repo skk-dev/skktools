@@ -32,9 +32,7 @@
 ## Most of scripts under tools/filters and some under tools/convert2skk
 ## require this file to be installed in one of the ruby loadpaths.
 ##
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
+STDOUT.set_encoding(Encoding.default_external, "utf-8")
 
 #require 'jcode'
 #require 'kconv'

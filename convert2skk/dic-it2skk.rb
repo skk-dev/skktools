@@ -32,7 +32,6 @@
 # $ dic-it2skk.rb dic-it.txt > tmp.jisyo
 # $ skkdic-expr2 tmp.jisyo > SKK-JISYO.dic-it
 #
-Encoding.default_external = "euc-jis-2004"
 file = ARGV.shift
 open(file).each{|line|
   if !(line =~ /([^ \/]+)\/([^ ]+) *$/)

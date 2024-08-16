@@ -27,9 +27,7 @@
 #
 # Commentary:
 
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
+STDOUT.set_encoding(Encoding.default_external, "utf-8")
 $ANNOTATION = true
 ##$ANNOTATION = false
 
@@ -68,6 +66,7 @@ else
       first = false
       next
     end
+    line.encode!("utf-8")
     #中国・台湾,種別,英語見出し,漢字,日本語読み,中国語読み（カタカナ）,英語標記2,漢字別名,漢字別名読み,省都,省都読み,annotation
     _c_t, _d,e_key,kanji,j_key,c_key,_english,kanji_alias,kanji_alias_key,_capital,_capital_key,annotation= csv_split(line.chomp)
     if (e_key && !e_key.empty? && kanji && !kanji.empty?)

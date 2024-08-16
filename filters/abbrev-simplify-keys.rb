@@ -33,9 +33,7 @@
 ## '-s <num>' option suppresses keys less than <num> letters; this is
 ## highly recommended, since capitalisation and special letters can have
 ## considerable distinctive meanings in abbrev entries with short keys.
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
+STDOUT.set_encoding(Encoding.default_external, "utf-8")
 
 #require 'jcode'
 
@@ -54,7 +52,7 @@ rescue OptionParser::InvalidOption
 end
 
 while gets
-  $_ = $_.encode("utf-8", "euc-jis-2004")
+  $_ = $_.encode("utf-8", Encoding.default_external)
   next if $_ =~ /^[^a-zA-Z0-9]/
   tmp = $_.chop.split(" /", 2)
   midasi = tmp.shift.downcase.delete('^a-z0-9')

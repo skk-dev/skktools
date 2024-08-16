@@ -52,9 +52,7 @@
 ##
 ## '-p' eliminates pairs with "※" or "?" annotations that are suspected as 'wrong' words.
 ##
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
+STDOUT.set_encoding(Encoding.default_external, "utf-8")
 
 require 'jcode' if RUBY_VERSION.to_f < 1.9
 #require 'kconv'
@@ -82,7 +80,7 @@ rescue OptionParser::InvalidOption
 end
 
 while gets
-  $_ = $_.encode("utf-8", "euc-jis-2004")
+  $_ = $_.encode("utf-8", Encoding.default_external)
   next if $_ =~ /^[^a-zA-Z0-9]/
   tmp = $_.chop.split(" /", 2)
   midasi = tmp.shift

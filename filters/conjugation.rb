@@ -61,9 +61,7 @@
 ##     
 ##
 ## NOTE: skkdictools.rb should be in the loadpath of ruby.
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
+STDOUT.set_encoding(Encoding.default_external, "utf-8")
 
 #require 'jcode'
 #require 'kconv'
@@ -150,7 +148,7 @@ rescue OptionParser::InvalidOption
 end
 
 while gets
-  $_ = $_.encode("utf-8", "euc-jis-2004")
+  $_ = $_.encode("utf-8", Encoding.default_external)
   next if $_ =~ /^;/ || $_ =~ /^$/
   midasi, tokens = $_.parse_skk_entry
   next if tokens.nil?

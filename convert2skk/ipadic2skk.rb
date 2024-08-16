@@ -38,8 +38,7 @@
 ## NOTE: skkdictools.rb should be in the ruby loadpaths to have this work.
 ##
 
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
+STDOUT.set_encoding(Encoding.default_external, "utf-8")
 require_relative 'skkdictools'
 require 'optparse'
 

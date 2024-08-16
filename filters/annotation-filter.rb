@@ -24,9 +24,7 @@
 ### Instruction:
 ##
 ## 
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
+STDOUT.set_encoding(Encoding.default_external, "utf-8")
 
 require 'jcode' if RUBY_VERSION.to_f < 1.9
 #require 'kconv'
@@ -76,7 +74,7 @@ end
 
 
 while gets
-  $_ = $_.encode("utf-8", "euc-jis-2004")
+  $_ = $_.encode("utf-8", Encoding.default_external)
   next if $_ =~ /^;/ || $_ =~ /^$/
   midasi, tokens = $_.parse_skk_entry
   total = tokens.count {|item| !item.nil? }
