@@ -112,8 +112,8 @@ int snprintf(char *s, size_t maxlen, const char *format, ...)
 /* 送りがながついたエントリを含めて処理を行わせるかどうか */
 int	okurigana_flag;
 
-static int add_content_line();
-static void subtract_content_line();
+static int add_content_line(unsigned char *, unsigned char *, datum *);
+static void subtract_content_line(unsigned char *, unsigned char *, datum *);
 
 /* Part1: 辞書データベース基本操作プログラム */
 
