@@ -64,10 +64,13 @@ $ make
 $ make install
 ```
 
-ビルドには gdbm-devel パッケージ (GNU database indexing library) が必要です。
+ビルドには libdb-devel パッケージ (Berkeley DB library) が必要です。
 
 ```
-$ dnf install gdbm-devel
+$ dnf install libdb-devel
+```
+```
+$ sudo apt install libdb-dev
 ```
 
 他のディレクトリについては、必要に応じてそれぞれのディレクトリを参照してください。
