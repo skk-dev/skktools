@@ -33,9 +33,15 @@
 #
 # かん #JS*8 巻 #CNSUC2*2 間 #JS 缶 貫 #JSSUC 間
 
-Encoding.default_external = "euc-jis-2004"
+encoding = "euc-jis-2004"
 file = ARGV.shift
+if file == "-8"
+  encoding = "utf-8"
+  file = ARGV.shift
+end
+Encoding.default_external = encoding
 open(file).each{|line|
+  line.encode!("utf-8")
   if !(line =~ /([^ ]+) (.+) *$/)
     next
   else

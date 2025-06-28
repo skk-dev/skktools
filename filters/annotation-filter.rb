@@ -24,9 +24,6 @@
 ### Instruction:
 ##
 ## 
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
 
 require 'jcode' if RUBY_VERSION.to_f < 1.9
 #require 'kconv'
@@ -47,6 +44,7 @@ default_rulesets = [
   # [ "keep", "NB:|=|≒|≠|和製|<rare>" ],
   # [ "cut", "‖" ] - 'doublebar' handles it inplace
 ]
+encoding = "euc-jis-2004"
 
 
 opt.on('-c pattern', 'cut annotations after <pattern>') { |pattern| rulesets << [ "cut", pattern]}
@@ -60,6 +58,7 @@ opt.on('-j VAL', "never unannotate if an entry has more than <VAL> candidates") 
 opt.on('-k', 'keep annotations by default') { keep_annotation = true }
 opt.on('-t', "extraction mode: output requested pairs only") { output_all = false }
 opt.on('-d', "apply default rulesets") { rulesets += default_rulesets }
+opt.on('-8', "read and write in utf8") { encoding = "utf-8" }
 
 opt.on('-b', "sticky '‖' -- annotation after '‖' will always be kept") { doublebar = "sticky" }
 #opt.on('-B', "always remove annotations after '‖'") { doublebar = "remove" }
@@ -73,10 +72,12 @@ rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
+Encoding.default_external = encoding
+STDOUT.set_encoding(encoding, "utf-8")
 
 
 while gets
-  $_ = $_.encode("utf-8", "euc-jis-2004")
+  $_.encode!("utf-8")
   next if $_ =~ /^;/ || $_ =~ /^$/
   midasi, tokens = $_.parse_skk_entry
   total = tokens.count {|item| !item.nil? }

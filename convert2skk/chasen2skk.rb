@@ -40,8 +40,6 @@
 ## 散る    チル    散る    動詞-自立       五段・ラ行      基本形
 ##
 
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
 require_relative 'skkdictools'
 require 'optparse'
 
@@ -58,6 +56,7 @@ allow_noun_chains = true
 handle_prefix = true
 min_length = 2 * 2
 max_length = 100 * 2
+encoding = "euc-jis-2004"
 
 # -g might be a bad idea; better eliminate pairs already in SKK-JISYO.L first
 #opt.on('-g', 'append goo hit numbers') { append_goohits = true }
@@ -70,6 +69,7 @@ opt.on('-N', '--disallow-noun-chains', 'disallow noun chains containing hiragana
 opt.on('-P', '--ignore-prefixes', 'don\'t take prefixes into consideration') { handle_prefix = false }
 opt.on('-w WORD', '--extract-word=WORD', 'extract pairs containing WORD') { |v| keyword = v }
 #opt.on('-W WORD', 'query goo and extract pairs containing WORD') { |v| keyword = v; fetch_from_goo = true }
+opt.on('-8', '--utf8', 'read and write in utf8') { encoding = "utf-8" }
 
 begin
   opt.parse!(ARGV)
@@ -84,6 +84,8 @@ count = 0
 #key = word = last_key = last_word = last_part = ""
 key = word = last_part = ""
 poisoned = terminate = false
+Encoding.default_external = encoding
+STDOUT.set_encoding(encoding, "utf-8")
 
 while gets
   $_.encode!("utf-8")

@@ -61,9 +61,6 @@
 ##     
 ##
 ## NOTE: skkdictools.rb should be in the loadpath of ruby.
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
 
 #require 'jcode'
 #require 'kconv'
@@ -77,6 +74,7 @@ parentheses = "discard"
 okuri_nasi_too = "oneletter"
 #okuri_strictly_output = false
 purge = false
+encoding = "euc-jis-2004"
 
 # 見あげる、見ばえ、見ちゃった、見どころ、見えない、見はらし、見ごたえ、
 # 見いだす、見じ、見かねる、見ます、見ない、見おろす、見っぱなし、見る、
@@ -141,6 +139,7 @@ opt.on('-p', "use OKURIs in parentheses too") { parentheses = "use" }
 opt.on('-o', "process okuri-nasi pairs too (eg. SAHEN verbs and adjective verbs)") { okuri_nasi_too = "all" }
 opt.on('-O', "never process okuri-nasi pairs") { okuri_nasi_too = "none" }
 opt.on('-x', 'skip candidates marked with "※" or "?"') { purge = true }
+opt.on('-8', 'read and write in utf8') { encoding = "utf-8" }
 
 begin
   opt.parse!(ARGV)
@@ -148,9 +147,11 @@ rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
+Encoding.default_external = encoding
+STDOUT.set_encoding(encoding, "utf-8")
 
 while gets
-  $_ = $_.encode("utf-8", "euc-jis-2004")
+  $_.encode!("utf-8")
   next if $_ =~ /^;/ || $_ =~ /^$/
   midasi, tokens = $_.parse_skk_entry
   next if tokens.nil?

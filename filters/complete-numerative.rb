@@ -47,9 +47,6 @@
 ##
 ## TODO: output /#3foo/#3bar/#1foo/#1bar/ instead of /#3foo/#1foo/#3bar/#1bar/
 ##
-Encoding.default_internal = "utf-8"
-Encoding.default_external = "euc-jis-2004"
-STDOUT.set_encoding("euc-jis-2004", "utf-8")
 
 #require 'jcode'
 #require 'kconv'
@@ -61,12 +58,14 @@ purge = false
 order = "3102"
 annotation_mode = "all"
 mode = "convert"
+encoding = "euc-jis-2004"
 
 opt.on('-o ORDER', 'specify order of results, eg. "3102" => "/#3/#1/#0/#2/"') { |v| order = v } # TODO - check sanity
 #opt.on('-u', "don't add annotations for derived pairs") { annotation_mode = "self" }
 opt.on('-U', 'eliminate all the annotations') { annotation_mode = "none" }
 opt.on('-p', 'skip candidates marked with "※" or "?"') { purge = true }
 opt.on('-e', 'only extract numerative entries') { mode = "extract" }
+opt.on('-8', 'read and write in utf8') { encoding = "utf-8" }
 
 begin
   opt.parse!(ARGV)
@@ -74,9 +73,11 @@ rescue OptionParser::InvalidOption
   print "'#{$0} -h' for help.\n"
   exit 1
 end
+Encoding.default_external = encoding
+STDOUT.set_encoding(encoding, "utf-8")
 
 while gets
-  $_ = $_.encode("utf-8", "euc-jis-2004")
+  $_.encode!("utf-8")
   next if $_ =~ /^;/ || $_ =~ /^$/ || $_ !~ /^[^ ]*#/
   if mode == "extract"
     # XXX This is lazy -- there's a slim chance of extracting
