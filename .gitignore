@@ -25,3 +25,10 @@ skkdic-sort
 /ltmain.sh
 /missing
 /mkinstalldirs
+
+# object files
+/.deps/
+/skkdic-count.o
+/skkdic-expr.o
+/skkdic-sort.o
+/skkdic_expr2-skkdic-expr2.o
