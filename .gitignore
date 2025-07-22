@@ -18,3 +18,10 @@ skkdic-sort
 /config.h.in
 /Makefile.in
 /configure
+/compile
+/config.guess
+/config.sub
+/depcomp
+/ltmain.sh
+/missing
+/mkinstalldirs
