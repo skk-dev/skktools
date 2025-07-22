@@ -23,7 +23,9 @@ GLIB-2.0 が見付からない場合は skkdic-expr2 はコンパイルされま
 標準の SKK 辞書ツールと同じです。GLIB-2.0 が見付かっている場合は、
 
   ```
-  $ ./configure; make
+  $ ./bootstrap
+  $ ./configure
+  $ make
   ```
 
 で、SKK 辞書ツールと一緒に、自動的に作られます。

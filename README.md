@@ -59,6 +59,7 @@ SKK 辞書を加工・編集するために使用するプログラム。
 トールできます。
 
 ```
+$ ./bootstrap
 $ ./configure
 $ make
 $ make install
