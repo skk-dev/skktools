@@ -1,6 +1,7 @@
 dnl -*- mode: autoconf -*-
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([skkdic-count.c])
+AC_INIT
+AC_CONFIG_SRCDIR([skkdic-count.c])
 AM_INIT_AUTOMAKE(skktools, `cat <"${srcdir}"/VERSION`)
 AM_CONFIG_HEADER([config.h])
 
