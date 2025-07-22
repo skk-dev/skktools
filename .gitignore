@@ -17,3 +17,4 @@ skkdic-sort
 /autom4te.cache/
 /config.h.in
 /Makefile.in
+/configure
