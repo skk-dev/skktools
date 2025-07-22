@@ -11,8 +11,8 @@ C 言語で書かれた SKK 辞書のユーティリティです。複数の SKK
 
 # 1. プログラム作成方法
 
-作成キットに含まれるシェルスクリプト "configure" を実行して Makefile 
-を作成します。
+作成キットに含まれるシェルスクリプト "bootstrap" と "configure" を実行して
+Makefile を作成します。
 
 次に make を実行すれば、３つの実行ファイル skkdic-expr, skkdic-sort,
 skkdic-count が作成されます。
