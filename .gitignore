@@ -11,3 +11,7 @@ skkdic-count
 skkdic-expr
 skkdic-expr2
 skkdic-sort
+
+# Autotools
+/aclocal.m4
+/autom4te.cache/
