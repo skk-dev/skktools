@@ -14,7 +14,7 @@ AC_ARG_WITH(skkdic-expr2,
   [WITH_SKKDIC_EXPR2="$withval"])
 
 dnl checks for Unix variants
-AC_GNU_SOURCE
+AC_USE_SYSTEM_EXTENSIONS
 
 dnl Checks for programs.
 AC_PROG_AWK
