@@ -96,7 +96,7 @@ AC_SUBST(GLIB2_CFLAGS)
 AC_SUBST(SKKDIC_EXPR2)
 
 dnl Checks for header files.
-AC_CHECK_HEADERS([fcntl.h glib.h malloc.h])
+AC_CHECK_HEADERS([fcntl.h glib.h malloc.h db.h])
 
 if test "$ac_cv_func_dbm_open" = yes || test "$ac_cv_lib_ndbm_dbm_open" = yes; then
     AC_CHECK_HEADERS(ndbm.h)
