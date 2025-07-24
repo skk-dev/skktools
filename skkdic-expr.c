@@ -27,7 +27,7 @@ Boston, MA 02110-1301, USA. */
    このプログラムは SKK の辞書のマージや削除を行います。
  */
 
-#include <config.h>
+#include "config.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
