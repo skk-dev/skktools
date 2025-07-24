@@ -37,8 +37,7 @@ Boston, MA 02110-1301, USA. */
 #endif /* HAVE_UNISTD_H */
 #endif /* HAVE_MKDTEMP */
 
-#ifdef HAVE_LIBDB
-#define DB_DBM_HSEARCH 1
+#ifdef HAVE_DB_H
 #include <db.h>
 #else /* not HAVE_LIBDB */
 #ifdef HAVE_GDBM_NDBM_H
@@ -88,9 +87,9 @@ char okuri_head_name[256];
 char tmpsubdir[256];
 
 /* 作業用データベース */
-DBM *db;
-DBM *okuriheaddb;
-DBM *okuritaildb;
+DB *db;
+DB *okuriheaddb;
+DB *okuritaildb;
 FILE *dbcontent;
 
 /* snprintf() がない環境のための定義 */
@@ -112,8 +111,8 @@ int snprintf(char *s, size_t maxlen, const char *format, ...)
 /* 送りがながついたエントリを含めて処理を行わせるかどうか */
 int	okurigana_flag;
 
-static int add_content_line(unsigned char *, unsigned char *, datum *);
-static void subtract_content_line(unsigned char *, unsigned char *, datum *);
+static int add_content_line(unsigned char *, unsigned char *, DBT *);
+static void subtract_content_line(unsigned char *, unsigned char *, DBT *);
 
 /* Part1: 辞書データベース基本操作プログラム */
 
@@ -167,7 +166,7 @@ static void db_remove_files()
 static void db_make_files()
 {
     db_remove_files();
-    if ((db = dbm_open(file_name, O_RDWR|O_CREAT, 0600)) == NULL){
+    if (db->open(db, NULL, file_name, NULL, DB_BTREE, DB_CREATE, 0600) != 0){
 	perror(file_name);
 	exit(1);
     }
@@ -176,13 +175,11 @@ static void db_make_files()
 	exit(1);
     }
     if (okurigana_flag) {
-	if ((okuriheaddb = dbm_open(okuri_head_name, O_RDWR|O_CREAT, 0600)) 
-	    == NULL){
+        if (okuriheaddb->open(okuriheaddb, NULL, okuri_head_name, NULL, DB_BTREE, DB_CREATE, 0600) != 0){
 	    perror(okuri_head_name);
 	    exit(1);
 	}
-	if ((okuritaildb = dbm_open(okuri_tail_name, O_RDWR|O_CREAT, 0600)) 
-	    == NULL){
+    if (okuritaildb->open(okuritaildb, NULL, okuri_tail_name, NULL, DB_BTREE, DB_CREATE, 0600) != 0){
 	    perror(okuri_tail_name);
 	    exit(1);
 	}
@@ -190,20 +187,17 @@ static void db_make_files()
 }
 
 /* データベースファイルに新規に追加する */
-static void db_append(key, new, dbm)
-     datum key;
-     unsigned char *new;
-     DBM *dbm;
+static void db_append(DBT key, unsigned char *new, DB *dbm)
 {
     long pos;
-    datum content;
+    DBT content;
 
     fseek(dbcontent, 0L, 2);
     pos = ftell(dbcontent);
     fwrite(new, strlen(new)+1, 1, dbcontent);
-    content.dptr = (char *)&pos;
-    content.dsize = sizeof pos;
-    dbm_store(dbm, key, content, DBM_REPLACE);
+    content.data = &pos;
+    content.size = sizeof pos;
+    dbm->put(dbm, NULL, &key, &content, 0);
 }
 
 /* データベース中のポジションを計算する (alignment の問題) */
@@ -315,7 +309,7 @@ static void append_item(base, s, e)
  * その値は、"/割り込/割込/"となる
  */
 void add_okuri_item(key, s)
-     datum 		*key;
+     DBT 		*key;
      unsigned char 	*s;
 {
     unsigned char	*p, *headtop;
@@ -324,20 +318,20 @@ void add_okuri_item(key, s)
     unsigned char	new[BLEN];
 
     int			len;
-    datum		otails, oheads;
-    datum		tkey, hkey;
+    DBT		otails, oheads;
+    DBT		tkey, hkey;
 
     /* 見出しをコピー */
-    strncpy(keybuf, key->dptr, key->dsize);
-    tkey.dptr = (char *)keybuf;
-    headtop = keybuf + key->dsize;	/* 語尾をどこにコピーするか */
+    strncpy(keybuf, key->data, key->size);
+    tkey.data = (char *)keybuf;
+    headtop = keybuf + key->size;	/* 語尾をどこにコピーするか */
 
     /* 語尾をtkeyにコピー */
     for (p = headtop; *s != '/'; s++, p++) {
 	if (*s < 0x20) return;
 	*p = *s;
     }
-    tkey.dsize = p - keybuf;
+    tkey.size = p - keybuf;
 
     /* 語幹部分をcontentにコピーする */
     p = content; 
@@ -348,13 +342,12 @@ void add_okuri_item(key, s)
     *p = '\0';
     if (*++s != '/') 
 	return ;		/* フォーマットエラー */
-    
+
     /* 古いものと比べて必要ならappend */
-    otails = dbm_fetch(okuriheaddb, tkey);
-    if (otails.dptr == NULL)  {
+    if (okuriheaddb->get(okuriheaddb, NULL, &tkey, &otails, 0) != 0)  {
 	db_append(tkey, content, okuriheaddb);
     } else {
-	fseek(dbcontent, getpos(otails.dptr), 0);
+	fseek(dbcontent, getpos(otails.data), 0);
 	db_gets(new, BLEN, dbcontent);
 	if (add_content_line(new, content, NULL))
 	    db_append(tkey, new, okuriheaddb);
@@ -394,10 +387,7 @@ static int add_okuri_tail_line(tails, line)
 
 /* base が差している文字列に new の内容で重複しないものを加える
    何も加えなければ 0 を、それ以外は加えた熟語数を返す */
-static int add_content_line(base, new, key)
-     unsigned char *base;
-     unsigned char *new;
-     datum   	   *key;
+static int add_content_line(unsigned char *base, unsigned char *new, DBT *key)
 {
     unsigned char *s, *e;
     int n_add;
@@ -439,11 +429,7 @@ static int item_number(p)
     return n;
 }
 
-static int line_process(buffer, key, kanji, tails)
-     unsigned char *buffer;
-     datum *key;
-     unsigned char *kanji;
-     unsigned char *tails;
+static int line_process(unsigned char *buffer, DBT *key, unsigned char *kanji, unsigned char *tails)
 {
     int key_len;
 
@@ -452,8 +438,8 @@ static int line_process(buffer, key, kanji, tails)
 	(buffer[key_len] != ' ') || (buffer[key_len+1] != '/');
 	++ key_len)
 	if (buffer[key_len] == '\0') return 0;
-    key->dptr = buffer;
-    key->dsize = key_len;
+    key->data = buffer;
+    key->size = key_len;
 
     kanji[0] = tails[0] = '/';
     kanji[1] = tails[1] = '\0';
@@ -469,7 +455,7 @@ static void add_file(srcname)
 {
     static unsigned char buffer[BLEN], kanji[BLEN], new[BLEN];
     static unsigned char tails[BLEN], tkeybuf[BLEN];
-    datum key, old, tkey;
+    DBT key, old, tkey;
     FILE *fp;
 
     if ((fp = fopen(srcname, "r")) == NULL) {
@@ -480,12 +466,11 @@ static void add_file(srcname)
 	if (line_process(buffer, &key, kanji, tails) > 0) {
 	    if (okurigana_flag) {
 		/* 語尾を登録 */
-		if (tails[1] != '\0') {
-		    old = dbm_fetch(okuritaildb, key);
-		    if (old.dptr == NULL) {
+                if (tails[1] != '\0') {
+		    if (okuritaildb->get(okuritaildb, NULL, &key, &old, 0) != 0) {
 			db_append(key, tails, okuritaildb);
 		    } else {
-			fseek(dbcontent, getpos(old.dptr), 0);
+			fseek(dbcontent, getpos(old.data), 0);
 			db_gets(new, BLEN, dbcontent);
 			if (add_okuri_tail_line(new, tails))
 			    db_append(key, new, okuritaildb);
@@ -493,11 +478,10 @@ static void add_file(srcname)
 		}
 	    }
 
-	    old = dbm_fetch(db, key);
-	    if (old.dptr == NULL) {
+	    if (db->get(db, NULL, &key, &old, 0) != 0) {
 		db_append(key, kanji, db);
 	    } else {
-		fseek(dbcontent, getpos(old.dptr), 0);
+		fseek(dbcontent, getpos(old.data), 0);
 		db_gets(new, BLEN, dbcontent);
 		if (add_content_line(new, kanji, NULL))
 		    db_append(key, new, db);
@@ -533,9 +517,7 @@ delete_item(base, s, e)
 /* 各送りがなエントリは、"わりこmみ"のようなキーを持つことになる
  * その値は、"/割り込/割込/"となる
  */
-void subtract_okuri_item(key, s)
-     datum 		*key;
-     unsigned char 	*s;
+void subtract_okuri_item(DBT *key, unsigned char *s)
 {
     unsigned char	*p, *headtop;
     unsigned char	keybuf[BLEN];
@@ -543,20 +525,20 @@ void subtract_okuri_item(key, s)
     unsigned char	new[BLEN];
 
     int			len;
-    datum		otails, oheads;
-    datum		tkey, hkey;
+    DBT		otails, oheads;
+    DBT		tkey, hkey;
 
     /* 見出しをコピー */
-    strncpy(keybuf, key->dptr, key->dsize);
-    tkey.dptr = (char *)keybuf;
-    headtop = keybuf + key->dsize;	/* 語尾をどこにコピーするか */
+    strncpy(keybuf, key->data, key->size);
+    tkey.data = keybuf;
+    headtop = keybuf + key->size;	/* 語尾をどこにコピーするか */
 
     /* 語尾をtkeyにコピー */ 
     for (p = headtop; *s != '/'; s++, p++) {
 	if (*s < 0x20) return;
 	*p = *s;
     }
-    tkey.dsize = p - keybuf;
+    tkey.size = p - keybuf;
 
     /* 語幹部分をcontentにコピーする */
     p = content; 
@@ -567,17 +549,16 @@ void subtract_okuri_item(key, s)
     *p = '\0';
     if (*++s != '/') 
 	return ;		/* フォーマットエラー */
-    
+
     /* 古いものと比べて必要ならreplace/delete */
-    otails = dbm_fetch(okuriheaddb, tkey);
-    if (otails.dptr != NULL)  {
-	fseek(dbcontent, getpos(otails.dptr), 0);
+    if (okuriheaddb->get(okuriheaddb, NULL, &tkey, &otails, 0) == 0)  {
+	fseek(dbcontent, getpos(otails.data), 0);
 	db_gets(new, BLEN, dbcontent);
 	subtract_content_line(new, content, NULL);
 	if (strlen(new) >= 3)
-	    db_replace(otails.dptr, new);
-	else
-	    dbm_delete(okuriheaddb, tkey);
+	    db_replace(otails.data, new);
+        else
+            okuriheaddb->del(okuriheaddb, NULL, &tkey, 0);
     }
 }
 
@@ -606,12 +587,9 @@ void subtract_okuri_tail_line(tails, line)
     return;
 }
 
-static void
-subtract_content_line(base, new, key)
-     unsigned char *base;
-     unsigned char *new;
-     datum	   *key;
 /* base の文字列中から new 中の文字列を削除 */
+static void
+subtract_content_line(unsigned char *base, unsigned char *new, DBT *key)
 {
     unsigned char *s, *e;
 
@@ -643,7 +621,7 @@ static void subtract_file(srcname)
 {
     static unsigned char buffer[BLEN], kanji[BLEN], new[BLEN];
     static unsigned char tails[BLEN], tkeybuf[BLEN];
-    datum key, old, tkey;
+    DBT key, old, tkey;
     FILE *fp;
 
     if ((fp = fopen(srcname, "r")) == NULL) {
@@ -658,57 +636,52 @@ static void subtract_file(srcname)
 
 	    if (okurigana_flag) {
 		if (tails[1] != '\0') {
-		    old = dbm_fetch(okuritaildb, key);
-		    if (old.dptr != NULL) {
-			fseek(dbcontent, getpos(old.dptr), 0);
+		    if (okuritaildb->get(okuritaildb, NULL, &key, &old, 0) == 0) {
+			fseek(dbcontent, getpos(old.data), 0);
 			db_gets(new, BLEN, dbcontent);
 			subtract_okuri_tail_line(new, tails);
 			if (strlen(new) >= 3)
-			    db_replace(old.dptr, new);
-			else
-			    dbm_delete(okuritaildb, key);
+			    db_replace(old.data, new);
+                        else
+                            okuritaildb->del(okuritaildb, NULL, &key, 0);
 		    }
 		}
 	    }
 
-	    old = dbm_fetch(db, key);
-	    if (old.dptr != NULL) {
-		fseek(dbcontent, getpos(old.dptr), 0L);
+	    if (db->get(db, NULL, &key, &old, 0) == 0) {
+		fseek(dbcontent, getpos(old.data), 0L);
 		db_gets(new, BLEN, dbcontent);
 		subtract_content_line(new, kanji, &key);
 		if (strlen(new) >= 3)
-		    db_replace(old.dptr, new);
-		else 
-		    dbm_delete(db, key);
+		    db_replace(old.data, new);
+                else
+                    db->del(db, NULL, &key, 0);
 	    }
 	}
     }
     fclose(fp);
 }
 
-void okuri_type_out(key, output)
-     datum	*key;
-     FILE	*output;
+void okuri_type_out(DBT *key, FILE *output)
 {
     unsigned char	*s, *e, *headtop;
     unsigned char	keybuf[BLEN];
     unsigned char	tail_content[BLEN];
     unsigned char	head_content[BLEN];
 
-    datum	tails, tkey;
-    datum	one;
+    DBT	tails, tkey;
+    DBT	one;
 
     /* 見出しをコピー */
-    strncpy(keybuf, key->dptr, key->dsize);
-    tkey.dptr = (char *)keybuf;
-    tkey.dsize = key->dsize;
-    headtop = keybuf + tkey.dsize;	/* 語尾をどこにコピーするか */
+    strncpy(keybuf, key->data, key->size);
+    tkey.data = keybuf;
+    tkey.size = key->size;
+    headtop = keybuf + tkey.size;	/* 語尾をどこにコピーするか */
 
-    tails = dbm_fetch(okuritaildb, tkey);
-    if (tails.dptr == NULL)  {
+    if (okuritaildb->get(okuritaildb, NULL, &tkey, &tails, 0) != 0)  {
 	return;
     } else {
-	fseek(dbcontent, getpos(tails.dptr), 0);
+	fseek(dbcontent, getpos(tails.data), 0);
 	db_gets(tail_content, BLEN, dbcontent);
 
 	s = tail_content + 2; 		/* '/'と'['をとばす */
@@ -718,12 +691,12 @@ void okuri_type_out(key, output)
 		    return;
 
 	    strncpy(headtop, s, e - s);
-	    tkey.dsize = (headtop - keybuf) + (e - s);
-	    one = dbm_fetch(okuriheaddb, tkey);
-	    if (one.dptr == NULL) {
+            tkey.size = (headtop - keybuf) + (e - s);
+
+	    if (okuriheaddb->get(okuriheaddb, NULL, &tkey, &one, 0) != 0) {
 		continue;
 	    } else {
-		fseek(dbcontent, getpos(one.dptr), 0);
+		fseek(dbcontent, getpos(one.data), 0);
 		db_gets(head_content, BLEN, dbcontent);
 
 		putc('[', output);
@@ -743,16 +716,18 @@ void okuri_type_out(key, output)
 static void type_out(output)
      FILE *output;
 {
-    datum key, content;
+    DBT key, content;
     int i;
     unsigned char kanji[BLEN];
 
-    for (key = dbm_firstkey(db); key.dptr !=  NULL;  key = dbm_nextkey(db)) {
-	content = dbm_fetch(db, key);
-	for(i = 0; i < key.dsize; ++ i)
-	    putc(((char *)key.dptr)[i], output);
+    DBC *cursor;
+    db->cursor(db, NULL, &cursor, 0);
+
+    while (cursor->get(cursor, &key, &content, DB_NEXT) == 0) {
+	for(i = 0; i < key.size; ++ i)
+	    putc(((char *)key.data)[i], output);
 	putc(' ', output);
-	fseek(dbcontent, getpos(content.dptr), 0);
+	fseek(dbcontent, getpos(content.data), 0);
 	db_gets(kanji, BLEN, dbcontent);
 	fputs(kanji, output);
 	if (okurigana_flag)
@@ -761,14 +736,12 @@ static void type_out(output)
     }
 
     if (okurigana_flag) {
-	datum 	entry;
-	for (key = dbm_firstkey(okuritaildb); 
-	     key.dptr !=  NULL;  key = dbm_nextkey(okuritaildb)) {
-	    entry = dbm_fetch(db, key);
-	    if (entry.dptr != NULL) continue;
-
-	    for(i = 0; i < key.dsize; ++ i)
-		putc(((char *)key.dptr)[i], output);
+        DBT entry;
+        DBC *cursor;
+        okuritaildb->cursor(okuritaildb, NULL, &cursor, 0);
+        while (cursor->get(cursor, &key, &entry, DB_NEXT) == 0) {
+	    for(i = 0; i < key.size; ++ i)
+		putc(((char *)key.data)[i], output);
 	    putc(' ', output);
 	    putc('/', output);
 	    okuri_type_out(&key, output);
