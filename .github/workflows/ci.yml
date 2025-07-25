@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        compiler: [ gcc, clang ]
+
+    env:
+      CC: ${{ matrix.compiler }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -qq gnulib libgdbm-dev pinfo libdb-dev libglib2.0-dev
+          sudo mkdir -p /usr/include/gdbm
+          sudo ln -sf /usr/include/gdbm-ndbm.h /usr/include/gdbm/ndbm.h
+
+      - name: Configure
+        run: ./configure
+
+      - name: Build
+        run: make
+
+      - name: Run tests
+        run: make test

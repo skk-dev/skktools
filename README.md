@@ -1,5 +1,5 @@
-skktools [![Build Status](https://travis-ci.org/skk-dev/skktools.svg)](https://travis-ci.org/skk-dev/skktools)
-=====
+skktools
+========
 
 SKK 辞書のメンテナンスや拡張に必要なツールを集めたパッケージです。
 
