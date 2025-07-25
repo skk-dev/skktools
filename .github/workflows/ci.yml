@@ -21,9 +21,14 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -qq gnulib libgdbm-dev pinfo libdb-dev libglib2.0-dev
+          sudo apt-get install -qq \
+            autoconf automake libtool \
+            gnulib libgdbm-dev pinfo libdb-dev libglib2.0-dev
           sudo mkdir -p /usr/include/gdbm
           sudo ln -sf /usr/include/gdbm-ndbm.h /usr/include/gdbm/ndbm.h
+
+      - name: Bootstrap
+        run: ./bootstrap
 
       - name: Configure
         run: ./configure
